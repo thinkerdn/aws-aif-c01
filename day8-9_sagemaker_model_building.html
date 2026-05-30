@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 8-9: SageMakerによるモデル構築 - 3時間教育テキスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7fb;
+            color: #2c3e50;
+            line-height: 1.75;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+        }
+        header {
+            background: linear-gradient(135deg, #2d9cdb 0%, #4a69bd 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.05em;
+            opacity: 0.95;
+        }
+        .table-of-contents {
+            background: #eaf4fd;
+            padding: 22px 32px;
+            border-bottom: 3px solid #2d9cdb;
+        }
+        .table-of-contents h2 {
+            color: #205d9b;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .table-of-contents ol {
+            list-style: decimal;
+            margin-left: 22px;
+            color: #40576b;
+        }
+        .table-of-contents li {
+            margin-bottom: 10px;
+        }
+        .table-of-contents a {
+            color: #2d9cdb;
+            text-decoration: none;
+        }
+        .table-of-contents a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 40px 34px;
+        }
+        .section {
+            margin-bottom: 52px;
+        }
+        .section h2 {
+            color: #2d9cdb;
+            font-size: 1.85em;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2d9cdb;
+        }
+        .section h3 {
+            color: #315a86;
+            font-size: 1.33em;
+            margin-top: 24px;
+            margin-bottom: 14px;
+        }
+        .section h4 {
+            color: #2c3e50;
+            font-size: 1.08em;
+            margin-top: 16px;
+            margin-bottom: 10px;
+        }
+        .learning-time {
+            background: #d9edf7;
+            border-left: 4px solid #2d9cdb;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .concept-box {
+            background: #f0f7ff;
+            border: 2px solid #c7e2ff;
+            padding: 22px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        .concept-box h4 {
+            color: #2d9cdb;
+            margin-bottom: 12px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .comparison-table th {
+            background: #2d9cdb;
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid #e1e8f0;
+        }
+        .comparison-table tr:hover {
+            background: #eef7ff;
+        }
+        .code-block {
+            background: #1f2d3d;
+            color: #9be7ff;
+            padding: 22px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        .example {
+            background: #fff8e7;
+            border-left: 4px solid #f5b041;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .example strong {
+            color: #b36f00;
+        }
+        .key-point {
+            background: #e8f6ff;
+            border-left: 4px solid #4a90e2;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 4px;
+        }
+        .key-point strong {
+            color: #25639f;
+        }
+        ul, ol {
+            margin: 18px 0 18px 34px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            background: #eef4fb;
+            padding: 28px 30px;
+            text-align: center;
+            color: #4f6377;
+            border-top: 1px solid #d4e1ed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Day 8-9: SageMakerによるモデル構築</h1>
+            <p>AWS Certified AI Practitioner 準備教材 - 3時間教育テキスト</p>
+            <p style="margin-top: 10px; font-size: 0.95em;">総学習時間: 約180分 | 主題: SageMakerでの学習、推論、デプロイ</p>
+        </header>
+
+        <div class="table-of-contents">
+            <h2>📑 目次</h2>
+            <ol>
+                <li><a href="#section1">SageMakerの役割とサービス概要</a></li>
+                <li><a href="#section2">SageMaker Studioの機能</a></li>
+                <li><a href="#section3">データ準備から学習ジョブまでの流れ</a></li>
+                <li><a href="#section4">SageMakerの学習と推論の主要コンポーネント</a></li>
+                <li><a href="#section5">組み込みアルゴリズムとカスタムコンテナ</a></li>
+                <li><a href="#section6">ハイパーパラメータチューニングと自動モデル選択</a></li>
+                <li><a href="#section7">モデルデプロイと推論パイプライン</a></li>
+                <li><a href="#section8">運用・監視・コスト管理</a></li>
+                <li><a href="#section9">演習: SageMakerでのモデル構築ワークフロー</a></li>
+                <li><a href="#section10">Day 8-9 のまとめ</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="section" id="section1">
+                <h2>1️⃣ SageMakerの役割とサービス概要</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+                <p>Amazon SageMakerは、AI/MLモデルを構築、学習、デプロイ、運用するためのフルマネージドプラットフォームです。SageMakerを使うことで、インフラ管理の負荷を減らし、迅速にモデルを実行できます。</p>
+
+                <h3>SageMakerが提供する価値</h3>
+                <ul>
+                    <li>データ準備、学習、検証、推論を1つの環境で統合</li>
+                    <li>スケーラブルな分散学習と自動スケーリング</li>
+                    <li>組み込みアルゴリズムとフレームワークサポート</li>
+                    <li>セキュアな実行環境とIAMによるアクセス制御</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>💡 重要</h4>
+                    <p>SageMakerは「モデル構築のライフサイクル全体」をサポートします。実験の反復、モデルの追跡、デプロイの自動化までを一貫して管理できます。</p>
+                </div>
+            </div>
+
+            <div class="section" id="section2">
+                <h2>2️⃣ SageMaker Studioの機能</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>Studioの主要機能</h3>
+                <ul>
+                    <li>ノートブック、ターミナル、データプロファイリングの一元管理</li>
+                    <li>Data Wranglerによる前処理の可視化</li>
+                    <li>Experiment Trackerによる実験管理</li>
+                    <li>Model Monitorによるモデル品質監視</li>
+                </ul>
+
+                <h3>Studioで行う典型的なタスク</h3>
+                <ul>
+                    <li>データの読み込みと可視化</li>
+                    <li>前処理ワークフローの構築</li>
+                    <li>学習ジョブの実行とハイパーパラメータ比較</li>
+                    <li>モデルのデプロイとエンドポイント管理</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section3">
+                <h2>3️⃣ データ準備から学習ジョブまでの流れ</h2>
+                <div class="learning-time">⏱️ 学習時間: 約30分</div>
+
+                <h3>モデル構築ワークフロー</h3>
+                <ol>
+                    <li>データをS3に保存し、アクセス権限を設定する</li>
+                    <li>SageMaker Studioでノートブックを作成する</li>
+                    <li>Data Wranglerやスクリプトで前処理を実行する</li>
+                    <li>Estimatorで学習ジョブを定義し、学習を開始する</li>
+                    <li>学習結果を評価し、モデルを保存する</li>
+                </ol>
+
+                <h3>基本的な学習ジョブの構成</h3>
+                <ul>
+                    <li>トレーニングデータのS3パス</li>
+                    <li>学習アルゴリズムまたはコンテナ</li>
+                    <li>インスタンスタイプとインスタンス数</li>
+                    <li>ハイパーパラメータ・入力/出力設定</li>
+                </ul>
+
+                <div class="example">
+                    <strong>例:</strong> 画像認識ならGPUインスタンス、表形式データならCPUインスタンスを使うなど、データタイプに応じてリソースを選択します。
+                </div>
+            </div>
+
+            <div class="section" id="section4">
+                <h2>4️⃣ SageMakerの学習と推論の主要コンポーネント</h2>
+                <div class="learning-time">⏱️ 学習時間: 約30分</div>
+
+                <h3>主要コンポーネント</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>コンポーネント</th>
+                        <th>説明</th>
+                    </tr>
+                    <tr>
+                        <td>Notebook Instance/Studio</td>
+                        <td>データ分析とモデル構築のインタラクティブな環境</td>
+                    </tr>
+                    <tr>
+                        <td>Training Job</td>
+                        <td>学習アルゴリズムを実行するマネージドなジョブ</td>
+                    </tr>
+                    <tr>
+                        <td>Model</td>
+                        <td>学習済みアーティファクトを管理するオブジェクト</td>
+                    </tr>
+                    <tr>
+                        <td>Endpoint</td>
+                        <td>リアルタイム推論用のホスティング環境</td>
+                    </tr>
+                    <tr>
+                        <td>Batch Transform</td>
+                        <td>バッチ推論を実行するためのジョブ</td>
+                    </tr>
+                </table>
+
+                <h3>Training Jobの実行フロー</h3>
+                <ol>
+                    <li>学習コンテナを起動</li>
+                    <li>トレーニングデータをダウンロード</li>
+                    <li>学習処理を実行</li>
+                    <li>モデルアーティファクトをS3に保存</li>
+                    <li>学習メトリクスをCloudWatchに送信</li>
+                </ol>
+            </div>
+
+            <div class="section" id="section5">
+                <h2>5️⃣ 組み込みアルゴリズムとカスタムコンテナ</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>組み込みアルゴリズムのメリット</h3>
+                <ul>
+                    <li>事前に最適化されたコンテナを利用できる</li>
+                    <li>データ入力形式が標準化されている</li>
+                    <li>初学者でも簡単に学習ジョブを開始できる</li>
+                </ul>
+
+                <h3>代表的な組み込みアルゴリズム</h3>
+                <ul>
+                    <li>XGBoost: 回帰・分類に強い</li>
+                    <li>Linear Learner: 線形モデル</li>
+                    <li>Random Cut Forest: 異常検知</li>
+                    <li>BlazingText: テキスト分類・埋め込み</li>
+                </ul>
+
+                <h3>カスタムコンテナの利用シーン</h3>
+                <ul>
+                    <li>独自ライブラリを使う必要がある場合</li>
+                    <li>特殊な前処理やモデル定義を持つ場合</li>
+                    <li>既存のTensorFlow/PyTorchコードをそのまま動かしたい場合</li>
+                </ul>
+
+                <div class="code-block">
+<pre>
+from sagemaker.sklearn.estimator import SKLearn
+
+script_path = 'train.py'
+sklearn = SKLearn(
+    entry_point=script_path,
+    role=role,
+    instance_type='ml.m5.large',
+    framework_version='1.0-1',
+    py_version='py3'
+)
+sklearn.fit({'train': train_input})
+</pre>
+                </div>
+            </div>
+
+            <div class="section" id="section6">
+                <h2>6️⃣ ハイパーパラメータチューニングと自動モデル選択</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>ハイパーパラメータチューニングの目的</h3>
+                <p>学習アルゴリズムの設定値を自動的に最適化することで、モデル性能を引き上げることができます。これにより、手動で試行錯誤する時間を削減できます。</p>
+
+                <h3>SageMakerのチューニング機能</h3>
+                <ul>
+                    <li>Grid Search / Random Search / Bayesian Optimization</li>
+                    <li>複数の候補を同時に実行</li>
+                    <li>最適化指標に応じた早期停止</li>
+                </ul>
+
+                <div class="code-block">
+<pre>
+from sagemaker.tuner import HyperparameterTuner, IntegerParameter, CategoricalParameter
+
+xgb = sagemaker.estimator.Estimator(...)
+
+tuner = HyperparameterTuner(
+    estimator=xgb,
+    objective_metric_name='validation:auc',
+    hyperparameter_ranges={
+        'eta': CategoricalParameter([0.01, 0.1, 0.2]),
+        'max_depth': IntegerParameter(3, 10),
+    },
+    max_jobs=12,
+    max_parallel_jobs=4
+)
+tuner.fit({'train': train_input, 'validation': validation_input})
+</pre>
+                </div>
+
+                <h3>自動モデル選択の考え方</h3>
+                <ul>
+                    <li>複数のアルゴリズムやモデルを比較する</li>
+                    <li>評価指標を統一して比較可能にする</li>
+                    <li>検証セットでの性能と運用コストを合わせて判断する</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section7">
+                <h2>7️⃣ モデルデプロイと推論パイプライン</h2>
+                <div class="learning-time">⏱️ 学習時間: 約25分</div>
+
+                <h3>リアルタイム推論とバッチ推論</h3>
+                <ul>
+                    <li>リアルタイム推論: Endpointを使い、低レイテンシでリクエストに応答</li>
+                    <li>バッチ推論: Batch Transformで大量データを一括処理</li>
+                </ul>
+
+                <h3>モデルデプロイの基本手順</h3>
+                <ol>
+                    <li>学習済みモデルパッケージを作成</li>
+                    <li>EndpointConfigを定義</li>
+                    <li>Endpointを作成</li>
+                    <li>テストリクエストで推論精度を確認</li>
+                </ol>
+
+                <div class="code-block">
+<pre>
+from sagemaker.model import Model
+
+model = Model(
+    image_uri=image_uri,
+    model_data=model_data,
+    role=role,
+    sagemaker_session=sagemaker_session
+)
+predictor = model.deploy(
+    initial_instance_count=1,
+    instance_type='ml.t2.medium'
+)
+
+result = predictor.predict(payload)
+print(result)
+</pre>
+                </div>
+
+                <h3>推論パイプラインの拡張</h3>
+                <ul>
+                    <li>前処理用のLambdaを組み合わせる</li>
+                    <li>Step Functionsで学習・デプロイ・監視を連携</li>
+                    <li>モデルバージョン管理とA/Bテストを行う</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section8">
+                <h2>8️⃣ 運用・監視・コスト管理</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>運用で重要なポイント</h3>
+                <ul>
+                    <li>Endpointの可用性とスケールを監視する</li>
+                    <li>予測精度の劣化をモデルモニタで検出する</li>
+                    <li>データドリフトや概念ドリフトを追跡する</li>
+                </ul>
+
+                <h3>コスト管理のポイント</h3>
+                <ul>
+                    <li>不要なNotebook InstanceやEndpointは停止・削除する</li>
+                    <li>スポットインスタンスやバッチトレーニングでコスト削減</li>
+                    <li>推論負荷に応じてAutoscalingを設定する</li>
+                </ul>
+
+                <div class="key-point">
+                    <strong>💡 注意:</strong> SageMakerは便利だが使いっぱなしにするとコストが膨らみがちです。利用状況に応じたリソース管理と自動停止を組み込みましょう。
+                </div>
+            </div>
+
+            <div class="section" id="section9">
+                <h2>9️⃣ 演習: SageMakerでのモデル構築ワークフロー</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>演習シナリオ</h3>
+                <p>表形式データを使って分類モデルを構築し、SageMaker上で学習とデプロイを実行します。</p>
+
+                <h4>ステップ1: S3にデータを準備</h4>
+                <ul>
+                    <li>トレーニングデータと検証データをS3にアップロード</li>
+                    <li>バケットのアクセス権限を確認</li>
+                </ul>
+
+                <h4>ステップ2: 学習スクリプトを作成</h4>
+                <ul>
+                    <li>データ読み込み、前処理、モデル訓練、保存処理を記述</li>
+                    <li>ハイパーパラメータは引数で取り込む</li>
+                </ul>
+
+                <h4>ステップ3: 学習ジョブを実行</h4>
+                <ul>
+                    <li>Estimatorを使ってジョブを定義</li>
+                    <li>ジョブの進行状況とCloudWatchログを確認</li>
+                </ul>
+
+                <h4>ステップ4: 推論と評価</h4>
+                <ul>
+                    <li>エンドポイントを作成し、サンプル入力で推論</li>
+                    <li>混同行列やAUCなどの評価指標を確認</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section10">
+                <h2>🔚 Day 8-9 のまとめ</h2>
+                <div class="learning-time">⏱️ 学習時間: 約15分</div>
+
+                <ul>
+                    <li>Amazon SageMakerは、AIモデルの構築と運用を統合するプラットフォームです。</li>
+                    <li>Studio、Training Job、Endpointを理解し、ワークフローを設計できることが重要です。</li>
+                    <li>ハイパーパラメータチューニングとモデルデプロイを活用して、実用的なML運用を目指します。</li>
+                    <li>運用時の監視とコスト管理もSageMakerの重要な部分です。</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>🎯 最後に</h4>
+                    <p>Day 8-9では、SageMakerを用いたモデル構築の実践力を高め、実際のAIプロジェクトでの運用につながるスキルを習得します。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>この教材は、SageMakerを中心にしたAI/MLモデル構築の基礎と実践を学ぶための3時間コースです。</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 10-11: 画像分類と物体検出 - 3時間教育テキスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f2f5f8;
+            color: #263238;
+            line-height: 1.75;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+        }
+        header {
+            background: linear-gradient(135deg, #6246ea 0%, #3f72af 100%);
+            color: white;
+            padding: 42px 32px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.25em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.05em;
+            opacity: 0.95;
+        }
+        .table-of-contents {
+            background: #eef2fb;
+            padding: 22px 32px;
+            border-bottom: 3px solid #6246ea;
+        }
+        .table-of-contents h2 {
+            color: #3f4f7d;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .table-of-contents ol {
+            list-style: decimal;
+            margin-left: 22px;
+            color: #4b5c7a;
+        }
+        .table-of-contents li {
+            margin-bottom: 10px;
+        }
+        .table-of-contents a {
+            color: #6246ea;
+            text-decoration: none;
+        }
+        .table-of-contents a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 40px 34px;
+        }
+        .section {
+            margin-bottom: 54px;
+        }
+        .section h2 {
+            color: #6246ea;
+            font-size: 1.85em;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #6246ea;
+        }
+        .section h3 {
+            color: #3f4f7d;
+            font-size: 1.35em;
+            margin-top: 24px;
+            margin-bottom: 14px;
+        }
+        .section h4 {
+            color: #263238;
+            font-size: 1.08em;
+            margin-top: 16px;
+            margin-bottom: 10px;
+        }
+        .learning-time {
+            background: #e8eaf6;
+            border-left: 4px solid #6246ea;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .concept-box {
+            background: #f0f4ff;
+            border: 2px solid #c0c8ff;
+            padding: 22px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        .concept-box h4 {
+            color: #6246ea;
+            margin-bottom: 12px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .comparison-table th {
+            background: #6246ea;
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid #e1e5ee;
+        }
+        .comparison-table tr:hover {
+            background: #f4f6ff;
+        }
+        .code-block {
+            background: #192234;
+            color: #9cdcfe;
+            padding: 22px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .example strong {
+            color: #bf6f00;
+        }
+        .key-point {
+            background: #eef7f8;
+            border-left: 4px solid #2799d8;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 4px;
+        }
+        .key-point strong {
+            color: #1b4f71;
+        }
+        ul, ol {
+            margin: 18px 0 18px 34px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            background: #f1f4fb;
+            padding: 28px 30px;
+            text-align: center;
+            color: #4a5568;
+            border-top: 1px solid #d8dce8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖼️ Day 10-11: 画像分類と物体検出</h1>
+            <p>AWS Certified AI Practitioner 準備教材 - 3時間教育テキスト</p>
+            <p style="margin-top: 10px; font-size: 0.95em;">総学習時間: 約180分 | 主題: 画像認識の基本、SageMaker/AIサービスの活用</p>
+        </header>
+
+        <div class="table-of-contents">
+            <h2>📑 目次</h2>
+            <ol>
+                <li><a href="#section1">画像分類と物体検出の概要</a></li>
+                <li><a href="#section2">画像分類の基本と代表的手法</a></li>
+                <li><a href="#section3">物体検出の基本と代表的手法</a></li>
+                <li><a href="#section4">SageMakerでの画像モデル構築</a></li>
+                <li><a href="#section5">Amazon RekognitionおよびVision AIの利用</a></li>
+                <li><a href="#section6">データ拡張と前処理のポイント</a></li>
+                <li><a href="#section7">評価指標とモデル改善の戦略</a></li>
+                <li><a href="#section8">実践ワークフロー: 画像分類/物体検出の構築</a></li>
+                <li><a href="#section9">運用とデプロイの注意点</a></li>
+                <li><a href="#section10">Day 10-11 のまとめ</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="section" id="section1">
+                <h2>1️⃣ 画像分類と物体検出の概要</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+                <p>画像分類は画像全体をカテゴリに分類するタスク、物体検出は画像内の複数オブジェクトの位置と種類を検出するタスクです。両者は画像分析の基本であり、多くの実務で利用されます。</p>
+
+                <h3>画像分類 vs 物体検出</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>特徴</th>
+                        <th>画像分類</th>
+                        <th>物体検出</th>
+                    </tr>
+                    <tr>
+                        <td>目的</td>
+                        <td>画像全体を1つのラベルに分類</td>
+                        <td>画像内の各オブジェクトを検出・識別</td>
+                    </tr>
+                    <tr>
+                        <td>出力</td>
+                        <td>カテゴリラベル</td>
+                        <td>ラベル + バウンディングボックス</td>
+                    </tr>
+                    <tr>
+                        <td>応用例</td>
+                        <td>顔認識、医療画像診断</td>
+                        <td>防犯カメラ、物流のバーコード検出</td>
+                    </tr>
+                </table>
+
+                <div class="key-point">
+                    <strong>💡 ポイント:</strong> 画像分類は「何が写っているか」、物体検出は「どこに何があるか」を答えるタスクです。
+                </div>
+            </div>
+
+            <div class="section" id="section2">
+                <h2>2️⃣ 画像分類の基本と代表的手法</h2>
+                <div class="learning-time">⏱️ 学習時間: 約30分</div>
+
+                <h3>代表的な手法</h3>
+                <ul>
+                    <li>畳み込みニューラルネットワーク(CNN)</li>
+                    <li>転移学習(ResNet、EfficientNet、MobileNet)</li>
+                    <li>Fine-tuningによるモデルの適応</li>
+                </ul>
+
+                <h3>転移学習のメリット</h3>
+                <ul>
+                    <li>小規模データセットでも高精度を出しやすい</li>
+                    <li>学習時間を大幅に短縮できる</li>
+                    <li>事前学習モデルの特徴抽出能力を利用できる</li>
+                </ul>
+
+                <div class="example">
+                    <strong>例:</strong> ImageNetで事前学習したResNetを使い、自社製品の画像分類モデルを数時間で構築することが可能です。
+                </div>
+            </div>
+
+            <div class="section" id="section3">
+                <h2>3️⃣ 物体検出の基本と代表的手法</h2>
+                <div class="learning-time">⏱️ 学習時間: 約30分</div>
+
+                <h3>代表的な物体検出モデル</h3>
+                <ul>
+                    <li>R-CNN / Fast R-CNN / Faster R-CNN</li>
+                    <li>YOLO (You Only Look Once)</li>
+                    <li>SSD (Single Shot MultiBox Detector)</li>
+                    <li>EfficientDet</li>
+                </ul>
+
+                <h3>検出アルゴリズムの違い</h3>
+                <ul>
+                    <li>R-CNN系: 高精度だが遅い</li>
+                    <li>YOLO系: 低レイテンシだが小物体検出が難しい場合がある</li>
+                    <li>SSD系: バランスの良い速度と精度</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>💡 重要</h4>
+                    <p>物体検出では、候補領域の生成とクラス判定を同時に行う手法がリアルタイム推論に向きます。</p>
+                </div>
+            </div>
+
+            <div class="section" id="section4">
+                <h2>4️⃣ SageMakerでの画像モデル構築</h2>
+                <div class="learning-time">⏱️ 学習時間: 約30分</div>
+
+                <h3>SageMakerでの画像モデル構築手順</h3>
+                <ol>
+                    <li>画像データをS3に保存し、トレーニング/検証/テストに分割</li>
+                    <li>前処理やオーグメンテーションを定義</li>
+                    <li>Estimatorで学習ジョブを作成</li>
+                    <li>学習済みモデルを保存し、エンドポイントをデプロイ</li>
+                </ol>
+
+                <h3>転移学習の実装例</h3>
+                <div class="code-block">
+<pre>
+from sagemaker.pytorch import PyTorch
+
+estimator = PyTorch(
+    entry_point='train.py',
+    role=role,
+    framework_version='1.13',
+    py_version='py39',
+    instance_type='ml.p3.2xlarge',
+    instance_count=1,
+    hyperparameters={
+        'epochs': 10,
+        'batch-size': 32,
+        'learning-rate': 0.0001
+    }
+)
+estimator.fit({'train': train_input, 'validation': val_input})
+</pre>
+                </div>
+
+                <h3>学習スクリプトの構成要素</h3>
+                <ul>
+                    <li>データセットのロードと前処理</li>
+                    <li>モデルの定義と転移学習</li>
+                    <li>損失関数と最適化手法の設定</li>
+                    <li>評価とモデル保存</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section5">
+                <h2>5️⃣ Amazon RekognitionおよびVision AIの利用</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>Amazon Rekognitionの機能</h3>
+                <ul>
+                    <li>画像分類: ラベル検出、顔認識、テキスト検出</li>
+                    <li>物体検出: 物体・シーンの検出</li>
+                    <li>カスタムラベル: 自社ドメインの物体検出モデル</li>
+                </ul>
+
+                <h3>Rekognition Custom Labelsの利点</h3>
+                <ul>
+                    <li>トレーニングデータをアップロードして独自ラベルを学習</li>
+                    <li>ラベル付け済みデータを使った自動学習</li>
+                    <li>モデルデプロイがAWSにより管理される</li>
+                </ul>
+
+                <div class="key-point">
+                    <strong>💡 注意:</strong> Rekognitionは低コストで高速に導入できる一方、複雑なモデル調整が必要なケースではSageMakerを併用するのが有効です。
+                </div>
+            </div>
+
+            <div class="section" id="section6">
+                <h2>6️⃣ データ拡張と前処理のポイント</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>画像前処理の一般手順</h3>
+                <ul>
+                    <li>リサイズ・クロップ</li>
+                    <li>ピクセル値の正規化</li>
+                    <li>データ形式の統一 (JPEG/PNG → テンソル)</li>
+                </ul>
+
+                <h3>データ拡張の代表例</h3>
+                <ul>
+                    <li>回転、平行移動、拡大縮小</li>
+                    <li>左右反転・色変換</li>
+                    <li>ランダムクロップやノイズ付加</li>
+                </ul>
+
+                <div class="example">
+                    <strong>例:</strong> 物体検出ではバウンディングボックスの座標もデータ拡張に応じて変換する必要があります。
+                </div>
+            </div>
+
+            <div class="section" id="section7">
+                <h2>7️⃣ 評価指標とモデル改善の戦略</h2>
+                <div class="learning-time">⏱️ 学習時間: 約25分</div>
+
+                <h3>画像分類の評価指標</h3>
+                <ul>
+                    <li>Accuracy</li>
+                    <li>Precision / Recall / F1スコア</li>
+                    <li>混同行列</li>
+                    <li>ROC AUC</li>
+                </ul>
+
+                <h3>物体検出の評価指標</h3>
+                <ul>
+                    <li>mAP (mean Average Precision)</li>
+                    <li>IoU (Intersection over Union)</li>
+                    <li>Precision-Recall Curve</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>💡 重要</h4>
+                    <p>物体検出では、IoUの閾値を調整することで検出の厳しさを制御できます。用途に応じてしきい値を最適化しましょう。</p>
+                </div>
+
+                <h3>モデル改善の戦略</h3>
+                <ul>
+                    <li>データ拡張で汎化性能を高める</li>
+                    <li>転移学習で事前学習モデルを活用する</li>
+                    <li>クラス不均衡を補正する</li>
+                    <li>学習率やバッチサイズを調整する</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section8">
+                <h2>8️⃣ 実践ワークフロー: 画像分類/物体検出の構築</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>実践手順</h3>
+                <ol>
+                    <li>データ収集・ラベル付け</li>
+                    <li>データ形式をS3/COCO/Pascal VOCに変換</li>
+                    <li>前処理・オーグメンテーションを定義</li>
+                    <li>学習ジョブを実行し、ネットワークを訓練</li>
+                    <li>検証データで性能を評価・改善</li>
+                    <li>モデルをデプロイし、推論を確認</li>
+                </ol>
+
+                <h3>注意すべきポイント</h3>
+                <ul>
+                    <li>データの多様性が不足すると過学習しやすい</li>
+                    <li>小さな物体は検出精度が低くなりがち</li>
+                    <li>画像サイズとバッチサイズのバランスを調整する</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section9">
+                <h2>9️⃣ 運用とデプロイの注意点</h2>
+                <div class="learning-time">⏱️ 学習時間: 約15分</div>
+
+                <h3>デプロイの考慮点</h3>
+                <ul>
+                    <li>リアルタイム推論かバッチ推論かを用途で選ぶ</li>
+                    <li>推論レイテンシとコストのトレードオフを評価する</li>
+                    <li>モデルのバージョン管理とロールバックを準備する</li>
+                </ul>
+
+                <h3>運用監視</h3>
+                <ul>
+                    <li>予測精度の劣化を定期的にチェック</li>
+                    <li>推論データのドリフトを検出する</li>
+                    <li>エラーや異常な入力のログを取得する</li>
+                </ul>
+
+                <div class="key-point">
+                    <strong>💡 運用のポイント:</strong> 画像モデルは入力画像の条件に敏感です。照明・解像度・撮影角度の違いを運用時に考慮しましょう。
+                </div>
+            </div>
+
+            <div class="section" id="section10">
+                <h2>🔚 Day 10-11 のまとめ</h2>
+                <div class="learning-time">⏱️ 学習時間: 約10分</div>
+
+                <ul>
+                    <li>画像分類と物体検出は、視覚データを活用するAIの主要タスクです。</li>
+                    <li>SageMakerとRekognitionを組み合わせることで、開発と運用を効率化できます。</li>
+                    <li>データ拡張と評価指標の適切な設定が精度向上に直結します。</li>
+                    <li>運用では、モデルの安定性と推論コストを両立させることが重要です。</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>🎯 最後に</h4>
+                    <p>Day 10-11 は画像認識の基礎を学び、実務で使えるモデル構築の流れを身につけるための時間です。実際のデータでハンズオンすると理解がさらに深まります。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>この教材は画像分類と物体検出を中心に、AIモデルの開発と運用の流れを学ぶための3時間コースです。</p>
+        </div>
+    </div>
+</body>
+</html>

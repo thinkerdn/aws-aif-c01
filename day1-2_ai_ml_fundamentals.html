@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1-2: AI/MLの基本概念 - 3時間教育テキスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        .table-of-contents {
+            background: #f0f4ff;
+            padding: 20px 30px;
+            border-bottom: 3px solid #667eea;
+        }
+        .table-of-contents h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .table-of-contents ol {
+            list-style: decimal;
+            margin-left: 20px;
+            color: #555;
+        }
+        .table-of-contents li {
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .table-of-contents a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .table-of-contents a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .section h4 {
+            color: #333;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .learning-path {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .learning-path strong {
+            color: #1976d2;
+        }
+        .concept-box {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        .concept-box h4 {
+            color: #667eea;
+            margin-bottom: 12px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        .example {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .example strong {
+            color: #e65100;
+        }
+        .key-point {
+            background: #c8e6c9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .key-point strong {
+            color: #2e7d32;
+        }
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .timeline {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 6px;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .timeline-marker {
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+        .timeline-content h4 {
+            margin-top: 0;
+        }
+        .learning-time {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+        .diagram {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 6px;
+        }
+        .resource-list {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Day 1-2: AI/MLの基本概念</h1>
+            <p>AWS AIF-C01 資格取得のための3時間教育テキスト</p>
+            <p style="margin-top: 10px; font-size: 0.95em;">総学習時間: 約180分 | 難易度: 初級</p>
+        </header>
+
+        <div class="table-of-contents">
+            <h2>📑 目次</h2>
+            <ol>
+                <li><a href="#section1">人工知能（AI）とは</a></li>
+                <li><a href="#section2">機械学習（ML）の基礎</a></li>
+                <li><a href="#section3">機械学習の3つの主要タイプ</a></li>
+                <li><a href="#section4">ディープラーニング入門</a></li>
+                <li><a href="#section5">機械学習の学習プロセス</a></li>
+                <li><a href="#section6">実世界のユースケース</a></li>
+                <li><a href="#section7">AWS での実装への道</a></li>
+                <li><a href="#section8">Day 1-2 のまとめ</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <!-- Section 1 -->
+            <div class="section" id="section1">
+                <h2>1️⃣ 人工知能（AI）とは</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>AIの定義</h3>
+                <p>人工知能（Artificial Intelligence, AI）とは、人間の知能を模倣するコンピュータシステムの能力です。AIは、与えられたタスクを実行し、経験から学習し、最適な結果を得るために適応することができます。</p>
+
+                <div class="concept-box">
+                    <h4>📌 AIの3つのレベル</h4>
+                    <ul>
+                        <li><strong>狭いAI（Narrow AI）:</strong> 特定のタスクに特化したAI（現在のほぼすべてのAIはこれ）</li>
+                        <li><strong>汎用AI（General AI）:</strong> あらゆるタスクを人間と同等に実行できるAI（研究段階）</li>
+                        <li><strong>スーパーAI（Super AI）:</strong> 人間を上回る知能を持つAI（未実現）</li>
+                    </ul>
+                </div>
+
+                <h3>AIの進化</h3>
+                <p>AIの発展は、複数の分野の融合によるものです：</p>
+                <ul>
+                    <li><strong>計算機科学:</strong> アルゴリズムとデータ処理</li>
+                    <li><strong>統計学:</strong> データからのパターン抽出</li>
+                    <li><strong>数学:</strong> 最適化と線形代数</li>
+                    <li><strong>神経科学:</strong> 脳の仕組みの理解</li>
+                </ul>
+
+                <div class="diagram">
+                    <h4>AIの位置付け</h4>
+                    <pre>
+┌─────────────────────────────────────────┐
+│         人工知能（AI）                    │
+├─────────────────────────────────────────┤
+│  ┌───────────────────────────────────┐  │
+│  │   機械学習（Machine Learning）     │  │
+│  │  ┌───────────────────────────┐   │  │
+│  │  │ ディープラーニング        │   │  │
+│  │  │ (Deep Learning)          │   │  │
+│  │  └───────────────────────────┘   │  │
+│  └───────────────────────────────────┘  │
+└─────────────────────────────────────────┘
+                    </pre>
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 重要なポイント:</strong> AIは機械学習を含むより大きな分野であり、機械学習はAIの実装方法の1つです。
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section" id="section2">
+                <h2>2️⃣ 機械学習（ML）の基礎</h2>
+                <div class="learning-time">⏱️ 学習時間: 約25分</div>
+
+                <h3>機械学習とは</h3>
+                <p>機械学習（Machine Learning）は、AIを実装するための技術であり、プログラムが明示的にプログラムされることなく、データから学習する能力です。</p>
+
+                <div class="concept-box">
+                    <h4>📌 従来のプログラミングと機械学習の違い</h4>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>側面</th>
+                            <th>従来のプログラミング</th>
+                            <th>機械学習</th>
+                        </tr>
+                        <tr>
+                            <td><strong>ルール定義</strong></td>
+                            <td>プログラマーが明示的にルールを記述</td>
+                            <td>データからルールを自動抽出</td>
+                        </tr>
+                        <tr>
+                            <td><strong>スケーラビリティ</strong></td>
+                            <td>複雑なルールは対応困難</td>
+                            <td>より多くのデータで自動改善</td>
+                        </tr>
+                        <tr>
+                            <td><strong>適応性</strong></td>
+                            <td>環境変化への対応は難しい</td>
+                            <td>新データに自動適応</td>
+                        </tr>
+                        <tr>
+                            <td><strong>開発コスト</strong></td>
+                            <td>単純なタスクは低コスト</td>
+                            <td>複雑なタスクも対応可能</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>機械学習の重要な概念</h3>
+
+                <h4>📊 データセット</h4>
+                <p>機械学習モデルの基礎となるのはデータです。データセットは通常、以下に分割されます：</p>
+                <ul>
+                    <li><strong>訓練データ（Training Data）:</strong> 70-80% - モデルを学習させるのに使用</li>
+                    <li><strong>検証データ（Validation Data）:</strong> 10-15% - 学習中にパラメータを調整</li>
+                    <li><strong>テストデータ（Test Data）:</strong> 10-15% - 最終的なパフォーマンスを評価</li>
+                </ul>
+
+                <div class="example">
+                    <strong>例:</strong> 1000個のメール分類データがある場合
+                    <ul>
+                        <li>訓練: 700-800個</li>
+                        <li>検証: 100-150個</li>
+                        <li>テスト: 100-150個</li>
+                    </ul>
+                </div>
+
+                <h4>🎯 特徴量（Features）と目標変数（Target）</h4>
+                <ul>
+                    <li><strong>特徴量:</strong> モデルへの入力変数（例：メールのテキスト、長さ、送信者など）</li>
+                    <li><strong>目標変数:</strong> 予測したい出力（例：スパムか正常か）</li>
+                </ul>
+
+                <div class="key-point">
+                    <strong>✓ 重要なポイント:</strong> 高品質な特徴量エンジニアリングは、モデルのパフォーマンスを大幅に向上させます。
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="section" id="section3">
+                <h2>3️⃣ 機械学習の3つの主要タイプ</h2>
+                <div class="learning-time">⏱️ 学習時間: 約40分</div>
+
+                <h3>3-1. 教師あり学習（Supervised Learning）</h3>
+                <p>教師あり学習では、訓練データに「正解ラベル」が付与されており、モデルはこれを使用して学習します。</p>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>タイプ</th>
+                        <th>目的</th>
+                        <th>例</th>
+                    </tr>
+                    <tr>
+                        <td><strong>回帰（Regression）</strong></td>
+                        <td>連続値の予測</td>
+                        <td>住宅価格予測、気温予測、株価予測</td>
+                    </tr>
+                    <tr>
+                        <td><strong>分類（Classification）</strong></td>
+                        <td>カテゴリの予測</td>
+                        <td>メール分類（スパム/正常）、画像分類、医療診断</td>
+                    </tr>
+                </table>
+
+                <h4>📌 よく使われる教師あり学習アルゴリズム</h4>
+                <ul>
+                    <li><strong>線形回帰（Linear Regression）:</strong> 最もシンプルな回帰アルゴリズム</li>
+                    <li><strong>ロジスティック回帰（Logistic Regression）:</strong> 2値分類に適している</li>
+                    <li><strong>決定木（Decision Tree）:</strong> 解釈しやすく、複雑なパターンを捉えられる</li>
+                    <li><strong>ランダムフォレスト（Random Forest）:</strong> 複数の決定木を組み合わせた強力なアルゴリズム</li>
+                    <li><strong>サポートベクターマシン（SVM）:</strong> 複雑な分類問題に有効</li>
+                    <li><strong>XGBoost:</strong> 勾配ブースティング、多くの競技で優勝</li>
+                </ul>
+
+                <div class="example">
+                    <strong>教師あり学習の例：</strong>
+                    <p>メールの分類を学習する場合、モデルは「このメールはスパム」というラベル付きデータから学習します。新しいメール（ラベルなし）が来ると、学習したパターンを使ってそれがスパムかどうかを予測します。</p>
+                </div>
+
+                <hr style="margin: 30px 0; border: none; border-top: 2px solid #ddd;">
+
+                <h3>3-2. 教師なし学習（Unsupervised Learning）</h3>
+                <p>教師なし学習では、ラベルのないデータからパターンを自動的に発見します。データに隠れた構造を見つけることが目的です。</p>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>タイプ</th>
+                        <th>目的</th>
+                        <th>例</th>
+                    </tr>
+                    <tr>
+                        <td><strong>クラスタリング（Clustering）</strong></td>
+                        <td>データを似たグループに分割</td>
+                        <td>顧客セグメンテーション、画像グループ化</td>
+                    </tr>
+                    <tr>
+                        <td><strong>次元削減（Dimensionality Reduction）</strong></td>
+                        <td>データの複雑さを軽減</td>
+                        <td>データ可視化、特徴抽出</td>
+                    </tr>
+                </table>
+
+                <h4>📌 よく使われる教師なし学習アルゴリズム</h4>
+                <ul>
+                    <li><strong>K-means:</strong> データをk個の中心周辺にグループ化</li>
+                    <li><strong>階層的クラスタリング（Hierarchical Clustering）:</strong> ツリー構造でデータを分割</li>
+                    <li><strong>主成分分析（PCA）:</strong> 高次元データを低次元に削減</li>
+                    <li><strong>異常検出（Anomaly Detection）:</strong> 通常と異なるデータを特定</li>
+                </ul>
+
+                <div class="example">
+                    <strong>教師なし学習の例：</strong>
+                    <p>顧客データをラベルなしで分析する場合、購買行動に基づいて顧客が異なるグループに自動的に分割されます。これを使ってマーケティング戦略を立案します。</p>
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 重要なポイント:</strong> 教師なし学習では「正解」が定義されていないため、結果の評価がより困難です。
+                </div>
+
+                <hr style="margin: 30px 0; border: none; border-top: 2px solid #ddd;">
+
+                <h3>3-3. 強化学習（Reinforcement Learning）</h3>
+                <p>強化学習では、エージェント（学習主体）は環境と相互作用し、報酬と罰を通じて最適な行動を学習します。ゲームやロボット制御で活躍しています。</p>
+
+                <h4>📌 強化学習の主要概念</h4>
+                <ul>
+                    <li><strong>エージェント:</strong> 行動を取るもの</li>
+                    <li><strong>環境:</strong> エージェントが相互作用する世界</li>
+                    <li><strong>状態（State）:</strong> 環境の現在の状況</li>
+                    <li><strong>行動（Action）:</strong> エージェントが取ることのできる行動</li>
+                    <li><strong>報酬（Reward）:</strong> 行動の良さを評価する信号</li>
+                </ul>
+
+                <div class="diagram">
+                    <h4>強化学習のループ</h4>
+                    <pre>
+┌─────────────┐
+│   エージェント │
+└──────┬──────┘
+       │
+    行動│
+       ▼
+┌─────────────┐
+│   環境       │
+│（ゲーム、    │
+│  ロボット）  │
+└──────┬──────┘
+       │
+   状態と報酬
+       │
+       └──→ エージェント（学習）
+                    </pre>
+                </div>
+
+                <div class="example">
+                    <strong>強化学習の例：</strong>
+                    <p>チェスAI（AlphaZero）は、ゲームをプレイしながら学習し、勝つたびに正の報酬を受け取ります。何百万回のゲームを通じて、最適な戦略を発見します。</p>
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 重要なポイント:</strong> AWS AIF-C01試験では、強化学習は詳細に出題されません。基本概念の理解で十分です。
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section" id="section4">
+                <h2>4️⃣ ディープラーニング入門</h2>
+                <div class="learning-time">⏱️ 学習時間: 約30分</div>
+
+                <h3>ディープラーニング（深層学習）とは</h3>
+                <p>ディープラーニングは、機械学習の一種で、人間の脳の神経ネットワークを模倣した「ニューラルネットワーク」を使用します。多くの層（ディープ）を持つため「ディープ」と呼ばれます。</p>
+
+                <h3>ニューラルネットワークの基礎</h3>
+
+                <div class="diagram">
+                    <h4>シンプルなニューラルネットワーク</h4>
+                    <pre>
+入力層        隠れ層         出力層
+（Input）   （Hidden）    （Output）
+
+  x1 ────┐
+         ├→ h1 ──┐
+  x2 ────┤       ├→ y
+         ├→ h2 ──┤
+  x3 ────┘       └→
+
+(3つの入力 → 2つの隠れニューロン → 1つの出力)
+                    </pre>
+                </div>
+
+                <h4>📌 ニューラルネットワークの主要部分</h4>
+                <ul>
+                    <li><strong>ニューロン:</strong> 入力を受け取り、計算して出力を生成する基本単位</li>
+                    <li><strong>重み（Weights）:</strong> ニューロン間の接続の強さ</li>
+                    <li><strong>バイアス（Bias）:</strong> ニューロンの活性度を調整するオフセット</li>
+                    <li><strong>活性化関数（Activation Function）:</strong> 非線形性を導入する関数（ReLU、sigmoid など）</li>
+                </ul>
+
+                <h3>ディープラーニングがなぜ強力か</h3>
+                <p>ディープラーニングが画像認識、自然言語処理などで素晴らしい結果を出す理由：</p>
+                <ul>
+                    <li><strong>自動特徴抽出:</strong> 手動で特徴を設計する必要がない</li>
+                    <li><strong>階層的表現:</strong> 低レベルから高レベルまでの特徴を段階的に学習</li>
+                    <li><strong>複雑なパターン認識:</strong> 非線形性により複雑な関係を捉える</li>
+                    <li><strong>スケーラビリティ:</strong> 大規模データで性能が向上</li>
+                </ul>
+
+                <h3>主要なディープラーニングアーキテクチャ</h3>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>アーキテクチャ</th>
+                        <th>用途</th>
+                        <th>例</th>
+                    </tr>
+                    <tr>
+                        <td><strong>CNN (Convolutional Neural Network)</strong></td>
+                        <td>画像処理</td>
+                        <td>物体検出、顔認識、画像分類</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RNN (Recurrent Neural Network)</strong></td>
+                        <td>時系列・シーケンスデータ</td>
+                        <td>テキスト生成、音声認識、時系列予測</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transformer</strong></td>
+                        <td>自然言語処理</td>
+                        <td>ChatGPT、機械翻訳、テキスト分類</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GAN (Generative Adversarial Network)</strong></td>
+                        <td>画像生成</td>
+                        <td>画像生成、データ拡張、深偽動画</td>
+                    </tr>
+                </table>
+
+                <div class="example">
+                    <strong>例：画像認識でCNNが使われる理由</strong>
+                    <p>CNNは「畳み込み層」で局所的な特徴（エッジ、テクスチャ）を検出し、段階的に複雑な特徴（目、顔）を学習します。これにより、位置の変化に強い認識が可能です。</p>
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 重要なポイント:</strong> AWS AIF-C01では、各アーキテクチャの詳細な理論より、「何に使うか」を重点的に学びましょう。
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section" id="section5">
+                <h2>5️⃣ 機械学習の学習プロセス</h2>
+                <div class="learning-time">⏱️ 学習時間: 約35分</div>
+
+                <h3>機械学習プロジェクトの一般的なフロー</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <h4>問題定義</h4>
+                            <p>何を予測するか、何を分類するか明確にする。ビジネス目標と技術目標を明確化。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <h4>データ収集</h4>
+                            <p>訓練に必要なデータを収集。データ量は一般的に多いほど良い。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <h4>データの前処理</h4>
+                            <p>データのクリーニング、欠損値の処理、正規化、標準化を実施。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">4</div>
+                        <div class="timeline-content">
+                            <h4>特徴量エンジニアリング</h4>
+                            <p>重要な特徴を抽出・作成。モデル性能に大きな影響。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">5</div>
+                        <div class="timeline-content">
+                            <h4>モデル選択</h4>
+                            <p>問題タイプに合わせて適切なアルゴリズムを選択。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">6</div>
+                        <div class="timeline-content">
+                            <h4>モデル訓練</h4>
+                            <p>訓練データを使用してモデルを学習させる。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">7</div>
+                        <div class="timeline-content">
+                            <h4>ハイパーパラメータチューニング</h4>
+                            <p>検証データで性能を評価し、パラメータを最適化。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">8</div>
+                        <div class="timeline-content">
+                            <h4>モデル評価</h4>
+                            <p>テストデータで最終的な性能を評価。</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">9</div>
+                        <div class="timeline-content">
+                            <h4>デプロイと監視</h4>
+                            <p>本番環境に展開し、パフォーマンスを継続的に監視。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>過学習と未学習</h3>
+
+                <h4>📌 過学習（Overfitting）</h4>
+                <p>モデルが訓練データに過度に適合してしまい、新しいデータへの汎化性能が低下する現象。</p>
+                <ul>
+                    <li><strong>原因:</strong> 訓練データが少ない、モデルが複雑すぎる</li>
+                    <li><strong>症状:</strong> 訓練精度は高いが、テスト精度は低い</li>
+                    <li><strong>対策:</strong> 正則化、早期停止、データ拡張、ドロップアウト</li>
+                </ul>
+
+                <h4>📌 未学習（Underfitting）</h4>
+                <p>モデルが訓練データのパターンを十分に学習できない現象。</p>
+                <ul>
+                    <li><strong>原因:</strong> モデルが単純すぎる、訓練が不足している</li>
+                    <li><strong>症状:</strong> 訓練精度も低い</li>
+                    <li><strong>対策:</strong> より複雑なモデルを使う、訓練時間を増やす、特徴量を増やす</li>
+                </ul>
+
+                <div class="diagram">
+                    <h4>過学習と未学習のイラスト</h4>
+                    <pre>
+精度↑
+  │     ╱╲
+  │    ╱  ╲
+  │   ╱    ╲      テスト精度
+  │  ╱      ╲╲
+  │╱        ╲ ╲
+  │          ╲  ╲___
+  │─────────────╲────────→ モデルの複雑さ
+  │未学習   最適  過学習
+                    </pre>
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 重要なポイント:</strong> 機械学習の成功の鍵は、訓練精度ではなく「汎化性能」（未知データへの性能）です。
+                </div>
+
+                <h3>評価指標</h3>
+
+                <h4>回帰問題の評価指標</h4>
+                <ul>
+                    <li><strong>平均絶対誤差（MAE）:</strong> 予測値と実際の値の平均差</li>
+                    <li><strong>二乗平均平方根誤差（RMSE）:</strong> より大きな誤差にペナルティ</li>
+                    <li><strong>決定係数（R²）:</strong> 0〜1で、1に近いほど良い</li>
+                </ul>
+
+                <h4>分類問題の評価指標</h4>
+                <ul>
+                    <li><strong>精度（Accuracy）:</strong> 正解した割合（不均衡データでは信頼性が低い）</li>
+                    <li><strong>適合率（Precision）:</strong> ポジティブ予測の中で実際のポジティブ率</li>
+                    <li><strong>再現率（Recall）:</strong> 実際のポジティブの中で正しく予測された率</li>
+                    <li><strong>F1スコア:</strong> 適合率と再現率のバランス</li>
+                    <li><strong>AUC-ROC:</strong> 異なる閾値での性能を総合的に評価</li>
+                </ul>
+
+                <div class="example">
+                    <strong>医療診断の例：</strong>
+                    <p>病気の予測モデルでは、病気を見落とすことは非常に悪い（再現率を重視）ので、適合率より再現率を優先します。</p>
+                </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="section" id="section6">
+                <h2>6️⃣ 実世界のユースケース</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>主要産業でのAI/ML活用例</h3>
+
+                <h4>🏥 ヘルスケア</h4>
+                <ul>
+                    <li>医療画像分析（X線、MRI、CTスキャン）による疾病検出</li>
+                    <li>患者の予後予測と個別化医療</li>
+                    <li>医療リソースの最適配分</li>
+                    <li>ドラッグディスカバリー（新薬開発）</li>
+                </ul>
+
+                <h4>💰 金融</h4>
+                <ul>
+                    <li>詐欺検出（不正取引の検出）</li>
+                    <li>信用スコアリング（ローン承認の判断）</li>
+                    <li>株価予測と自動トレーディング</li>
+                    <li>顧客チャーン予測</li>
+                </ul>
+
+                <h4>🛍️ e-コマース・リテール</h4>
+                <ul>
+                    <li>商品推奨システム（You might like...）</li>
+                    <li>需要予測と在庫最適化</li>
+                    <li>顧客セグメンテーション</li>
+                    <li>価格最適化（動的プライシング）</li>
+                </ul>
+
+                <h4>🚗 自動運転・モビリティ</h4>
+                <ul>
+                    <li>画像認識による障害物検出</li>
+                    <li>移動時間予測</li>
+                    <li>車両ルート最適化</li>
+                    <li>予測的メンテナンス</li>
+                </ul>
+
+                <h4>🏭 製造業</h4>
+                <ul>
+                    <li>品質検査の自動化</li>
+                    <li>予測的メンテナンス（故障予測）</li>
+                    <li>生産最適化</li>
+                    <li>アノマリ検出（異常検知）</li>
+                </ul>
+
+                <h4>📱 マーケティング・広告</h4>
+                <ul>
+                    <li>パーソナライズされた広告配信</li>
+                    <li>カスタマージャーニー分析</li>
+                    <li>キャンペーン効果測定</li>
+                    <li>顧客行動予測</li>
+                </ul>
+
+                <div class="example">
+                    <strong>Netflixの推奨エンジン:</strong>
+                    <p>視聴履歴、評価、類似ユーザーの行動を基に、ユーザーに最も関心のありそう作品を推奨します。これにより視聴時間が増加し、サブスクリプション維持率が向上します。</p>
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 重要なポイント:</strong> AWS AIF-C01試験では、これらのユースケースがどのAWSサービスで実装されるかを学ぶことが重要です。
+                </div>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="section" id="section7">
+                <h2>7️⃣ AWS での実装への道</h2>
+                <div class="learning-time">⏱️ 学習時間: 約10分</div>
+
+                <h3>AWS AI/ML サービスの概観</h3>
+
+                <h4>📌 3つのレベルのサービス</h4>
+
+                <div class="concept-box">
+                    <h4>レベル1: 完全管理型AIサービス（最も簡単）</h4>
+                    <p>すぐに使える専門的なAI機能：</p>
+                    <ul>
+                        <li><strong>Amazon Rekognition:</strong> 画像・ビデオ分析</li>
+                        <li><strong>Amazon Comprehend:</strong> 自然言語処理（テキスト分析）</li>
+                        <li><strong>Amazon Lex:</strong> チャットボット構築</li>
+                        <li><strong>Amazon Polly:</strong> テキスト音声変換</li>
+                        <li><strong>Amazon Translate:</strong> 機械翻訳</li>
+                    </ul>
+                </div>
+
+                <div class="concept-box">
+                    <h4>レベル2: 機械学習プラットフォーム（中程度）</h4>
+                    <p>モデル開発とデプロイのための完全なプラットフォーム：</p>
+                    <ul>
+                        <li><strong>Amazon SageMaker:</strong> エンドツーエンドのML開発プラットフォーム</li>
+                    </ul>
+                </div>
+
+                <div class="concept-box">
+                    <h4>レベル3: 深層学習フレームワーク（最も柔軟）</h4>
+                    <p>完全なカスタマイズが可能：</p>
+                    <ul>
+                        <li><strong>Amazon EC2 GPU インスタンス:</strong> TensorFlow、PyTorchなどで開発</li>
+                        <li><strong>AWS Deep Learning AMI:</strong> プリインストールされた開発環境</li>
+                    </ul>
+                </div>
+
+                <h3>次のステップ</h3>
+                <p>Day 1-2で学習したAI/MLの基本概念を基に、Day 3-4では AWSの具体的なサービスを学習します：</p>
+                <ul>
+                    <li>✓ Amazon SageMaker の詳細</li>
+                    <li>✓ 各完全管理型AIサービスの使用例</li>
+                    <li>✓ 実装のベストプラクティス</li>
+                </ul>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="section" id="section8">
+                <h2>8️⃣ Day 1-2 のまとめ</h2>
+                <div class="learning-time">⏱️ 学習時間: 約10分</div>
+
+                <h3>学習した重要な概念</h3>
+
+                <div class="key-point">
+                    <strong>✓ AI とは:</strong> 人間の知能を模倣するコンピュータシステム（狭いAI、汎用AI、スーパーAIの3レベル）
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 機械学習とは:</strong> データから明示的にプログラムされることなく学習する技術
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 3つの主要タイプ:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>教師あり学習（回帰と分類）</li>
+                        <li>教師なし学習（クラスタリングと次元削減）</li>
+                        <li>強化学習（環境との相互作用を通じた学習）</li>
+                    </ul>
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ ディープラーニング:</strong> ニューラルネットワークを使用した強力なML手法（CNN、RNN、Transformerなど）
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 機械学習のライフサイクル:</strong> 問題定義→データ収集→前処理→特徴量エンジニアリング→モデル選択→訓練→チューニング→評価→デプロイ
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 過学習と未学習:</strong> 汎化性能を最適化することが成功の鍵
+                </div>
+
+                <div class="key-point">
+                    <strong>✓ 実世界のユースケース:</strong> ヘルスケア、金融、e-コマース、自動運転、製造業など多岐にわたる
+                </div>
+
+                <h3>理解度チェック</h3>
+                <p>以下の質問に答えられれば、Day 1-2の学習は成功です：</p>
+                <ul>
+                    <li>□ AIと機械学習の違いは何か説明できるか</li>
+                    <li>□ 教師あり学習と教師なし学習の違いと例を説明できるか</li>
+                    <li>□ ディープラーニングが従来の機械学習より優れている理由を説明できるか</li>
+                    <li>□ 機械学習プロジェクトの9ステップを説明できるか</li>
+                    <li>□ 過学習とはなぜ問題なのか説明できるか</li>
+                    <li>□ 具体的な実世界のユースケース3つ以上を挙げられるか</li>
+                </ul>
+
+                <h3>推奨学習リソース</h3>
+                <div class="resource-list">
+                    <h4>YouTube チャネル（無料）</h4>
+                    <ul>
+                        <li>Andrew Ng の Coursera "Machine Learning"（入門者向け）</li>
+                        <li>3Blue1Brown の「Neural Networks」シリーズ（概念の直感的理解）</li>
+                        <li>StatQuest with Josh Starmer（統計とML）</li>
+                    </ul>
+                    <h4>オンラインコース（有料）</h4>
+                    <ul>
+                        <li>Coursera: "Machine Learning Specialization" (Andrew Ng)</li>
+                        <li>Udemy: "Machine Learning A-Z"</li>
+                    </ul>
+                    <h4>書籍（初級）</h4>
+                    <ul>
+                        <li>「AIの基本がすべてわかる本」</li>
+                        <li>「ゼロから作る Deep Learning」</li>
+                    </ul>
+                </div>
+
+                <h3>次のステップ（Day 3-4）</h3>
+                <p>基本概念の理解ができたら、具体的なAWSサービスに進みます：</p>
+                <ul>
+                    <li>📅 Day 3-4: AWS AI/MLサービス概要</li>
+                    <li>📅 Day 5-7: データの準備と前処理</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 AWS AIF-C01 Day 1-2 学習テキスト完了</p>
+            <p>作成日：2026年5月29日 | 総学習時間：約180分</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                💡 このテキストを最大限活用するために、<br>
+                実際にコードを書いたり、例を手で動かしたりすることをお勧めします。
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

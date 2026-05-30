@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS AIF-C01 1ヶ月合格学習計画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        .content {
+            padding: 40px;
+        }
+        .summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        .summary h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .summary ul {
+            list-style: none;
+            color: #555;
+        }
+        .summary li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        .summary li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .week {
+            margin-bottom: 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .week-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .week-content {
+            padding: 20px;
+        }
+        .day {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        .day-title {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .day-content {
+            color: #333;
+            line-height: 1.8;
+        }
+        .day-content li {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+        .study-topics {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+        .study-topics strong {
+            color: #667eea;
+        }
+        .exam-info {
+            background: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 6px;
+        }
+        .exam-info h3 {
+            color: #17a2b8;
+            margin-bottom: 10px;
+        }
+        .exam-info ul {
+            list-style: none;
+            color: #333;
+        }
+        .exam-info li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        .exam-info li:before {
+            content: "➤";
+            color: #17a2b8;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .tips {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 6px;
+        }
+        .tips h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        .tips ul {
+            list-style: none;
+            color: #333;
+        }
+        .tips li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        .tips li:before {
+            content: "💡";
+            margin-right: 10px;
+        }
+        .resources {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 6px;
+        }
+        .resources h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        .resources ul {
+            list-style: none;
+            color: #333;
+        }
+        .resources li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        .resources li:before {
+            content: "📚";
+            margin-right: 10px;
+        }
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 AWS AIF-C01</h1>
+            <p>AWS Certified AI Practitioner - 1ヶ月合格学習計画</p>
+        </header>
+
+        <div class="content">
+            <div class="summary">
+                <h2>📋 計画概要</h2>
+                <ul>
+                    <li>学習期間：1ヶ月間（4週間）</li>
+                    <li>学習時間：1日2～3時間（平日）、3～4時間（休日）</li>
+                    <li>総学習時間：60～80時間</li>
+                    <li>目標：AWS AIF-C01試験合格</li>
+                </ul>
+            </div>
+
+            <!-- Week 1 -->
+            <div class="week">
+                <div class="week-header">第1週：基礎知識の習得（AI/ML基礎）</div>
+                <div class="week-content">
+                    <div class="day">
+                        <div class="day-title">📅 Day 1-2：AI/MLの基本概念</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>人工知能と機械学習の定義</li>
+                                    <li>機械学習の種類（教師あり学習、教師なし学習、強化学習）</li>
+                                    <li>ディープラーニングの基礎</li>
+                                    <li>AI/MLの実世界における応用例</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> AWS公式ドキュメント、Udemyコース「Machine Learning A-Z」
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 3-4：AWS AI/MLサービス概要</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>Amazon SageMaker の概要</li>
+                                    <li>Amazon Rekognition（画像認識）</li>
+                                    <li>Amazon Comprehend（テキスト分析）</li>
+                                    <li>Amazon Lex、Amazon Polly</li>
+                                    <li>Amazon Forecast、Amazon Lookout</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> AWS公式トレーニング、ハンズオンラボ
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 5-7：データの準備と前処理</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>データ収集と品質管理</li>
+                                    <li>データの正規化とクリーニング</li>
+                                    <li>特徴量エンジニアリング</li>
+                                    <li>AWS Glue によるデータ準備</li>
+                                    <li>Amazon S3 でのデータ管理</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> ハンズオン演習、公式チュートリアル
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">🎯 Week 1 まとめ</div>
+                        <div class="day-content">
+                            <strong>確認事項：</strong>
+                            <ul>
+                                <li>AI/MLの基本用語を理解できているか</li>
+                                <li>主要なAWSサービスの用途が理解できているか</li>
+                                <li>簡単なデータ前処理が実行できるか</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 2 -->
+            <div class="week">
+                <div class="week-header">第2週：モデル開発と構築</div>
+                <div class="week-content">
+                    <div class="day">
+                        <div class="day-title">📅 Day 8-9：SageMakerによるモデル構築</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>SageMaker Studio の使用方法</li>
+                                    <li>ノートブックインスタンスの作成と設定</li>
+                                    <li>組み込みアルゴリズム（XGBoost、Linear Learner など）</li>
+                                    <li>カスタムアルゴリズムの構築</li>
+                                    <li>ハイパーパラメータチューニング</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> SageMaker 無料枠でハンズオン
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 10-11：画像分類と物体検出</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>Amazon Rekognition の機能</li>
+                                    <li>SageMaker Image Classification アルゴリズム</li>
+                                    <li>物体検出（Object Detection）</li>
+                                    <li>顔認識と感情分析</li>
+                                    <li>カスタムラベルの作成</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> 実際のプロジェクトで応用
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 12-14：自然言語処理（NLP）</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>NLPの基礎（トークン化、埋め込み）</li>
+                                    <li>Amazon Comprehend の使用（テキスト分類、感情分析）</li>
+                                    <li>SageMaker BlazingText アルゴリズム</li>
+                                    <li>チャットボット構築（Amazon Lex）</li>
+                                    <li>翻訳サービス（Amazon Translate）</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> チャットボット作成ハンズオン
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">🎯 Week 2 まとめ</div>
+                        <div class="day-content">
+                            <strong>確認事項：</strong>
+                            <ul>
+                                <li>SageMaker でモデルを構築できるか</li>
+                                <li>異なるタイプのモデル（画像、テキスト）の使い分けができるか</li>
+                                <li>ハイパーパラメータチューニングの概念を理解しているか</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 3 -->
+            <div class="week">
+                <div class="week-header">第3週：モデル評価、デプロイ、運用</div>
+                <div class="week-content">
+                    <div class="day">
+                        <div class="day-title">📅 Day 15-16：モデル評価とメトリクス</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>精度、Recall、Precision の計算</li>
+                                    <li>F1スコアとROC曲線</li>
+                                    <li>混同行列（Confusion Matrix）</li>
+                                    <li>交差検証（Cross Validation）</li>
+                                    <li>過学習と未学習の対処</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> Python で実装練習
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 17-18：モデルのデプロイ</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>SageMaker Endpoint の作成</li>
+                                    <li>A/B テスティング（Multi-armed Bandit）</li>
+                                    <li>モデルのバージョニング管理</li>
+                                    <li>リアルタイム推論とバッチ処理</li>
+                                    <li>Amazon Lambda との統合</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> エンドポイント構築ハンズオン
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 19-21：運用とモニタリング</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>SageMaker Model Monitor（データドリフト検出）</li>
+                                    <li>CloudWatch メトリクスとログ</li>
+                                    <li>コスト最適化のベストプラクティス</li>
+                                    <li>セキュリティとアクセス制御（IAM）</li>
+                                    <li>MLOps パイプライン（SageMaker Pipelines）</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> 実運用シナリオの学習
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">🎯 Week 3 まとめ</div>
+                        <div class="day-content">
+                            <strong>確認事項：</strong>
+                            <ul>
+                                <li>モデルの評価指標を正しく計算できるか</li>
+                                <li>本番環境へのデプロイプロセスが理解できているか</li>
+                                <li>運用フェーズでの監視方法が理解できているか</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 4 -->
+            <div class="week">
+                <div class="week-header">第4週：試験準備と総復習</div>
+                <div class="week-content">
+                    <div class="day">
+                        <div class="day-title">📅 Day 22-24：ビジネス応用とユースケース</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>推奨システムの構築</li>
+                                    <li>時系列予測（Amazon Forecast）</li>
+                                    <li>異常検出（Amazon Lookout）</li>
+                                    <li>AI倫理とバイアス対策</li>
+                                    <li>ビジネス価値の評価</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> ケーススタディ分析
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 25-26：セキュリティと規制対応</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>AWS セキュリティ（暗号化、IAM、VPC）</li>
+                                    <li>データプライバシーと GDPR コンプライアンス</li>
+                                    <li>説明可能性（Explainability）とモデル解釈</li>
+                                    <li>SageMaker Clarify による bias 検出</li>
+                                    <li>監査と ロギング</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> ホワイトペーパーと公式ドキュメント
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 27-28：模擬試験と総復習</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>全1週目～3週目の総復習</li>
+                                    <li>模擬試験を最低2回実施（Udemy、AWS Skill Builder）</li>
+                                    <li>正答率 80% 以上を目指す</li>
+                                    <li>間違えた問題の詳細復習</li>
+                                    <li>サービス比較表の暗記</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> 模擬試験で苦手分野を特定・強化
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">📅 Day 29-30：最終調整と試験対策</div>
+                        <div class="day-content">
+                            <div class="study-topics">
+                                <strong>学習内容：</strong>
+                                <ul>
+                                    <li>苦手分野の集中学習</li>
+                                    <li>重要キーワードのまとめ確認</li>
+                                    <li>試験形式と時間管理の確認</li>
+                                    <li>最後の模擬試験</li>
+                                    <li>十分な睡眠を確保</li>
+                                </ul>
+                            </div>
+                            <strong>学習方法：</strong> 軽めの復習とメンタルケア
+                        </div>
+                    </div>
+
+                    <div class="day">
+                        <div class="day-title">🎯 Week 4 まとめ</div>
+                        <div class="day-content">
+                            <strong>試験前チェックリスト：</strong>
+                            <ul>
+                                <li>☑ 全主要サービスの機能を説明できるか</li>
+                                <li>☑ 使用ケースに応じた適切なサービスを選択できるか</li>
+                                <li>☑ 模擬試験で 80% 以上の正答率を達成したか</li>
+                                <li>☑ セキュリティとコンプライアンスの重要ポイントを理解しているか</li>
+                                <li>☑ 試験当日の準備物を確認したか</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 試験情報 -->
+            <div class="exam-info">
+                <h3>📌 試験情報</h3>
+                <ul>
+                    <li><strong>試験名：</strong> AWS Certified AI Practitioner - Associate (AIF-C01)</li>
+                    <li><strong>問題数：</strong> 65問</li>
+                    <li><strong>試験時間：</strong> 130分</li>
+                    <li><strong>合格スコア：</strong> 720点以上（1000点満点）</li>
+                    <li><strong>受験形式：</strong> オンライン（PSI）または試験会場</li>
+                    <li><strong>受験料：</strong> 150米ドル（税別）</li>
+                </ul>
+            </div>
+
+            <!-- 推奨リソース -->
+            <div class="resources">
+                <h3>📚 推奨学習リソース</h3>
+                <ul>
+                    <li><strong>AWS 公式：</strong> AWS Skill Builder（AI Practitioner パス）</li>
+                    <li><strong>Udemy：</strong> "AWS Certified AI Practitioner - Associate" コース</li>
+                    <li><strong>YouTube：</strong> AWS Training and Certification チャネル</li>
+                    <li><strong>書籍：</strong> "Machine Learning on AWS" (Julien Simon)</li>
+                    <li><strong>ハンズオン：</strong> AWS Immersion Day（ML）</li>
+                    <li><strong>公式ドキュメント：</strong> Amazon SageMaker、AWS AI/ML Services</li>
+                    <li><strong>模擬試験：</strong> Udemy Practice Tests、AWS Skill Builder</li>
+                </ul>
+            </div>
+
+            <!-- 学習のヒント -->
+            <div class="tips">
+                <h3>💡 成功するための学習ヒント</h3>
+                <ul>
+                    <li><strong>毎日学習：</strong> 継続的な学習が最も重要。1日2～3時間を確保しましょう</li>
+                    <li><strong>ハンズオン重視：</strong> 理論だけでなく、実際に手を動かして学習しましょう</li>
+                    <li><strong>サービス比較：</strong> 似たサービス（例：Rekognition vs Textract）の違いを把握しましょう</li>
+                    <li><strong>ユースケース学習：</strong> 「いつ、どのサービスを使うか」を意識しましょう</li>
+                    <li><strong>模擬試験活用：</strong> 本番形式で複数回受験し、弱点を特定しましょう</li>
+                    <li><strong>グループ学習：</strong> 他の受験者と情報交換をしましょう</li>
+                    <li><strong>試験前日：</strong> 新しい内容は避け、軽い復習と十分な睡眠を取りましょう</li>
+                </ul>
+            </div>
+
+            <!-- 重要トピック -->
+            <div class="summary" style="margin-top: 30px; background: #e7f3ff; border-left-color: #0066cc;">
+                <h2>🔑 試験対策の重点トピック</h2>
+                <ul>
+                    <li><strong>SageMaker：</strong> 全機能の用途と選択基準を完璧に理解</li>
+                    <li><strong>AI/MLサービス：</strong> Rekognition、Comprehend、Lex、Polly の違いと使い分け</li>
+                    <li><strong>ベストプラクティス：</strong> セキュリティ、スケーラビリティ、コスト最適化</li>
+                    <li><strong>データ処理：</strong> 前処理、特徴量エンジニアリングの重要性</li>
+                    <li><strong>モデル評価：</strong> 評価指標と過学習対策</li>
+                    <li><strong>倫理とコンプライアンス：</strong> バイアス、プライバシー、説明可能性</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>作成日：2026年5月29日 | AWS AIF-C01 合格を目指して頑張りましょう！🚀</p>
+        </footer>
+    </div>
+</body>
+</html>

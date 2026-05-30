@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 5-7: データの準備と前処理 - 3時間教育テキスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #eef7f5;
+            color: #2f3b44;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        header {
+            background: linear-gradient(135deg, #1aa39d 0%, #4dc6ff 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.25em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.05em;
+            opacity: 0.95;
+        }
+        .table-of-contents {
+            background: #ebfbfa;
+            padding: 22px 32px;
+            border-bottom: 3px solid #1aa39d;
+        }
+        .table-of-contents h2 {
+            color: #0e6c69;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .table-of-contents ol {
+            list-style: decimal;
+            margin-left: 20px;
+            color: #445560;
+        }
+        .table-of-contents li {
+            margin-bottom: 10px;
+        }
+        .table-of-contents a {
+            color: #0e6c69;
+            text-decoration: none;
+        }
+        .table-of-contents a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .section {
+            margin-bottom: 54px;
+        }
+        .section h2 {
+            color: #1aa39d;
+            font-size: 1.85em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1aa39d;
+        }
+        .section h3 {
+            color: #247a79;
+            font-size: 1.35em;
+            margin-top: 25px;
+            margin-bottom: 16px;
+        }
+        .section h4 {
+            color: #2f3b44;
+            font-size: 1.1em;
+            margin-top: 18px;
+            margin-bottom: 10px;
+        }
+        .learning-time {
+            background: #d8f3ef;
+            border-left: 4px solid #1aa39d;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .concept-box {
+            background: #f3fffd;
+            border: 2px solid #b7ece6;
+            padding: 22px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        .concept-box h4 {
+            color: #1aa39d;
+            margin-bottom: 12px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .comparison-table th {
+            background: #1aa39d;
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid #e0e3e6;
+        }
+        .comparison-table tr:hover {
+            background: #f1faf9;
+        }
+        .code-block {
+            background: #233238;
+            color: #a9f0d1;
+            padding: 22px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        .example {
+            background: #fff4e6;
+            border-left: 4px solid #ffb74d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .example strong {
+            color: #d26900;
+        }
+        .key-point {
+            background: #e1f5e9;
+            border-left: 4px solid #43a047;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 4px;
+        }
+        .key-point strong {
+            color: #2e7d32;
+        }
+        ul, ol {
+            margin: 18px 0 18px 34px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            background: #f2fcfb;
+            padding: 28px 30px;
+            text-align: center;
+            color: #556b6b;
+            border-top: 1px solid #d4e8e4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 Day 5-7: データの準備と前処理</h1>
+            <p>AWS Certified AI Practitioner 準備教材 - 3時間教育テキスト</p>
+            <p style="margin-top: 10px; font-size: 0.95em;">総学習時間: 約180分 | 主題: データ品質、クリーニング、特徴量、パイプライン</p>
+        </header>
+
+        <div class="table-of-contents">
+            <h2>📑 目次</h2>
+            <ol>
+                <li><a href="#section1">なぜデータ準備がAI/MLの核心か</a></li>
+                <li><a href="#section2">データ収集と品質評価</a></li>
+                <li><a href="#section3">欠損値・外れ値の処理</a></li>
+                <li><a href="#section4">特徴量エンジニアリングの基礎</a></li>
+                <li><a href="#section5">データ変換と正規化</a></li>
+                <li><a href="#section6">テキスト・画像データの前処理</a></li>
+                <li><a href="#section7">データパイプラインと再現性</a></li>
+                <li><a href="#section8">演習: 具体的な前処理フロー</a></li>
+                <li><a href="#section9">ベストプラクティスとAWS活用例</a></li>
+                <li><a href="#section10">Day 5-7 のまとめ</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="section" id="section1">
+                <h2>1️⃣ なぜデータ準備がAI/MLの核心か</h2>
+                <div class="learning-time">⏱️ 学習時間: 約15分</div>
+                <p>AI/MLモデルの性能は、アルゴリズムだけでなく「データの質」で決まります。データ準備と前処理は、信頼できるモデルを構築するための土台です。</p>
+
+                <h3>データ準備の目的</h3>
+                <ul>
+                    <li>データの精度と一貫性を向上させる</li>
+                    <li>ノイズや欠損に強い入力データをつくる</li>
+                    <li>特徴量を適切に表現し、学習を安定化させる</li>
+                    <li>再現性のある処理手順を確立する</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>💡 Key Concept</h4>
+                    <p>AI/MLにおける「80/20の法則」: モデル性能の80%はデータ準備と前処理で決まり、20%がアルゴリズムの選択です。</p>
+                </div>
+
+                <h3>前処理が失敗すると起きる問題</h3>
+                <ul>
+                    <li>欠損値が学習結果を歪める</li>
+                    <li>異常値にモデルが引きずられる</li>
+                    <li>カテゴリ変数の扱いが誤ると意味を失う</li>
+                    <li>データ漏洩が発生し、評価結果が過剰になる</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section2">
+                <h2>2️⃣ データ収集と品質評価</h2>
+                <div class="learning-time">⏱️ 学習時間: 約25分</div>
+
+                <h3>データソースの種類</h3>
+                <ol>
+                    <li>構造化データ: CSV、データベース、ログデータ</li>
+                    <li>半構造化データ: JSON、XML、APIレスポンス</li>
+                    <li>非構造化データ: テキスト、画像、音声</li>
+                </ol>
+
+                <h3>データ品質の主要指標</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>指標</th>
+                        <th>説明</th>
+                    </tr>
+                    <tr>
+                        <td>完全性</td>
+                        <td>欠損値が少ないこと。重要な列やレコードが抜けていない状態。</td>
+                    </tr>
+                    <tr>
+                        <td>正確性</td>
+                        <td>実際の値と一致しているか。測定値や入力値の誤りを検出する。</td>
+                    </tr>
+                    <tr>
+                        <td>一貫性</td>
+                        <td>同じ意味のデータが同じ形式で揃っているか。</td>
+                    </tr>
+                    <tr>
+                        <td>重複性</td>
+                        <td>重複レコードや重複イベントが含まれていないか。</td>
+                    </tr>
+                    <tr>
+                        <td>有効性</td>
+                        <td>値の範囲や形式が定義に合っているか。</td>
+                    </tr>
+                </table>
+
+                <h3>品質評価のための簡単なチェックリスト</h3>
+                <ul>
+                    <li>列数・行数が期待通りか</li>
+                    <li>欠損値の割合を確認（NULL、空文字、特殊値）</li>
+                    <li>データ型が一貫しているか</li>
+                    <li>外れ値や異常値の存在を可視化</li>
+                    <li>ラベルが正しく分布しているか（分類問題の場合）</li>
+                </ul>
+
+                <div class="example">
+                    <strong>例:</strong> 販売データの「売上金額」が負の値を含む場合、それは測定ミスやデータ入力エラーの可能性があります。
+                </div>
+            </div>
+
+            <div class="section" id="section3">
+                <h2>3️⃣ 欠損値・外れ値の処理</h2>
+                <div class="learning-time">⏱️ 学習時間: 約35分</div>
+
+                <h3>欠損値のパターン</h3>
+                <ul>
+                    <li>Missing Completely at Random (MCAR): ランダムに欠損</li>
+                    <li>Missing at Random (MAR): 他の変数に依存して欠損</li>
+                    <li>Missing Not at Random (MNAR): 欠損自体に意味がある</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>💡 重要</h4>
+                    <p>欠損値処理は一律ルールではなく、ドメイン知識と欠損の原因に応じて戦略を選ぶ必要があります。</p>
+                </div>
+
+                <h3>欠損値への対処法</h3>
+                <ul>
+                    <li>削除: 欠損行や欠損列を削除する</li>
+                    <li>補完: 平均・中央値・最頻値・前後値などで埋める</li>
+                    <li>推定: モデルや統計的手法を使う</li>
+                    <li>フラグ付け: 欠損を示す特徴量を追加する</li>
+                </ul>
+
+                <h3>外れ値の検出と処理</h3>
+                <ol>
+                    <li>箱ひげ図や標準偏差で検出する</li>
+                    <li>分布から外れた値を確認する</li>
+                    <li>ビジネスルールに照らして妥当性を判断する</li>
+                    <li>修正、削除、または隔離して扱う</li>
+                </ol>
+
+                <div class="code-block">
+<pre>
+# pandasによる欠損値確認例
+import pandas as pd
+
+df = pd.read_csv('sales_data.csv')
+print(df.isnull().sum())
+
+# 平均値補完
+for col in ['price', 'quantity']:
+    df[col].fillna(df[col].median(), inplace=True)
+
+# 外れ値の簡易検出
+q1 = df['price'].quantile(0.25)
+q3 = df['price'].quantile(0.75)
+IQR = q3 - q1
+outliers = df[(df['price'] < q1 - 1.5 * IQR) | (df['price'] > q3 + 1.5 * IQR)]
+print(outliers)
+</pre>
+                </div>
+            </div>
+
+            <div class="section" id="section4">
+                <h2>4️⃣ 特徴量エンジニアリングの基礎</h2>
+                <div class="learning-time">⏱️ 学習時間: 約30分</div>
+
+                <h3>特徴量とは</h3>
+                <p>特徴量はモデルが学習する入力データの要素です。元データから価値ある情報を取り出し、モデルがより良く学習できるように整形します。</p>
+
+                <h3>代表的な特徴量エンジニアリング</h3>
+                <ul>
+                    <li>数値特徴量の合成: 比率、差分、平均</li>
+                    <li>カテゴリ特徴量の分割: 層別化、バケット化</li>
+                    <li>日時特徴量の展開: 年、月、曜日、時間帯</li>
+                    <li>ドメイン固有の変換: 例) 顧客LTV、距離、頻度</li>
+                </ul>
+
+                <h3>カテゴリ変数の扱い</h3>
+                <ul>
+                    <li>One-Hot Encoding: 各カテゴリを二値特徴に変換</li>
+                    <li>ラベルエンコーディング: カテゴリを整数に変換</li>
+                    <li>ターゲットエンコーディング: 目的変数の平均を利用</li>
+                    <li>頻度エンコーディング: 登場頻度を特徴量化</li>
+                </ul>
+
+                <div class="comparison-table">
+                    <tr>
+                        <th>手法</th>
+                        <th>長所</th>
+                        <th>短所</th>
+                    </tr>
+                    <tr>
+                        <td>One-Hot Encoding</td>
+                        <td>直感的で多くのモデルで扱いやすい</td>
+                        <td>高次元化しやすい</td>
+                    </tr>
+                    <tr>
+                        <td>ラベルエンコーディング</td>
+                        <td>次元数が増えない</td>
+                        <td>順序がない場合に誤解を招く</td>
+                    </tr>
+                    <tr>
+                        <td>ターゲットエンコーディング</td>
+                        <td>高次元カテゴリを効果的に扱える</td>
+                        <td>データ漏洩のリスクがある</td>
+                    </tr>
+                </table>
+
+                <div class="key-point">
+                    <strong>💡 ポイント:</strong> 特徴量設計では「意味のある変換」を優先し、モデルに与える値がビジネスの文脈に即しているか確認します。
+                </div>
+            </div>
+
+            <div class="section" id="section5">
+                <h2>5️⃣ データ変換と正規化</h2>
+                <div class="learning-time">⏱️ 学習時間: 約25分</div>
+
+                <h3>なぜ変換が必要か</h3>
+                <p>異なるスケールの変数が混在していると、距離ベースのモデルや勾配降下法で学習が不安定になります。適切なスケーリングや変換で学習の収束を改善します。</p>
+
+                <h3>代表的な変換手法</h3>
+                <ol>
+                    <li>標準化 (Standardization): 平均0、分散1 になるよう変換</li>
+                    <li>正規化 (Normalization): 0〜1 に収める</li>
+                    <li>対数変換: 分布の歪みを改善する</li>
+                    <li>Box-Cox / Yeo-Johnson: 連続値を正規分布に近づける</li>
+                </ol>
+
+                <div class="code-block">
+<pre>
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
+scaler = StandardScaler()
+df[['age', 'income']] = scaler.fit_transform(df[['age', 'income']])
+
+minmax = MinMaxScaler()
+df[['score']] = minmax.fit_transform(df[['score']])
+
+# 対数変換
+import numpy as np
+df['sales_log'] = np.log1p(df['sales'])
+</pre>
+                </div>
+
+                <h3>スケーリングの選択基準</h3>
+                <ul>
+                    <li>線形回帰やSVM、ニューラルネットでは標準化が有効</li>
+                    <li>ツリーベースのモデルでは必須ではない</li>
+                    <li>0〜1に揃える場合はMin-Max正規化を使用</li>
+                    <li>分布が歪んでいる場合は対数変換やBox-Coxを検討</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section6">
+                <h2>6️⃣ テキスト・画像データの前処理</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>テキストデータの前処理</h3>
+                <ul>
+                    <li>小文字化</li>
+                    <li>不要な記号・HTMLタグの除去</li>
+                    <li>トークン化</li>
+                    <li>ストップワードの除去</li>
+                    <li>ステミング / 形態素解析</li>
+                    <li>Bag-of-Words / TF-IDF / 埋め込みベクトル化</li>
+                </ul>
+
+                <h4>前処理例</h4>
+                <div class="code-block">
+<pre>
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+text = "今日は、AIの学習を始めます。"
+text = text.lower()
+text = re.sub(r'[^\w\s]', '', text)
+
+vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b\w+\b')
+X = vectorizer.fit_transform([text])
+print(vectorizer.get_feature_names_out())
+</pre>
+                </div>
+
+                <h3>画像データの前処理</h3>
+                <ul>
+                    <li>リサイズ</li>
+                    <li>正規化</li>
+                    <li>データ拡張 (回転、反転、切り抜き)</li>
+                    <li>色空間変換</li>
+                    <li>バッチ化</li>
+                </ul>
+
+                <div class="example">
+                    <strong>注意:</strong> 画像の前処理では、訓練データのみデータ拡張を行い、検証/テストデータは補正のみとします。これにより、評価が過学習の影響を受けにくくなります。
+                </div>
+            </div>
+
+            <div class="section" id="section7">
+                <h2>7️⃣ データパイプラインと再現性</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>前処理の再現性を保つ</h3>
+                <p>同じデータに同じ処理を繰り返せることは、AI/MLワークフローの基本です。前処理をコードやパイプラインにまとめ、バージョン管理します。</p>
+
+                <h3>パイプラインの構成要素</h3>
+                <ul>
+                    <li>データ読み込み</li>
+                    <li>データ検査・クレンジング</li>
+                    <li>欠損値・外れ値の処理</li>
+                    <li>特徴量変換</li>
+                    <li>訓練用・評価用データの分割</li>
+                </ul>
+
+                <h3>AWSで使える管理手法</h3>
+                <ul>
+                    <li>AWS Glue: ETLパイプラインの自動化</li>
+                    <li>Amazon SageMaker Data Wrangler: 前処理の可視化とエクスポート</li>
+                    <li>Amazon S3: データの永続化とバージョン管理</li>
+                    <li>AWS Step Functions: ワークフロー連携</li>
+                </ul>
+
+                <div class="key-point">
+                    <strong>💡 ベストプラクティス:</strong> データ前処理は「手動処理」ではなく、「自動化されたパイプライン」に落とし込むべきです。再現性と監査性を高めます。
+                </div>
+            </div>
+
+            <div class="section" id="section8">
+                <h2>8️⃣ 演習: 具体的な前処理フロー</h2>
+                <div class="learning-time">⏱️ 学習時間: 約20分</div>
+
+                <h3>ケース: 顧客離反予測</h3>
+                <p>顧客データには、数値、カテゴリ、テキスト、日付が混在しています。次の手順で前処理を設計します。</p>
+
+                <h4>ステップ1: データ品質の確認</h4>
+                <ol>
+                    <li>欠損値の割合を確認</li>
+                    <li>カテゴリ列のユニーク数を確認</li>
+                    <li>数値列の分布と外れ値を可視化</li>
+                </ol>
+
+                <h4>ステップ2: 欠損値の扱い</h4>
+                <ul>
+                    <li>年齢: 中央値で補完</li>
+                    <li>職業: 'Unknown' などのカテゴリにまとめる</li>
+                    <li>最終購入日: 日付差から新しい特徴を作成</li>
+                </ul>
+
+                <h4>ステップ3: 特徴量変換</h4>
+                <ul>
+                    <li>購買回数 / 継続期間 = 平均購入頻度</li>
+                    <li>ログ変換で購入額の裾を改善</li>
+                    <li>曜日や月を特徴量化</li>
+                </ul>
+
+                <h4>ステップ4: モデル入力への変換</h4>
+                <ul>
+                    <li>カテゴリ変数をOne-Hot化</li>
+                    <li>数値特徴量を標準化</li>
+                    <li>テキストコメントをTF-IDF変換</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section9">
+                <h2>9️⃣ ベストプラクティスとAWS活用例</h2>
+                <div class="learning-time">⏱️ 学習時間: 約10分</div>
+
+                <h3>前処理のベストプラクティス</h3>
+                <ul>
+                    <li>データのサンプルを可視化し、異常を早期に発見する</li>
+                    <li>前処理を細かいステップに分けて検証する</li>
+                    <li>トレーニングセットとテストセットの処理は同一の手順にする</li>
+                    <li>特徴量を説明できるようにコメントやドキュメントを残す</li>
+                </ul>
+
+                <h3>AWSでの具体例</h3>
+                <ul>
+                    <li>Amazon SageMaker Data Wrangler でデータ可視化と加工を行う</li>
+                    <li>AWS Glue でデータカタログを作成し、ETLを定期実行する</li>
+                    <li>S3に前処理済みデータを保存し、SageMakerで再利用する</li>
+                    <li>Step FunctionsでGlue、SageMaker、Lambdaを連携し、運用パイプラインを構築する</li>
+                </ul>
+            </div>
+
+            <div class="section" id="section10">
+                <h2>🔚 Day 5-7 のまとめ</h2>
+                <div class="learning-time">⏱️ 学習時間: 約10分</div>
+
+                <ul>
+                    <li>データ準備はAI/MLの最も重要なフェーズであり、十分な品質管理が必須である。</li>
+                    <li>欠損値や外れ値は原因を考え、単純削除ではなく補完やフラグ付けを検討する。</li>
+                    <li>特徴量エンジニアリングでは、ビジネス意味を意識した変換が効果を生む。</li>
+                    <li>前処理の再現性を維持するために、パイプライン化とドキュメント化を徹底する。</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>🎯 最後に</h4>
+                    <p>データ前処理を丁寧に設計・実装することで、後続のモデル構築と運用が格段に安定します。Day 5-7 は、AI/ML プロジェクト成功の礎を築く期間です。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>この教材は、AI/ML学習の実務適用を想定したデータ準備と前処理の理解を支援します。</p>
+        </div>
+    </div>
+</body>
+</html>
