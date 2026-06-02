@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 12-14: 自然言語処理（NLP）- 3時間教育テキスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        .table-of-contents {
+            background: #f0fdf4;
+            padding: 20px 30px;
+            border-bottom: 3px solid #11998e;
+        }
+        .table-of-contents h2 {
+            color: #11998e;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .table-of-contents ol {
+            list-style: decimal;
+            margin-left: 20px;
+            color: #555;
+        }
+        .table-of-contents li {
+            margin-bottom: 8px;
+        }
+        .table-of-contents a {
+            color: #11998e;
+            text-decoration: none;
+        }
+        .table-of-contents a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        .section h2 {
+            color: #11998e;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #11998e;
+        }
+        .section h3 {
+            color: #0d7a6b;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .section h4 {
+            color: #333;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .learning-path {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .learning-path strong {
+            color: #1976d2;
+        }
+        .concept-box {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        .concept-box h4 {
+            color: #11998e;
+            margin-bottom: 12px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .comparison-table th {
+            background: #11998e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            white-space: pre;
+        }
+        .example {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .example strong {
+            color: #e65100;
+        }
+        .key-point {
+            background: #c8e6c9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .key-point strong {
+            color: #2e7d32;
+        }
+        .warning-box {
+            background: #fce4ec;
+            border-left: 4px solid #e91e63;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning-box strong {
+            color: #880e4f;
+        }
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .timeline {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 6px;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .timeline-marker {
+            width: 30px;
+            height: 30px;
+            background: #11998e;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+        .timeline-content h4 {
+            margin-top: 0;
+        }
+        .learning-time {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+        .diagram {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        .resource-list {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .nlp-pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .pipeline-step {
+            background: #11998e;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            position: relative;
+        }
+        .pipeline-step::after {
+            content: '→';
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #11998e;
+            font-size: 1.2em;
+        }
+        .pipeline-step:last-child::after {
+            display: none;
+        }
+        .quiz-section {
+            background: #e8eaf6;
+            border: 2px solid #3f51b5;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        .quiz-section h3 {
+            color: #3f51b5;
+            margin-bottom: 20px;
+        }
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .quiz-answer {
+            background: white;
+            border: 1px solid #c5cae9;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        .badge {
+            display: inline-block;
+            background: #11998e;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .badge-aws {
+            background: #ff9900;
+        }
+        .nlp-card {
+            border: 2px solid #11998e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .nlp-card h4 {
+            color: #11998e;
+            margin-bottom: 10px;
+            font-size: 1.15em;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        @media (max-width: 700px) {
+            .two-col { grid-template-columns: 1fr; }
+            .nlp-pipeline { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Day 12-14: 自然言語処理（NLP）</h1>
+        <p>AWS AIF-C01 対策 | 学習時間の目安：3時間</p>
+    </header>
+
+    <!-- 目次 -->
+    <div class="table-of-contents">
+        <h2>目次</h2>
+        <ol>
+            <li><a href="#overview">NLPの概要と歴史</a></li>
+            <li><a href="#text-preprocessing">テキスト前処理の基礎</a></li>
+            <li><a href="#traditional-nlp">従来のNLP手法（RNN・LSTM）</a></li>
+            <li><a href="#attention">Attention機構</a></li>
+            <li><a href="#transformer">Transformerアーキテクチャ</a></li>
+            <li><a href="#llm">大規模言語モデル（LLM）</a></li>
+            <li><a href="#nlp-tasks">主要なNLPタスク</a></li>
+            <li><a href="#aws-nlp">AWS NLPサービス</a></li>
+            <li><a href="#exam-tips">試験対策ポイント</a></li>
+            <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+    </div>
+
+    <div class="content">
+
+        <!-- Section 1 -->
+        <div class="section" id="overview">
+            <h2>1. NLPの概要と歴史</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：20分</div>
+
+            <h3>1.1 自然言語処理とは</h3>
+            <p>
+                自然言語処理（Natural Language Processing：NLP）は、人間が日常的に使う言語（自然言語）をコンピューターが理解・生成・操作できるようにするAIの一分野です。
+                テキストや音声の形で表現された言語データを扱い、意味の理解・情報抽出・翻訳・生成など幅広いタスクをカバーします。
+            </p>
+
+            <div class="key-point">
+                <strong>ポイント：</strong> NLPは「言語の理解（NLU：Natural Language Understanding）」と「言語の生成（NLG：Natural Language Generation）」の2つの側面を持ちます。
+                現代のLLM（大規模言語モデル）はこの両方を統合しています。
+            </div>
+
+            <h3>1.2 NLPが難しい理由</h3>
+            <p>自然言語はプログラミング言語と異なり、以下の特性により機械処理が困難です：</p>
+            <ul>
+                <li><strong>曖昧性（Ambiguity）：</strong>「彼は眼鏡の男を追いかけた」→ 眼鏡をかけているのは彼か男か？</li>
+                <li><strong>文脈依存性：</strong>「銀行に行く」→ 金融機関か川の土手か？</li>
+                <li><strong>慣用表現・比喩：</strong>「猫の手も借りたい」→ 文字通りではない意味</li>
+                <li><strong>言語の多様性：</strong>世界に7,000以上の言語。文法構造が大きく異なる</li>
+                <li><strong>進化する言語：</strong>スラング、新語、略語が常に生まれる</li>
+            </ul>
+
+            <h3>1.3 NLPの歴史的発展</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h4>1950〜1980年代：ルールベース時代</h4>
+                        <p>人間が手動で文法規則や辞書を作成。チューリングテスト提案（1950）、ELIZAチャットボット（1966）。処理できる範囲が限定的で拡張性に乏しかった。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h4>1990〜2000年代：統計的NLP時代</h4>
+                        <p>大量のテキストコーパスから確率モデルを学習。HMM（隠れマルコフモデル）、Naive Bayes分類器、TF-IDFなど。機械翻訳や音声認識に応用。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h4>2010〜2017年：ニューラルNLP時代</h4>
+                        <p>Word2Vec（2013）による単語埋め込みが登場。RNN・LSTM・GRUによるシーケンスモデリング。Attention機構の発明（2015）。精度が大幅向上。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h4>2017年〜現在：Transformer・LLM時代</h4>
+                        <p>「Attention Is All You Need」論文（2017）でTransformer登場。BERT（2018）、GPT系列、T5、LLaMAなど大規模言語モデルが次々登場。ChatGPT（2022）で一般普及。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example">
+                <strong>具体例：機械翻訳精度の進化</strong><br>
+                ルールベース：「I have a book」→ 「私は本を持っている」（単純な文は正確だが複雑な文は誤訳多発）<br>
+                統計的：フレーズ対応を学習、自然さが向上するが流暢さに課題<br>
+                ニューラル（Transformer）：文脈全体を考慮した自然な翻訳。Google翻訳・DeepL等で実用化
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section" id="text-preprocessing">
+            <h2>2. テキスト前処理の基礎</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：25分</div>
+
+            <p>
+                NLPモデルに生のテキストをそのまま入力することは稀です。多くの場合、テキストを数値表現に変換するための前処理が必要です。
+            </p>
+
+            <h3>2.1 トークン化（Tokenization）</h3>
+            <p>テキストを処理単位（トークン）に分割する操作です。</p>
+
+            <div class="two-col">
+                <div class="nlp-card">
+                    <h4>単語トークン化</h4>
+                    <p>「I love NLP」→ ["I", "love", "NLP"]</p>
+                    <p>スペースや句読点で分割。英語には有効だが日本語には不向き。</p>
+                </div>
+                <div class="nlp-card">
+                    <h4>サブワードトークン化</h4>
+                    <p>「unhappiness」→ ["un", "happy", "ness"]</p>
+                    <p>BPE（Byte Pair Encoding）やWordPieceが代表的。LLMで広く使用。</p>
+                </div>
+                <div class="nlp-card">
+                    <h4>文字トークン化</h4>
+                    <p>「NLP」→ ["N", "L", "P"]</p>
+                    <p>語彙外単語（OOV）問題を完全回避できるが、シーケンスが長くなる。</p>
+                </div>
+                <div class="nlp-card">
+                    <h4>日本語トークン化</h4>
+                    <p>MeCab・SudachiなどのMorphological Analyzerを使用。<br>「東京に行く」→ ["東京", "に", "行く"]</p>
+                </div>
+            </div>
+
+            <h3>2.2 テキスト正規化</h3>
+            <ul>
+                <li><strong>小文字化：</strong>「Apple」「apple」「APPLE」を統一</li>
+                <li><strong>ステミング（Stemming）：</strong>「running」「runs」「ran」→「run」（語根抽出、ルールベース）</li>
+                <li><strong>レンマ化（Lemmatization）：</strong>「better」→「good」（辞書を使った正確な原形変換）</li>
+                <li><strong>ストップワード除去：</strong>「the」「is」「a」など頻出するが意味を持たない語を削除</li>
+                <li><strong>特殊文字・HTMLタグ除去：</strong>ノイズとなる記号やマークアップを削除</li>
+            </ul>
+
+            <div class="code-block">
+# Pythonによるテキスト前処理の例（概念コード）
+import re
+
+text = "The running dogs RAN quickly!!! Visit https://example.com"
+
+# 1. 小文字化
+text = text.lower()
+# → "the running dogs ran quickly!!! visit https://example.com"
+
+# 2. URLの除去
+text = re.sub(r'https?://\S+', '', text)
+# → "the running dogs ran quickly!!! visit "
+
+# 3. 特殊文字除去
+text = re.sub(r'[^a-z\s]', '', text)
+# → "the running dogs ran quickly visit "
+
+# 4. ストップワード除去（"the", "a", "is" など）
+stopwords = {"the", "a", "is", "visit"}
+tokens = [w for w in text.split() if w not in stopwords]
+# → ["running", "dogs", "ran", "quickly"]</div>
+
+            <h3>2.3 テキストの数値表現</h3>
+            <p>機械学習モデルはテキストをそのまま処理できないため、数値ベクトルに変換します。</p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>手法</th>
+                    <th>概要</th>
+                    <th>特徴</th>
+                    <th>用途</th>
+                </tr>
+                <tr>
+                    <td><strong>Bag of Words (BoW)</strong></td>
+                    <td>単語の出現頻度をベクトル化</td>
+                    <td>シンプル、語順情報なし</td>
+                    <td>文書分類、スパム検出</td>
+                </tr>
+                <tr>
+                    <td><strong>TF-IDF</strong></td>
+                    <td>単語の重要度を頻度と希少性で重み付け</td>
+                    <td>BoWより高精度、次元数大</td>
+                    <td>情報検索、キーワード抽出</td>
+                </tr>
+                <tr>
+                    <td><strong>Word2Vec</strong></td>
+                    <td>単語を密なベクトル空間に埋め込み</td>
+                    <td>意味的類似性を表現できる</td>
+                    <td>感情分析、文書類似度</td>
+                </tr>
+                <tr>
+                    <td><strong>BERT Embeddings</strong></td>
+                    <td>文脈を考慮した動的埋め込み</td>
+                    <td>高精度、計算コスト大</td>
+                    <td>質問応答、固有表現認識</td>
+                </tr>
+            </table>
+
+            <div class="concept-box">
+                <h4>Word2Vecの直感的理解</h4>
+                <p>Word2Vecは単語を300次元程度のベクトルとして表現します。重要な性質：</p>
+                <ul>
+                    <li>意味が近い単語はベクトル空間で近くに配置される</li>
+                    <li>ベクトル演算が意味的演算に対応：<br>
+                        vector("王") - vector("男") + vector("女") ≈ vector("女王")
+                    </li>
+                    <li>類義語・反義語・カテゴリ関係などを自動的に学習</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section" id="traditional-nlp">
+            <h2>3. 従来のNLP手法（RNN・LSTM）</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：20分</div>
+
+            <h3>3.1 統計的言語モデル（n-gram）</h3>
+            <p>
+                n-gramモデルは最も基本的な言語モデルです。直前のn-1個の単語から次の単語を予測します。
+            </p>
+
+            <div class="diagram">
+<strong>Bigram（2-gram）モデルの例</strong>
+
+文：「東京は日本の首都です」
+
+P("東京は日本の首都です") ≈
+    P("東京") × P("は"|"東京") × P("日本"|"は") × P("の"|"日本")
+    × P("首都"|"の") × P("です"|"首都")
+
+→ 各条件付き確率をコーパスから計算してモデルを構築
+            </div>
+
+            <div class="key-point">
+                <strong>n-gramの限界：</strong> n=2や3の場合、長距離の依存関係を捉えられません。
+                「私が昨日公園で出会った<strong>彼</strong>は...優しかった」→「彼」と「優しかった」の関係を捉えるには長い文脈が必要。
+            </div>
+
+            <h3>3.2 RNNとLSTM</h3>
+            <p>
+                リカレントニューラルネットワーク（RNN）は、シーケンスデータを処理するために設計されました。
+                前のステップの隠れ状態を次のステップに引き継ぐことで、文脈情報を保持します。
+            </p>
+
+            <div class="diagram">
+<strong>RNNの処理フロー</strong>
+
+入力系列：  x₁      x₂      x₃      x₄
+            ↓       ↓       ↓       ↓
+隠れ状態： h₁  →  h₂  →  h₃  →  h₄
+            ↓       ↓       ↓       ↓
+出力：      y₁      y₂      y₃      y₄
+
+各ステップ：h_t = tanh(W_h × h_{t-1} + W_x × x_t + b)
+            </div>
+
+            <div class="two-col">
+                <div class="nlp-card">
+                    <h4>RNNの問題点</h4>
+                    <ul>
+                        <li><strong>勾配消失問題：</strong>長い系列で初期の情報が失われる</li>
+                        <li><strong>逐次処理：</strong>並列化できず学習が遅い</li>
+                        <li><strong>長期依存性：</strong>遠く離れた単語の関係を学習しにくい</li>
+                    </ul>
+                </div>
+                <div class="nlp-card">
+                    <h4>LSTM/GRUによる改善</h4>
+                    <ul>
+                        <li><strong>ゲート機構：</strong>入力・忘却・出力ゲートで情報を選択的に保持</li>
+                        <li><strong>長期記憶：</strong>RNNより長い依存関係を学習可能</li>
+                        <li><strong>GRU：</strong>LSTMを簡略化したモデル、計算効率が良い</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>3.3 Seq2Seqモデル</h3>
+            <p>
+                機械翻訳などの「系列→系列」変換タスクのために、Encoder-Decoderアーキテクチャが提案されました。
+            </p>
+
+            <div class="diagram">
+<strong>Seq2Seqの構造（機械翻訳の例）</strong>
+
+入力（英語）：  I    love    NLP
+                ↓      ↓      ↓
+Encoder（LSTM）: → → → → → → →  コンテキストベクトル c
+                                        ↓
+Decoder（LSTM）: c → "私" → "は" → "NLPが" → "好きです"
+
+出力（日本語）：私はNLPが好きです
+            </div>
+
+            <div class="warning-box">
+                <strong>Seq2Seqのボトルネック：</strong> Encoderの出力が固定長のコンテキストベクトル1つのため、
+                長い文章の情報を全て圧縮する必要があり、翻訳精度が低下します。
+                これを解決するために<strong>Attention機構</strong>が登場しました。
+            </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="section" id="attention">
+            <h2>4. Attention機構</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：25分</div>
+
+            <h3>4.1 Attention機構とは</h3>
+            <p>
+                Attention（注意機構）は、Decoderが出力を生成する際にEncoder内のどの入力トークンに「注目」すべきかを学習する仕組みです。
+                固定長のボトルネックを解消し、翻訳精度を大幅に向上させました。
+            </p>
+
+            <div class="example">
+                <strong>直感的な理解：</strong><br>
+                英語「The cat sat on the mat」を日本語に翻訳する際：<br>
+                「猫」を出力するとき → 「cat」に高いAttentionスコア<br>
+                「座った」を出力するとき → 「sat」に高いAttentionスコア<br>
+                「マットの上に」を出力するとき → 「on」「mat」に高いAttentionスコア<br>
+                → モデルが翻訳時にどの原文単語を参照するかを動的に決定
+            </div>
+
+            <h3>4.2 Self-Attention（自己注意機構）</h3>
+            <p>
+                Transformerで中心となる概念です。同じ系列内のすべてのトークン間の関係を同時に計算します。
+            </p>
+
+            <div class="diagram">
+<strong>Self-Attentionの概念</strong>
+
+文：「彼女はスミスさんが来ると知っていた」
+
+"彼女" が注目するトークン（Attentionスコア）：
+  彼女 ←→ は          (0.05)
+  彼女 ←→ スミスさん   (0.60)  ← 高い注意
+  彼女 ←→ が          (0.10)
+  彼女 ←→ 来る        (0.05)
+  彼女 ←→ 知っていた   (0.20)
+
+→ "彼女"と"スミスさん"の関係が強いことを表現
+→ 代名詞解析（"彼女"が誰を指すか）などに有効
+
+計算式：Attention(Q, K, V) = softmax(QK^T / √d_k) × V
+Q（Query）、K（Key）、V（Value）はそれぞれ学習された線形変換
+            </div>
+
+            <h3>4.3 Multi-Head Attention</h3>
+            <p>
+                複数のAttentionヘッドを並列に実行することで、異なる種類の依存関係（文法的・意味的・位置的）を同時に学習できます。
+            </p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Attentionヘッド</th>
+                    <th>学習する関係の例</th>
+                </tr>
+                <tr>
+                    <td>ヘッド1</td>
+                    <td>主語-述語の対応</td>
+                </tr>
+                <tr>
+                    <td>ヘッド2</td>
+                    <td>代名詞と指示対象の対応</td>
+                </tr>
+                <tr>
+                    <td>ヘッド3</td>
+                    <td>動詞と目的語の対応</td>
+                </tr>
+                <tr>
+                    <td>ヘッド4〜N</td>
+                    <td>その他の文法・意味的関係</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section" id="transformer">
+            <h2>5. Transformerアーキテクチャ</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：25分</div>
+
+            <p>
+                2017年のGoogle論文「Attention Is All You Need」で提案されたTransformerは、RNNを一切使わずSelf-Attentionのみで構成された革命的なアーキテクチャです。
+            </p>
+
+            <h3>5.1 Transformerの構造</h3>
+
+            <div class="diagram">
+<strong>Transformerの全体構造</strong>
+
+     入力テキスト
+          ↓
+  [トークン化 + 埋め込み]
+          ↓
+  [位置エンコーディング]
+          ↓
+  ┌──────────────────┐
+  │  Encoderブロック ×N  │
+  │  ┌──────────────┐  │
+  │  │ Multi-Head   │  │
+  │  │  Attention   │  │
+  │  └──────┬───────┘  │
+  │    Add & LayerNorm  │
+  │  ┌──────────────┐  │
+  │  │ Feed-Forward │  │
+  │  │   Network    │  │
+  │  └──────┬───────┘  │
+  │    Add & LayerNorm  │
+  └──────────────────┘
+          ↓
+  ┌──────────────────┐
+  │  Decoderブロック ×N  │
+  │  Masked Self-Att    │
+  │  Cross-Attention    │
+  │  Feed-Forward       │
+  └──────────────────┘
+          ↓
+  [線形層 + Softmax]
+          ↓
+     出力テキスト
+            </div>
+
+            <h3>5.2 主要コンポーネント</h3>
+
+            <div class="concept-box">
+                <h4>位置エンコーディング（Positional Encoding）</h4>
+                <p>
+                    Transformerは全トークンを並列処理するため、語順情報がありません。
+                    位置エンコーディングは各トークンの位置情報をベクトルとして付与します。
+                    sin/cos関数を使った固定エンコーディング（元のTransformer）や、学習可能な位置埋め込みが使われます。
+                </p>
+            </div>
+
+            <div class="concept-box">
+                <h4>残差接続（Residual Connection）と層正規化</h4>
+                <p>
+                    各サブレイヤーの前後で「入力をそのまま足す」残差接続と、
+                    層正規化（Layer Normalization）を組み合わせることで、深いネットワークの安定した学習を実現します。<br>
+                    出力 = LayerNorm(x + SubLayer(x))
+                </p>
+            </div>
+
+            <div class="concept-box">
+                <h4>Feed-Forward Network（FFN）</h4>
+                <p>
+                    各Attentionブロックの後に配置される全結合ネットワーク。
+                    各位置のトークンに独立して適用されます。
+                    Transformerの「知識ストレージ」として機能し、事実情報を蓄えるとも解釈されています。
+                </p>
+            </div>
+
+            <h3>5.3 Transformerのバリエーション</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>タイプ</th>
+                    <th>代表モデル</th>
+                    <th>アーキテクチャ</th>
+                    <th>主な用途</th>
+                </tr>
+                <tr>
+                    <td><strong>Encoder-only</strong></td>
+                    <td>BERT, RoBERTa</td>
+                    <td>双方向Attention（全文脈参照）</td>
+                    <td>分類、固有表現認識、質問応答</td>
+                </tr>
+                <tr>
+                    <td><strong>Decoder-only</strong></td>
+                    <td>GPT-4, LLaMA, Claude</td>
+                    <td>単方向Attention（左→右）</td>
+                    <td>テキスト生成、対話、コード生成</td>
+                </tr>
+                <tr>
+                    <td><strong>Encoder-Decoder</strong></td>
+                    <td>T5, BART</td>
+                    <td>両方を組み合わせ</td>
+                    <td>翻訳、要約、Q&amp;A</td>
+                </tr>
+            </table>
+
+            <div class="key-point">
+                <strong>試験頻出：</strong> BERTは<strong>双方向</strong>（Bidirectional）Transformerであり、
+                テキストの左右両方の文脈を参照してトークンを処理します。
+                GPT系は<strong>単方向</strong>（Autoregressive）で、左から右へ順番にトークンを生成します。
+            </div>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="section" id="llm">
+            <h2>6. 大規模言語モデル（LLM）</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：30分</div>
+
+            <h3>6.1 LLMとは</h3>
+            <p>
+                大規模言語モデル（Large Language Model：LLM）は、数十億〜数千億のパラメータを持ち、
+                インターネット規模のテキストデータで事前学習されたTransformerモデルです。
+                汎用的な言語理解・生成能力を持ち、様々なタスクにファインチューニングや
+                プロンプトエンジニアリングで適用できます。
+            </p>
+
+            <h3>6.2 事前学習と転移学習</h3>
+
+            <div class="diagram">
+<strong>LLMの学習パイプライン</strong>
+
+ステップ1：事前学習（Pre-training）
+  大量テキストデータ（Common Crawl, Wikipedia等、数TB〜数百TB）
+  ↓
+  自己教師あり学習（次トークン予測 or マスクトークン予測）
+  ↓
+  基盤モデル（Foundation Model）完成
+
+ステップ2：ファインチューニング（Fine-tuning）
+  タスク固有データ（数千〜数十万サンプル）
+  ↓
+  特定タスク向けに重みを調整
+  ↓
+  タスク特化モデル完成
+
+ステップ3（オプション）：RLHF
+  人間によるフィードバック
+  ↓
+  強化学習で有用性・安全性を向上
+  ↓
+  ChatGPT, Claude等の対話モデル完成
+            </div>
+
+            <h3>6.3 プロンプトエンジニアリング</h3>
+            <p>LLMの能力を引き出すためのプロンプト（入力文）の設計技術です。</p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>手法</th>
+                    <th>説明</th>
+                    <th>例</th>
+                </tr>
+                <tr>
+                    <td><strong>Zero-shot</strong></td>
+                    <td>例示なしで直接指示</td>
+                    <td>「次の文を翻訳してください：I love NLP」</td>
+                </tr>
+                <tr>
+                    <td><strong>Few-shot</strong></td>
+                    <td>数例を示してから指示</td>
+                    <td>「例1：... 例2：... ではこれは？」</td>
+                </tr>
+                <tr>
+                    <td><strong>Chain-of-Thought</strong></td>
+                    <td>推論ステップを段階的に記述させる</td>
+                    <td>「ステップバイステップで考えてください」</td>
+                </tr>
+                <tr>
+                    <td><strong>Role Prompting</strong></td>
+                    <td>特定の役割を演じさせる</td>
+                    <td>「あなたは熟練した医師です...」</td>
+                </tr>
+                <tr>
+                    <td><strong>RAG（検索拡張生成）</strong></td>
+                    <td>外部知識を検索してプロンプトに追加</td>
+                    <td>最新情報・社内文書への対応に有効</td>
+                </tr>
+            </table>
+
+            <h3>6.4 ファインチューニング手法の比較</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>手法</th>
+                    <th>説明</th>
+                    <th>コスト</th>
+                    <th>適用場面</th>
+                </tr>
+                <tr>
+                    <td><strong>Full Fine-tuning</strong></td>
+                    <td>全パラメータを更新</td>
+                    <td>非常に高い</td>
+                    <td>タスクが大きく異なる場合</td>
+                </tr>
+                <tr>
+                    <td><strong>LoRA</strong></td>
+                    <td>低ランク行列を追加して少数パラメータを更新</td>
+                    <td>中程度</td>
+                    <td>資源制約がある場合の主流手法</td>
+                </tr>
+                <tr>
+                    <td><strong>プロンプトチューニング</strong></td>
+                    <td>ソフトプロンプトのみを学習</td>
+                    <td>低い</td>
+                    <td>モデルを変更したくない場合</td>
+                </tr>
+                <tr>
+                    <td><strong>RLHF</strong></td>
+                    <td>人間フィードバックで強化学習</td>
+                    <td>非常に高い</td>
+                    <td>対話モデルの安全性・有用性向上</td>
+                </tr>
+            </table>
+
+            <h3>6.5 LLMの評価指標</h3>
+
+            <div class="two-col">
+                <div class="nlp-card">
+                    <h4>Perplexity（困惑度）</h4>
+                    <p>言語モデルがテキストをどれだけ「驚く」かを測定。<br>
+                    低いほど良い。テキスト生成タスクで使用。</p>
+                </div>
+                <div class="nlp-card">
+                    <h4>BLEU スコア</h4>
+                    <p>機械翻訳の品質評価。参照訳とのn-gram一致度を測定。<br>
+                    0〜1（高いほど良い）。</p>
+                </div>
+                <div class="nlp-card">
+                    <h4>ROUGE スコア</h4>
+                    <p>要約の品質評価。参照要約との単語・フレーズ一致度。<br>
+                    ROUGE-N, ROUGE-Lなど種類がある。</p>
+                </div>
+                <div class="nlp-card">
+                    <h4>Human Evaluation</h4>
+                    <p>人間が流暢性・正確性・有用性などを評価。<br>
+                    最も信頼性が高いが、コストと時間がかかる。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="section" id="nlp-tasks">
+            <h2>7. 主要なNLPタスク</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：20分</div>
+
+            <h3>7.1 テキスト分類</h3>
+            <p>テキストをカテゴリに分類するタスクです。</p>
+            <ul>
+                <li><strong>感情分析（Sentiment Analysis）：</strong>「このレストランは最高！」→ Positive</li>
+                <li><strong>スパム検出：</strong>メールがスパムか否かを判定</li>
+                <li><strong>トピック分類：</strong>ニュース記事を「政治・経済・スポーツ」に分類</li>
+                <li><strong>意図分類（Intent Classification）：</strong>チャットボットでユーザーの意図を判定</li>
+            </ul>
+
+            <h3>7.2 情報抽出</h3>
+            <div class="two-col">
+                <div class="nlp-card">
+                    <h4>固有表現認識（NER）</h4>
+                    <p>テキストから固有名詞（人名・地名・組織名・日時等）を抽出。<br>
+                    「田中太郎は東京大学で2024年4月に研究を開始した」<br>
+                    → 人名・組織名・日時をそれぞれ識別・抽出</p>
+                </div>
+                <div class="nlp-card">
+                    <h4>関係抽出（Relation Extraction）</h4>
+                    <p>エンティティ間の関係を抽出。<br>
+                    「イーロン・マスクはテスラのCEOである」<br>
+                    → (イーロン・マスク, CEO, テスラ)</p>
+                </div>
+            </div>
+
+            <h3>7.3 機械翻訳と要約</h3>
+
+            <div class="concept-box">
+                <h4>機械翻訳（Machine Translation）</h4>
+                <p>
+                    ある言語のテキストを別の言語に変換します。Google翻訳やDeepLが代表例。
+                    現代の翻訳システムはTransformerベースのニューラル機械翻訳（NMT）を使用。
+                    評価指標：<strong>BLEUスコア</strong>
+                </p>
+            </div>
+
+            <div class="concept-box">
+                <h4>テキスト要約（Text Summarization）</h4>
+                <ul>
+                    <li><strong>抽出型（Extractive）：</strong>元の文章から重要な文をそのまま抽出して組み合わせる。シンプルで信頼性高い。</li>
+                    <li><strong>生成型（Abstractive）：</strong>内容を理解して新しい文章として要約。自然だがハルシネーションのリスクあり。</li>
+                </ul>
+                <p>評価指標：<strong>ROUGEスコア</strong></p>
+            </div>
+
+            <h3>7.4 質問応答と情報検索</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>タスク</th>
+                    <th>入力</th>
+                    <th>出力</th>
+                    <th>手法例</th>
+                </tr>
+                <tr>
+                    <td><strong>抽出型QA</strong></td>
+                    <td>文書 + 質問</td>
+                    <td>文書内の回答スパン</td>
+                    <td>BERT、SQuADデータセット</td>
+                </tr>
+                <tr>
+                    <td><strong>生成型QA</strong></td>
+                    <td>質問（＋文書）</td>
+                    <td>生成された回答文</td>
+                    <td>GPT系LLM、T5</td>
+                </tr>
+                <tr>
+                    <td><strong>RAG</strong></td>
+                    <td>質問</td>
+                    <td>検索結果を基にした回答</td>
+                    <td>Vector DB + LLM</td>
+                </tr>
+            </table>
+
+            <h3>7.5 ハルシネーション（幻覚）問題</h3>
+
+            <div class="warning-box">
+                <strong>重要：ハルシネーション（Hallucination）とは</strong><br>
+                LLMが事実と異なる情報を自信を持って生成してしまう現象です。
+                <ul>
+                    <li>存在しない論文や著者名を引用する</li>
+                    <li>実在しない法律や判例を挙げる</li>
+                    <li>計算結果を誤って示す</li>
+                </ul>
+                <strong>対策：</strong> RAGによる外部知識の活用、出力の事実確認、
+                temperature設定の最適化、Chain-of-Thoughtによる推論ステップの明示化
+            </div>
+        </div>
+
+        <!-- Section 8 -->
+        <div class="section" id="aws-nlp">
+            <h2>8. AWS NLPサービス <span class="badge badge-aws">AWS試験頻出</span></h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：25分</div>
+
+            <h3>8.1 Amazon Comprehend</h3>
+            <p>
+                フルマネージドの自然言語処理サービスです。カスタムMLの知識不要で、テキスト分析機能を提供します。
+            </p>
+
+            <div class="nlp-pipeline">
+                <div class="pipeline-step">入力テキスト</div>
+                <div class="pipeline-step">Comprehend API</div>
+                <div class="pipeline-step">分析結果JSON</div>
+            </div>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>機能</th>
+                    <th>説明</th>
+                    <th>ユースケース</th>
+                </tr>
+                <tr>
+                    <td><strong>感情分析</strong></td>
+                    <td>Positive/Negative/Neutral/Mixed</td>
+                    <td>レビュー分析、SNSモニタリング</td>
+                </tr>
+                <tr>
+                    <td><strong>固有表現認識（NER）</strong></td>
+                    <td>人名・地名・組織・日時・数値等を抽出</td>
+                    <td>文書インデックス作成、コンプライアンス</td>
+                </tr>
+                <tr>
+                    <td><strong>言語検出</strong></td>
+                    <td>テキストの言語を自動判定（100言語対応）</td>
+                    <td>多言語コンテンツのルーティング</td>
+                </tr>
+                <tr>
+                    <td><strong>キーフレーズ抽出</strong></td>
+                    <td>主要なフレーズを抽出</td>
+                    <td>タグ付け、検索インデックス</td>
+                </tr>
+                <tr>
+                    <td><strong>トピックモデリング</strong></td>
+                    <td>文書群のトピックを自動発見（LDA）</td>
+                    <td>ドキュメント分類、コンテンツ推薦</td>
+                </tr>
+                <tr>
+                    <td><strong>カスタム分類</strong></td>
+                    <td>独自ラベルでの文書分類モデル学習</td>
+                    <td>業界特化のカテゴリ分類</td>
+                </tr>
+                <tr>
+                    <td><strong>Comprehend Medical</strong></td>
+                    <td>医療テキスト専用のNLP（HIPAA対応）</td>
+                    <td>電子カルテ分析、臨床試験</td>
+                </tr>
+            </table>
+
+            <h3>8.2 Amazon Translate</h3>
+            <p>
+                ニューラル機械翻訳サービスです。75以上の言語に対応し、リアルタイムおよびバッチ翻訳をサポートします。
+            </p>
+
+            <div class="concept-box">
+                <h4>主な機能</h4>
+                <ul>
+                    <li><strong>カスタム用語集（Custom Terminology）：</strong>業界固有の専門用語を正確に翻訳</li>
+                    <li><strong>並列データ（Parallel Data）：</strong>翻訳スタイルをカスタマイズする訓練データを追加</li>
+                    <li><strong>バッチ翻訳：</strong>S3の大量ドキュメントを一括翻訳</li>
+                </ul>
+            </div>
+
+            <h3>8.3 Amazon Lex</h3>
+            <p>
+                音声・テキスト対話インターフェース（チャットボット・音声ボット）構築サービスです。
+                AlexaのNLUエンジンを使用しています。
+            </p>
+
+            <div class="two-col">
+                <div class="nlp-card">
+                    <h4>主要コンポーネント</h4>
+                    <ul>
+                        <li><strong>Intent（意図）：</strong>ユーザーが何をしたいか（例：フライト予約）</li>
+                        <li><strong>Utterances（発話例）：</strong>Intentに対応するフレーズ</li>
+                        <li><strong>Slot（スロット）：</strong>パラメータ（出発地、日時等）</li>
+                        <li><strong>Fulfillment：</strong>Lambdaでビジネスロジックを実行</li>
+                    </ul>
+                </div>
+                <div class="nlp-card">
+                    <h4>統合サービス</h4>
+                    <ul>
+                        <li>Amazon Connect（コールセンター）</li>
+                        <li>Slack / Facebook Messenger</li>
+                        <li>Twilio（SMS/音声）</li>
+                        <li>AWS Lambda（バックエンド処理）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>8.4 Amazon Textract</h3>
+            <p>
+                OCR（光学文字認識）を超えた、ドキュメント分析サービスです。スキャン文書やPDFからテキスト・表・フォームを抽出します。
+            </p>
+
+            <div class="key-point">
+                <strong>ComprehendとTextractの使い分け：</strong><br>
+                Textract = 画像・PDFからテキストを抽出（OCR相当）<br>
+                Comprehend = テキストの意味を分析（分類・感情・NER等）<br>
+                → 組み合わせて使うことが多い（Textractで抽出 → Comprehendで分析）
+            </div>
+
+            <h3>8.5 Amazon Kendra</h3>
+            <p>
+                機械学習ベースのエンタープライズ検索サービスです。自然言語クエリで社内文書を検索できます。
+                S3、SharePoint、Salesforceなど40以上のデータソースに接続可能です。
+            </p>
+
+            <h3>8.6 Amazon Bedrock と生成AI</h3>
+            <p>
+                フルマネージドの生成AIサービスで、Anthropic (Claude)、Meta (Llama)、AI21 Labs、Stability AIなど
+                複数のFMにAPIでアクセスできます。
+            </p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>機能</th>
+                    <th>説明</th>
+                </tr>
+                <tr>
+                    <td><strong>Knowledge Bases for Bedrock</strong></td>
+                    <td>RAGのフルマネージド実装。S3の文書をベクトル化して検索可能にする</td>
+                </tr>
+                <tr>
+                    <td><strong>Agents for Bedrock</strong></td>
+                    <td>複数ステップのタスクを自律的に実行するAIエージェントを構築</td>
+                </tr>
+                <tr>
+                    <td><strong>Model Customization</strong></td>
+                    <td>Fine-tuning、Continued Pre-trainingによるモデルカスタマイズ</td>
+                </tr>
+                <tr>
+                    <td><strong>Guardrails</strong></td>
+                    <td>有害コンテンツのフィルタリング、PIIの検出・マスキング</td>
+                </tr>
+            </table>
+
+            <h3>8.7 その他のAWS NLP関連サービス</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>サービス</th>
+                    <th>説明</th>
+                    <th>主なユースケース</th>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Polly</strong></td>
+                    <td>テキスト読み上げ（TTS）</td>
+                    <td>音声アシスタント、コンテンツ音声化</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Transcribe</strong></td>
+                    <td>音声認識（ASR）、音声→テキスト変換</td>
+                    <td>会議録音の文字起こし、字幕生成</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Q</strong></td>
+                    <td>企業向け生成AIアシスタント</td>
+                    <td>社内知識検索、コード支援（Amazon Q Developer）</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Section 9 -->
+        <div class="section" id="exam-tips">
+            <h2>9. 試験対策ポイント</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：15分</div>
+
+            <h3>9.1 シナリオ別 正解サービス早見表</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>シナリオ</th>
+                    <th>正解サービス/手法</th>
+                </tr>
+                <tr>
+                    <td>レビューの感情分析（ポジティブ/ネガティブ）</td>
+                    <td><strong>Amazon Comprehend</strong>（感情分析機能）</td>
+                </tr>
+                <tr>
+                    <td>コールセンター向け音声チャットボット</td>
+                    <td><strong>Amazon Lex + Amazon Connect</strong></td>
+                </tr>
+                <tr>
+                    <td>医療記録から病名・薬名を抽出</td>
+                    <td><strong>Amazon Comprehend Medical</strong></td>
+                </tr>
+                <tr>
+                    <td>PDFフォームからデータを構造化抽出</td>
+                    <td><strong>Amazon Textract</strong></td>
+                </tr>
+                <tr>
+                    <td>社内ドキュメントへの自然言語検索</td>
+                    <td><strong>Amazon Kendra</strong></td>
+                </tr>
+                <tr>
+                    <td>多言語コンテンツをリアルタイム翻訳</td>
+                    <td><strong>Amazon Translate</strong></td>
+                </tr>
+                <tr>
+                    <td>会議音声を自動文字起こし</td>
+                    <td><strong>Amazon Transcribe</strong></td>
+                </tr>
+                <tr>
+                    <td>フルマネージドでClaude/Llamaを使いたい</td>
+                    <td><strong>Amazon Bedrock</strong></td>
+                </tr>
+                <tr>
+                    <td>社内文書を参照して正確な回答を生成（幻覚対策）</td>
+                    <td><strong>RAG + Knowledge Bases for Bedrock</strong></td>
+                </tr>
+                <tr>
+                    <td>特定ドメインのモデルカスタマイズ（低コスト）</td>
+                    <td><strong>LoRA / Fine-tuning</strong></td>
+                </tr>
+            </table>
+
+            <h3>9.2 紛らわしいサービスの区別</h3>
+
+            <div class="concept-box">
+                <h4>Comprehend vs Kendra vs Bedrock</h4>
+                <ul>
+                    <li><strong>Comprehend：</strong>テキストの<em>分析・分類・抽出</em>（感情、NER、言語検出）。構造化された分析結果を返す。</li>
+                    <li><strong>Kendra：</strong>ドキュメントの<em>検索</em>。自然言語クエリで関連文書を検索・ランキング。</li>
+                    <li><strong>Bedrock：</strong>生成AIによる<em>テキスト生成・対話</em>。FMへのアクセス基盤。</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <h4>Lex vs Transcribe vs Polly</h4>
+                <ul>
+                    <li><strong>Lex：</strong>対話管理（Intent理解 → 応答フロー制御）。チャットボットの「脳」。</li>
+                    <li><strong>Transcribe：</strong>音声→テキスト変換のみ（文字起こし）。</li>
+                    <li><strong>Polly：</strong>テキスト→音声変換のみ（読み上げ）。</li>
+                </ul>
+            </div>
+
+            <h3>9.3 重要な概念の整理</h3>
+
+            <div class="key-point">
+                <strong>Transformerのポイント：</strong>
+                <ul>
+                    <li>RNNを使わずSelf-Attentionのみで構成</li>
+                    <li>並列処理が可能で学習が高速</li>
+                    <li>長距離依存関係を効果的に捉えられる</li>
+                    <li>「Attention Is All You Need」（2017, Google）が起源</li>
+                </ul>
+            </div>
+
+            <div class="key-point">
+                <strong>BERTのポイント：</strong>
+                <ul>
+                    <li><strong>双方向</strong>Transformer（Bidirectional Encoder Representations from Transformers）</li>
+                    <li>Masked Language Modeling（MLM）とNext Sentence Prediction（NSP）で事前学習</li>
+                    <li>分類・NER・QAなど<strong>理解タスク</strong>に優れる</li>
+                    <li>テキスト<strong>生成には不向き</strong>（双方向なのでAutoregressive生成できない）</li>
+                </ul>
+            </div>
+
+            <div class="key-point">
+                <strong>GPTのポイント：</strong>
+                <ul>
+                    <li><strong>単方向</strong>Transformer（左→右にAutoregressiveに生成）</li>
+                    <li>次のトークン予測で事前学習</li>
+                    <li>テキスト生成・対話に優れる</li>
+                    <li>Few-shot/Zero-shot学習能力が高い</li>
+                </ul>
+            </div>
+
+            <div class="learning-path">
+                <strong>Day 12-14 学習チェックリスト：</strong>
+                <ul>
+                    <li>□ トークン化・テキスト前処理の手順を説明できる</li>
+                    <li>□ BoW・TF-IDF・Word2Vecの違いを説明できる</li>
+                    <li>□ RNNの問題点とTransformerが解決した点を説明できる</li>
+                    <li>□ Self-Attentionの直感的な仕組みを説明できる</li>
+                    <li>□ BERT（Encoder-only）とGPT（Decoder-only）の違いを説明できる</li>
+                    <li>□ ハルシネーションとその対策（RAG等）を説明できる</li>
+                    <li>□ Amazon Comprehend / Lex / Translate / Textract / Kendra / Bedrockの用途を区別できる</li>
+                    <li>□ Fine-tuningとRAGの使い分けを説明できる</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 10: Quiz -->
+        <div class="section" id="quiz">
+            <h2>10. 確認クイズ</h2>
+
+            <div class="learning-time">⏱ 学習時間の目安：15分</div>
+
+            <div class="quiz-section">
+                <h3>理解度確認クイズ（AWS AIF-C01形式）</h3>
+
+                <div class="quiz-question">
+                    <p>Q1. ある企業が顧客サポートのメールを自動分類し、緊急度（高・中・低）と担当部署を判定したいと考えています。最も適切なAWSサービスはどれですか？</p>
+                    <div class="quiz-answer">A. Amazon Kendra</div>
+                    <div class="quiz-answer">B. Amazon Comprehend カスタム分類</div>
+                    <div class="quiz-answer">C. Amazon Transcribe</div>
+                    <div class="quiz-answer">D. Amazon Lex</div>
+                    <div class="key-point"><strong>正解：B</strong> — カスタムラベルでのテキスト分類はAmazon Comprehendのカスタム分類機能が適切です。Kendraは検索、Transcribeは音声認識、Lexはチャットボット構築に使います。</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>Q2. 病院が電子カルテのテキストから患者の診断名・投薬情報・症状を自動抽出したいと考えています。最も適切なサービスはどれですか？</p>
+                    <div class="quiz-answer">A. Amazon Comprehend</div>
+                    <div class="quiz-answer">B. Amazon Comprehend Medical</div>
+                    <div class="quiz-answer">C. Amazon Textract</div>
+                    <div class="quiz-answer">D. Amazon Bedrock</div>
+                    <div class="key-point"><strong>正解：B</strong> — 医療テキスト専用のNLP機能はAmazon Comprehend Medicalです。医療エンティティ（ICD-10コード等）の抽出に特化し、HIPAA対応です。</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>Q3. LLMが実際には存在しない学術論文を引用してしまう問題の名称として最も適切なものはどれですか？</p>
+                    <div class="quiz-answer">A. オーバーフィッティング</div>
+                    <div class="quiz-answer">B. 勾配消失</div>
+                    <div class="quiz-answer">C. ハルシネーション（幻覚）</div>
+                    <div class="quiz-answer">D. データドリフト</div>
+                    <div class="key-point"><strong>正解：C</strong> — LLMが事実と異なる内容を自信を持って生成する現象をハルシネーション（Hallucination）と呼びます。RAGや出力検証で対策します。</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>Q4. Transformerアーキテクチャについて正しい記述はどれですか？</p>
+                    <div class="quiz-answer">A. RNNの一種であり、ゲート機構を改良したモデルである</div>
+                    <div class="quiz-answer">B. Self-Attention機構を使い、全トークンを並列処理できる</div>
+                    <div class="quiz-answer">C. 画像認識のためのCNNに基づくアーキテクチャである</div>
+                    <div class="quiz-answer">D. テキスト生成には使えず、分類タスクのみに対応する</div>
+                    <div class="key-point"><strong>正解：B</strong> — TransformerはRNNを使わずSelf-Attentionのみで構成され、全トークンを並列処理します。これにより長距離依存関係の学習と高速な訓練が可能になりました。</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>Q5. BERTとGPTの最大の違いとして正しいものはどれですか？</p>
+                    <div class="quiz-answer">A. BERTはテキスト生成に特化し、GPTはテキスト分類に特化している</div>
+                    <div class="quiz-answer">B. BERTは双方向Transformer（Encoder-only）、GPTは単方向Transformer（Decoder-only）である</div>
+                    <div class="quiz-answer">C. BERTはGoogle製だが、GPTはAmazon製である</div>
+                    <div class="quiz-answer">D. BERTは強化学習で学習され、GPTは教師あり学習で学習される</div>
+                    <div class="key-point"><strong>正解：B</strong> — BERTは双方向（Encoder-only）で文脈理解・分類タスクに優れ、GPTは単方向（Decoder-only）でテキスト生成に優れます。BERTはGoogle、GPTはOpenAIが開発しました。</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>Q6. 企業がLLMを導入する際、最新の社内ドキュメントや製品情報を参照して正確な回答を生成したい場合、最も適切なアプローチはどれですか？</p>
+                    <div class="quiz-answer">A. LLMを大量の社内文書でフルファインチューニングする</div>
+                    <div class="quiz-answer">B. RAG（Retrieval-Augmented Generation）を実装し、検索した関連文書をプロンプトに追加する</div>
+                    <div class="quiz-answer">C. プロンプトにすべての社内文書を含めてAPIを呼び出す</div>
+                    <div class="quiz-answer">D. モデルをゼロから社内データで学習させる</div>
+                    <div class="key-point"><strong>正解：B</strong> — RAGは外部知識ベースを検索してプロンプトに追加することで、ファインチューニング不要で最新情報への対応とハルシネーション抑制が可能です。AWS BedrockのKnowledge Basesで実装できます。</div>
+                </div>
+            </div>
+
+            <div class="resource-list">
+                <h3>参考リソース</h3>
+                <ul>
+                    <li><strong>AWS公式ドキュメント：</strong> Amazon Comprehend Developer Guide</li>
+                    <li><strong>AWS公式ドキュメント：</strong> Amazon Bedrock User Guide</li>
+                    <li><strong>論文：</strong> "Attention Is All You Need" (Vaswani et al., 2017)</li>
+                    <li><strong>論文：</strong> "BERT: Pre-training of Deep Bidirectional Transformers" (Devlin et al., 2018)</li>
+                    <li><strong>Hugging Face：</strong> NLP Course（無料オンラインコース）</li>
+                    <li><strong>AWS Skill Builder：</strong> AWS Certified AI Practitioner Official Practice Question Set</li>
+                </ul>
+            </div>
+        </div>
+
+    </div><!-- /content -->
+
+    <footer>
+        <p>AWS AIF-C01 対策教材 | Day 12-14: 自然言語処理（NLP）</p>
+        <p style="margin-top:8px; font-size:0.9em;">前のステップ ← Day 10-11: 画像分類・物体検出 ｜ 次のステップ → Day 15-17: 推薦システムとMLOps</p>
+    </footer>
+</div>
+</body>
+</html>

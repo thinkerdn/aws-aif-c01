@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 19-21: 運用とモニタリング - 3時間教育テキスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        header {
+            background: linear-gradient(135deg, #00695c 0%, #00bfa5 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        .table-of-contents {
+            background: #e0f2f1;
+            padding: 20px 30px;
+            border-bottom: 3px solid #00897b;
+        }
+        .table-of-contents h2 {
+            color: #00695c;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .table-of-contents ol {
+            list-style: decimal;
+            margin-left: 20px;
+            color: #555;
+        }
+        .table-of-contents li {
+            margin-bottom: 8px;
+        }
+        .table-of-contents a {
+            color: #00695c;
+            text-decoration: none;
+        }
+        .table-of-contents a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        .section h2 {
+            color: #00695c;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #00897b;
+        }
+        .section h3 {
+            color: #00695c;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .section h4 {
+            color: #333;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .learning-path {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .learning-path strong {
+            color: #1565c0;
+        }
+        .concept-box {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        .concept-box h4 {
+            color: #00695c;
+            margin-bottom: 12px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .comparison-table th {
+            background: #00695c;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+        .code-block {
+            background: #263238;
+            color: #a5d6a7;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            white-space: pre;
+        }
+        .example {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .example strong {
+            color: #e65100;
+        }
+        .key-point {
+            background: #c8e6c9;
+            border-left: 4px solid #43a047;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .key-point strong {
+            color: #1b5e20;
+        }
+        .warning-box {
+            background: #fce4ec;
+            border-left: 4px solid #e91e63;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning-box strong {
+            color: #880e4f;
+        }
+        .info-box {
+            background: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .info-box strong {
+            color: #1a237e;
+        }
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .timeline {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 6px;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .timeline-marker {
+            width: 30px;
+            height: 30px;
+            background: #00695c;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+        .timeline-content {
+            flex: 1;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .card {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .card h4 {
+            color: #00695c;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        .badge {
+            display: inline-block;
+            background: #00695c;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin: 3px;
+        }
+        .badge-orange {
+            background: #e65100;
+        }
+        .badge-blue {
+            background: #1565c0;
+        }
+        .badge-purple {
+            background: #6a1b9a;
+        }
+        .architecture-diagram {
+            background: #eceff1;
+            border: 2px solid #90a4ae;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: monospace;
+        }
+        .architecture-diagram .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .arch-box {
+            background: white;
+            border: 2px solid #00695c;
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #00695c;
+        }
+        .arch-arrow {
+            color: #607d8b;
+            font-size: 1.5em;
+        }
+        .quiz-box {
+            background: #e8f5e9;
+            border: 2px solid #43a047;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .quiz-box h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        .quiz-question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+        }
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1b5e20;
+        }
+        .quiz-question ol {
+            margin-left: 20px;
+        }
+        details {
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        summary {
+            color: #00695c;
+            font-weight: bold;
+            padding: 5px;
+        }
+        summary:hover {
+            background: #e0f2f1;
+            border-radius: 4px;
+        }
+        .answer {
+            background: #f1f8e9;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 8px;
+            border-left: 3px solid #7cb342;
+        }
+        footer {
+            background: #263238;
+            color: #b0bec5;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.95em;
+        }
+        .section-time {
+            display: inline-block;
+            background: #00bfa5;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.6em; }
+            .content { padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== HEADER ===== -->
+<header>
+    <h1>Day 19-21: 運用とモニタリング</h1>
+    <p>AWS AIF-C01 対策 | 学習時間目安: 3時間 | MLOps・モデル監視・本番運用</p>
+</header>
+
+<!-- ===== 目次 ===== -->
+<div class="table-of-contents">
+    <h2>目次</h2>
+    <ol>
+        <li><a href="#sec1">MLOpsの概念とライフサイクル管理</a></li>
+        <li><a href="#sec2">モデルデプロイメント戦略</a></li>
+        <li><a href="#sec3">Amazon SageMaker Model Monitor</a></li>
+        <li><a href="#sec4">Amazon CloudWatch によるMLモニタリング</a></li>
+        <li><a href="#sec5">モデルドリフトの検出と対応</a></li>
+        <li><a href="#sec6">CI/CDパイプラインとMLOpsツール</a></li>
+        <li><a href="#sec7">コスト最適化と責任あるAI運用</a></li>
+        <li><a href="#sec8">確認テスト</a></li>
+    </ol>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="content">
+
+<!-- ===== SECTION 1 ===== -->
+<div class="section" id="sec1">
+    <span class="section-time">⏱ 第1部 (約30分)</span>
+    <h2>1. MLOpsの概念とライフサイクル管理</h2>
+
+    <p>MLOps（Machine Learning Operations）は、機械学習モデルの開発・デプロイ・運用を効率的かつ信頼性高く行うための実践的な手法と文化の総称です。従来のソフトウェア開発のDevOpsをML特有の課題に対応できるよう拡張したものです。</p>
+
+    <h3>1.1 なぜMLOpsが必要か</h3>
+
+    <div class="grid-2">
+        <div class="card">
+            <h4>従来のソフトウェア開発との違い</h4>
+            <ul>
+                <li>コードだけでなく<strong>データ・モデル・パラメータ</strong>も管理対象</li>
+                <li>モデルは時間とともに<strong>自然劣化（ドリフト）</strong>する</li>
+                <li>実験の再現性確保が困難</li>
+                <li>データサイエンティストとエンジニアの協働が必要</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>MLOpsが解決する課題</h4>
+            <ul>
+                <li>本番環境への安全・迅速なデプロイ</li>
+                <li>モデル品質の継続的な監視</li>
+                <li>実験の再現性と追跡可能性</li>
+                <li>スケーラブルなインフラ管理</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>1.2 MLライフサイクルの全体像</h3>
+
+    <div class="architecture-diagram">
+        <strong>ML ライフサイクル</strong>
+        <div class="flow" style="margin-top:15px;">
+            <div class="arch-box">データ収集<br>&amp; 前処理</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">モデル<br>開発・実験</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">評価・<br>検証</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">デプロイ<br>&amp; 提供</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">モニタリング<br>&amp; 再学習</div>
+        </div>
+        <div style="margin-top:15px; font-size:0.85em; color:#546e7a;">
+            ↑ 全フェーズを通じた継続的フィードバックループ ↑
+        </div>
+    </div>
+
+    <h3>1.3 MLOps成熟度モデル</h3>
+
+    <p>Googleが定義したMLOps成熟度レベルはAWS試験でも重要な概念です：</p>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>レベル</th>
+                <th>特徴</th>
+                <th>自動化度</th>
+                <th>対応するチーム</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Level 0</strong><br>手動プロセス</td>
+                <td>スクリプトやノートブックで手動実行。モデルは稀にしか更新されない</td>
+                <td>なし</td>
+                <td>小規模スタートアップ</td>
+            </tr>
+            <tr>
+                <td><strong>Level 1</strong><br>MLパイプライン自動化</td>
+                <td>トレーニングパイプラインが自動化。継続的なモデル学習が可能</td>
+                <td>学習の自動化</td>
+                <td>成長フェーズの企業</td>
+            </tr>
+            <tr>
+                <td><strong>Level 2</strong><br>CI/CD パイプライン自動化</td>
+                <td>パイプライン自体のビルド・テスト・デプロイも自動化</td>
+                <td>完全自動化</td>
+                <td>大規模ML組織</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>1.4 モデルレジストリとアーティファクト管理</h3>
+
+    <div class="concept-box">
+        <h4>モデルレジストリとは</h4>
+        <p>モデルレジストリは、学習済みモデルを一元管理するリポジトリです。バージョン管理、メタデータ記録、デプロイ履歴の追跡を行います。</p>
+        <br>
+        <p><strong>Amazon SageMaker Model Registry</strong> の機能：</p>
+        <ul>
+            <li>モデルのバージョン管理とグルーピング</li>
+            <li>モデルの承認ステータス管理（Pending → Approved / Rejected）</li>
+            <li>評価メトリクスとメタデータの保存</li>
+            <li>デプロイパイプラインとの連携</li>
+        </ul>
+    </div>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> MLOpsはコード・データ・モデルの3要素を継続的に管理する手法。SageMaker Model Registryはモデルのバージョン管理と承認ワークフローを提供する。
+    </div>
+</div>
+
+<!-- ===== SECTION 2 ===== -->
+<div class="section" id="sec2">
+    <span class="section-time">⏱ 第2部 (約25分)</span>
+    <h2>2. モデルデプロイメント戦略</h2>
+
+    <p>本番環境へのモデルデプロイには複数の戦略があり、リスク管理と性能要件に応じて使い分けます。</p>
+
+    <h3>2.1 主要なデプロイ戦略</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>戦略</th>
+                <th>仕組み</th>
+                <th>メリット</th>
+                <th>デメリット</th>
+                <th>用途</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Blue/Green<br>デプロイ</strong></td>
+                <td>新旧2環境を並行稼働し、一括切替</td>
+                <td>即時ロールバック可能、ダウンタイムなし</td>
+                <td>コストが2倍</td>
+                <td>安定性重視の本番環境</td>
+            </tr>
+            <tr>
+                <td><strong>カナリア<br>リリース</strong></td>
+                <td>トラフィックの一部（例5-10%）を新モデルへ</td>
+                <td>実ユーザーで段階的テスト、リスク低減</td>
+                <td>管理が複雑</td>
+                <td>大規模サービスの安全な更新</td>
+            </tr>
+            <tr>
+                <td><strong>A/Bテスト</strong></td>
+                <td>複数モデルへトラフィックを分散</td>
+                <td>実ユーザーでモデル比較が可能</td>
+                <td>統計的有意差が出るまで時間が必要</td>
+                <td>モデル性能の実証的比較</td>
+            </tr>
+            <tr>
+                <td><strong>シャドウ<br>デプロイ</strong></td>
+                <td>本番トラフィックを新モデルにも複製（結果は非表示）</td>
+                <td>本番負荷での動作確認、ユーザー影響なし</td>
+                <td>インフラコスト増</td>
+                <td>リスクゼロでの新モデル検証</td>
+            </tr>
+            <tr>
+                <td><strong>ローリング<br>アップデート</strong></td>
+                <td>インスタンスを順次更新</td>
+                <td>コスト効率が良い</td>
+                <td>新旧モデルが同時稼働する瞬間あり</td>
+                <td>一般的な更新シナリオ</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>2.2 SageMaker エンドポイントのデプロイオプション</h3>
+
+    <div class="grid-2">
+        <div class="card">
+            <h4>リアルタイム推論</h4>
+            <span class="badge">低レイテンシ</span>
+            <span class="badge badge-blue">常時稼働</span>
+            <ul style="margin-top:10px;">
+                <li>同期的なリクエスト/レスポンス</li>
+                <li>ミリ秒オーダーの応答が必要なケース</li>
+                <li>エンドポイントは常時起動</li>
+                <li>例：リアルタイム推薦、詐欺検知</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>サーバーレス推論</h4>
+            <span class="badge badge-orange">コスト効率</span>
+            <span class="badge badge-blue">スパイク対応</span>
+            <ul style="margin-top:10px;">
+                <li>リクエスト時のみ起動（コールドスタートあり）</li>
+                <li>トラフィックが不規則な場合に最適</li>
+                <li>自動スケーリング</li>
+                <li>例：バッチ処理、開発環境</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>非同期推論</h4>
+            <span class="badge badge-purple">大容量ペイロード</span>
+            <ul style="margin-top:10px;">
+                <li>最大1GBの入力データ対応</li>
+                <li>処理完了をSNS通知で受け取り</li>
+                <li>処理時間が長いタスク向け</li>
+                <li>例：動画処理、大規模文書解析</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>バッチ変換</h4>
+            <span class="badge">大量データ処理</span>
+            <ul style="margin-top:10px;">
+                <li>S3データに対するオフライン推論</li>
+                <li>エンドポイント不要（コスト削減）</li>
+                <li>処理後にインスタンスが自動停止</li>
+                <li>例：定期レポート生成、データエンリッチメント</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>2.3 マルチモデルエンドポイントとマルチコンテナエンドポイント</h3>
+
+    <div class="concept-box">
+        <h4>マルチモデルエンドポイント (MME)</h4>
+        <p>単一のエンドポイントで<strong>複数のモデルを動的にロード</strong>する機能。コスト削減に有効。</p>
+        <ul>
+            <li>モデルを必要に応じてメモリへロード/アンロード</li>
+            <li>数千モデルを1エンドポイントで管理可能</li>
+            <li>テナントごとに異なるモデルを持つSaaSアプリに最適</li>
+        </ul>
+        <br>
+        <p><strong>マルチコンテナエンドポイント</strong>との違い：MMEは同種コンテナで多数のモデルを扱うのに対し、マルチコンテナは<strong>異なるフレームワーク</strong>のコンテナを1エンドポイントに結合する。</p>
+    </div>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> カナリアリリースは段階的なトラフィック移行でリスクを低減。A/Bテストは実ユーザーでモデルを比較評価。シャドウデプロイはユーザーへの影響なしに本番環境でモデルを検証する。
+    </div>
+</div>
+
+<!-- ===== SECTION 3 ===== -->
+<div class="section" id="sec3">
+    <span class="section-time">⏱ 第3部 (約35分)</span>
+    <h2>3. Amazon SageMaker Model Monitor</h2>
+
+    <p>SageMaker Model Monitorは、本番環境のMLモデルの品質を継続的に自動監視するマネージドサービスです。データ品質・モデル品質・バイアス・説明可能性の4つの側面を監視します。</p>
+
+    <h3>3.1 4種類のモニタリングタイプ</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>モニタリングタイプ</th>
+                <th>監視対象</th>
+                <th>検出する問題</th>
+                <th>主要メトリクス</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>データ品質<br>モニタリング</strong></td>
+                <td>入力データの統計的特性</td>
+                <td>データ分布の変化、欠損値増加、スキーマ違反</td>
+                <td>平均、標準偏差、欠損率、データ型</td>
+            </tr>
+            <tr>
+                <td><strong>モデル品質<br>モニタリング</strong></td>
+                <td>予測精度（正解ラベルとの比較）</td>
+                <td>予測精度の劣化、コンセプトドリフト</td>
+                <td>精度、F1スコア、RMSE、AUC</td>
+            </tr>
+            <tr>
+                <td><strong>モデルバイアス<br>モニタリング</strong></td>
+                <td>保護属性グループ間の公平性</td>
+                <td>特定グループへの偏った予測</td>
+                <td>DPD（差異予測差）、DI（差異影響）</td>
+            </tr>
+            <tr>
+                <td><strong>モデル説明可能性<br>モニタリング</strong></td>
+                <td>特徴量の重要度の変化</td>
+                <td>モデルの判断根拠の変動</td>
+                <td>SHAP値の分布変化</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3.2 Model Monitor のアーキテクチャ</h3>
+
+    <div class="architecture-diagram">
+        <strong>SageMaker Model Monitor データフロー</strong>
+        <div class="flow" style="margin-top:15px;">
+            <div class="arch-box">本番エンドポイント<br>（推論リクエスト）</div>
+            <span class="arch-arrow">↓</span>
+        </div>
+        <div class="flow">
+            <div class="arch-box">データキャプチャ<br>（S3へ保存）</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">モニタリング<br>スケジューラ</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">ベースライン<br>との比較</div>
+        </div>
+        <div class="flow" style="margin-top:10px;">
+            <div class="arch-box">違反レポート<br>（S3）</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">CloudWatch<br>アラーム</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">SNS通知 /<br>自動再学習</div>
+        </div>
+    </div>
+
+    <h3>3.3 ベースライン統計の作成と監視スケジュール</h3>
+
+    <div class="concept-box">
+        <h4>ベースライン作成のプロセス</h4>
+        <p>Model Monitorはベースライン（正常時の統計）との比較で異常を検出します。</p>
+        <br>
+        <div class="code-block">
+# SageMaker Model Monitor ベースライン作成例 (Python SDK)
+from sagemaker.model_monitor import DefaultModelMonitor
+from sagemaker.model_monitor.dataset_format import DatasetFormat
+
+monitor = DefaultModelMonitor(
+    role=role,
+    instance_count=1,
+    instance_type='ml.m5.xlarge',
+    volume_size_in_gb=20,
+    max_runtime_in_seconds=3600,
+)
+
+# トレーニングデータからベースライン統計を計算
+monitor.suggest_baseline(
+    baseline_dataset='s3://bucket/training-data/',
+    dataset_format=DatasetFormat.csv(header=True),
+    output_s3_uri='s3://bucket/baseline-output/'
+)
+        </div>
+    </div>
+
+    <div class="concept-box">
+        <h4>監視スケジュールの設定</h4>
+        <div class="code-block">
+# 1時間ごとにデータ品質を監視するスケジュール設定
+from sagemaker.model_monitor import CronExpressionGenerator
+
+monitor.create_monitoring_schedule(
+    monitor_schedule_name='my-model-monitor-schedule',
+    endpoint_input=predictor.endpoint_name,
+    output_s3_uri='s3://bucket/monitoring-reports/',
+    statistics=monitor.baseline_statistics(),
+    constraints=monitor.suggested_constraints(),
+    schedule_cron_expression=CronExpressionGenerator.hourly(),
+    enable_cloudwatch_metrics=True,
+)
+        </div>
+    </div>
+
+    <h3>3.4 Amazon SageMaker Clarify との連携</h3>
+
+    <p>SageMaker ClarifyはModel Monitorと連携してバイアス検出と説明可能性を提供します：</p>
+
+    <div class="grid-2">
+        <div class="card">
+            <h4>バイアス検出</h4>
+            <ul>
+                <li><strong>学習前バイアス：</strong>トレーニングデータのバイアス分析</li>
+                <li><strong>学習後バイアス：</strong>モデル予測のバイアス評価</li>
+                <li>性別・年齢・人種などの保護属性に対する公平性測定</li>
+                <li>本番環境での継続的バイアス監視</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>説明可能性 (XAI)</h4>
+            <ul>
+                <li><strong>SHAP値</strong>による特徴量重要度の計算</li>
+                <li>個別予測の根拠説明（ローカル説明）</li>
+                <li>全体的なモデル動作の説明（グローバル説明）</li>
+                <li>規制要件（GDPR等）への対応に有効</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> SageMaker Model Monitorはデータ品質・モデル品質・バイアス・説明可能性の4種類を監視。データキャプチャでリクエスト/レスポンスをS3に保存し、ベースライン統計と比較して違反を検出する。
+    </div>
+</div>
+
+<!-- ===== SECTION 4 ===== -->
+<div class="section" id="sec4">
+    <span class="section-time">⏱ 第4部 (約25分)</span>
+    <h2>4. Amazon CloudWatch によるMLモニタリング</h2>
+
+    <p>CloudWatchはAWSの中核的な監視サービスであり、SageMakerエンドポイントのインフラ・パフォーマンス・ビジネスメトリクスを統合監視します。</p>
+
+    <h3>4.1 SageMakerエンドポイントの標準メトリクス</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>カテゴリ</th>
+                <th>メトリクス名</th>
+                <th>説明</th>
+                <th>推奨閾値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="3"><strong>レイテンシ</strong></td>
+                <td>ModelLatency</td>
+                <td>モデルの推論時間（マイクロ秒）</td>
+                <td>SLAに応じて設定</td>
+            </tr>
+            <tr>
+                <td>OverheadLatency</td>
+                <td>SageMakerのオーバーヘッド時間</td>
+                <td>通常は低い値を維持</td>
+            </tr>
+            <tr>
+                <td>EndpointLatency</td>
+                <td>エンドツーエンドのレイテンシ</td>
+                <td>P99 &lt; 要件</td>
+            </tr>
+            <tr>
+                <td rowspan="2"><strong>スループット</strong></td>
+                <td>Invocations</td>
+                <td>1分あたりの呼び出し回数</td>
+                <td>容量計画の基準</td>
+            </tr>
+            <tr>
+                <td>InvocationsPerInstance</td>
+                <td>インスタンスあたりの呼び出し数</td>
+                <td>スケーリング判断</td>
+            </tr>
+            <tr>
+                <td rowspan="2"><strong>エラー</strong></td>
+                <td>Invocation4XXErrors</td>
+                <td>クライアントエラー（不正リクエスト等）</td>
+                <td>&lt; 1%</td>
+            </tr>
+            <tr>
+                <td>Invocation5XXErrors</td>
+                <td>サーバーエラー（モデル障害等）</td>
+                <td>&lt; 0.1%</td>
+            </tr>
+            <tr>
+                <td rowspan="2"><strong>インフラ</strong></td>
+                <td>CPUUtilization</td>
+                <td>CPU使用率</td>
+                <td>&lt; 80%</td>
+            </tr>
+            <tr>
+                <td>MemoryUtilization</td>
+                <td>メモリ使用率</td>
+                <td>&lt; 85%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>4.2 CloudWatch アラームとアクション</h3>
+
+    <div class="concept-box">
+        <h4>アラームの設定例</h4>
+        <div class="code-block">
+# AWS CLI でモデルレイテンシアラームを作成
+aws cloudwatch put-metric-alarm \
+  --alarm-name "HighModelLatency" \
+  --alarm-description "Model inference latency exceeds threshold" \
+  --metric-name ModelLatency \
+  --namespace AWS/SageMaker \
+  --dimensions Name=EndpointName,Value=my-endpoint \
+               Name=VariantName,Value=AllTraffic \
+  --period 300 \
+  --evaluation-periods 3 \
+  --threshold 500000 \
+  --comparison-operator GreaterThanThreshold \
+  --statistic p99 \
+  --alarm-actions arn:aws:sns:us-east-1:123456789:alert-topic \
+  --ok-actions arn:aws:sns:us-east-1:123456789:ok-topic
+        </div>
+    </div>
+
+    <h3>4.3 CloudWatch Logs Insights でのログ分析</h3>
+
+    <div class="concept-box">
+        <h4>推論ログの分析クエリ例</h4>
+        <div class="code-block">
+# エラーパターンの分析
+fields @timestamp, @message
+| filter @message like /ERROR/
+| stats count() as errorCount by bin(1h)
+| sort @timestamp desc
+
+# 高レイテンシリクエストの特定
+fields @timestamp, requestId, latencyMs
+| filter latencyMs > 1000
+| sort latencyMs desc
+| limit 20
+
+# 時間帯別リクエスト数
+fields @timestamp
+| stats count() as requests by bin(30m)
+| sort @timestamp asc
+        </div>
+    </div>
+
+    <h3>4.4 Auto Scaling との統合</h3>
+
+    <div class="grid-2">
+        <div class="card">
+            <h4>Application Auto Scaling</h4>
+            <p>SageMakerエンドポイントのインスタンス数を自動調整：</p>
+            <ul>
+                <li><strong>ターゲット追跡スケーリング：</strong>特定メトリクス値を維持（例：CPUUtilization = 70%）</li>
+                <li><strong>ステップスケーリング：</strong>閾値超過時に段階的にスケール</li>
+                <li>スケールアウト/インのクールダウン期間設定</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>スケーリング設定のベストプラクティス</h4>
+            <ul>
+                <li>最小インスタンス数 ≥ 2（高可用性）</li>
+                <li>スケールアウトを速く、スケールインを遅く設定</li>
+                <li>SageMakerVariantInvocationsPerInstanceをスケーリング指標に使用</li>
+                <li>予測スケーリングでトラフィックパターンに事前対応</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> CloudWatchはInvocations、ModelLatency、Invocation5XXErrorsなどSageMakerの標準メトリクスを自動収集。アラームはSNS通知やAuto Scalingと連携して自動対応できる。
+    </div>
+</div>
+
+<!-- ===== SECTION 5 ===== -->
+<div class="section" id="sec5">
+    <span class="section-time">⏱ 第5部 (約25分)</span>
+    <h2>5. モデルドリフトの検出と対応</h2>
+
+    <p>モデルドリフトは、本番環境でのモデル性能が時間とともに低下する現象です。AWSのAI試験では最も重要なトピックの一つです。</p>
+
+    <h3>5.1 ドリフトの種類</h3>
+
+    <div class="grid-2">
+        <div class="card">
+            <h4>データドリフト（共変量シフト）</h4>
+            <p>入力特徴量の分布が変化するが、入出力の関係は変わらない。</p>
+            <br>
+            <div class="example">
+                <strong>例：</strong> EC推薦システムで、コロナ禍により急にホームオフィス製品の検索が急増。モデルはこの新しいパターンに対応できない。
+            </div>
+        </div>
+        <div class="card">
+            <h4>コンセプトドリフト</h4>
+            <p>入出力の関係（学習したパターン）自体が変化する。最も深刻なドリフト。</p>
+            <br>
+            <div class="example">
+                <strong>例：</strong> 詐欺検知モデルで、詐欺師が新しい手口を開発。以前は詐欺と関連していた特徴量の意味が変化する。
+            </div>
+        </div>
+        <div class="card">
+            <h4>ラベルドリフト（事前確率シフト）</h4>
+            <p>目的変数（ラベル）の分布が変化する。</p>
+            <br>
+            <div class="example">
+                <strong>例：</strong> 二値分類モデルで、ポジティブクラスの割合が学習時10%だったが、本番で30%になった。
+            </div>
+        </div>
+        <div class="card">
+            <h4>予測ドリフト</h4>
+            <p>モデルの予測値の分布が変化する（入力変化の結果）。</p>
+            <br>
+            <div class="example">
+                <strong>例：</strong> 価格予測モデルが以前は価格帯全体をカバーしていたが、近年は高価格帯の予測に偏るようになった。
+            </div>
+        </div>
+    </div>
+
+    <h3>5.2 ドリフト検出の統計的手法</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>手法</th>
+                <th>適用対象</th>
+                <th>仕組み</th>
+                <th>特徴</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Population Stability Index (PSI)</strong></td>
+                <td>連続値・カテゴリ</td>
+                <td>分布の変化量を0〜1のスコアで表現</td>
+                <td>PSI &lt; 0.1: 変化なし、0.1-0.25: 軽微、&gt; 0.25: 重大</td>
+            </tr>
+            <tr>
+                <td><strong>KL divergence (KLダイバージェンス)</strong></td>
+                <td>確率分布</td>
+                <td>2つの分布の差異を情報理論的に計算</td>
+                <td>非対称性あり。SageMaker Model Monitorで利用</td>
+            </tr>
+            <tr>
+                <td><strong>Wasserstein距離</strong></td>
+                <td>連続分布</td>
+                <td>一方の分布をもう一方に変形するコスト</td>
+                <td>直感的解釈が容易。Earth Mover's Distanceとも</td>
+            </tr>
+            <tr>
+                <td><strong>コルモゴロフ・スミルノフ検定</strong></td>
+                <td>連続分布</td>
+                <td>累積分布関数の最大差異を検定</td>
+                <td>非パラメトリック。p値で統計的有意性を評価</td>
+            </tr>
+            <tr>
+                <td><strong>カイ二乗検定</strong></td>
+                <td>カテゴリ変数</td>
+                <td>観測度数と期待度数の差異を検定</td>
+                <td>SageMaker Model Monitorのデフォルト検定の一つ</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>5.3 ドリフト対応の自動化フロー</h3>
+
+    <div class="architecture-diagram">
+        <strong>ドリフト検出→再学習の自動化アーキテクチャ</strong>
+        <div class="flow" style="margin-top:15px;">
+            <div class="arch-box">Model Monitor<br>ドリフト検出</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">CloudWatch<br>アラーム発火</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">EventBridge<br>ルール</div>
+        </div>
+        <div class="flow" style="margin-top:10px;">
+            <div class="arch-box">Lambda<br>トリガー</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">SageMaker<br>Pipelines実行</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">新モデル<br>学習・評価</div>
+            <span class="arch-arrow">→</span>
+            <div class="arch-box">承認後<br>デプロイ</div>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong>注意：</strong> 完全自動の再学習・デプロイは便利ですが、医療・金融などリスクの高い領域では人間によるレビューステップ（Human-in-the-loop）を必ず設けてください。SageMaker Model Registryの承認フローを活用します。
+    </div>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> データドリフト（入力分布変化）とコンセプトドリフト（入出力関係変化）の違いを理解すること。PSIはドリフト重大度の定量評価によく使われ、0.25超で重大な変化とみなす。
+    </div>
+</div>
+
+<!-- ===== SECTION 6 ===== -->
+<div class="section" id="sec6">
+    <span class="section-time">⏱ 第6部 (約30分)</span>
+    <h2>6. CI/CDパイプラインとMLOpsツール</h2>
+
+    <p>継続的インテグレーション・継続的デリバリー（CI/CD）をMLに適用することで、モデル開発から本番デプロイまでのプロセスを自動化・標準化します。</p>
+
+    <h3>6.1 Amazon SageMaker Pipelines</h3>
+
+    <div class="concept-box">
+        <h4>SageMaker Pipelines の主要ステップ</h4>
+        <p>SageMaker PipelinesはMLワークフロー全体を宣言的に定義・実行するサービスです。</p>
+        <br>
+        <div class="code-block">
+from sagemaker.workflow.steps import (
+    ProcessingStep, TrainingStep,
+    CreateModelStep, TransformStep
+)
+from sagemaker.workflow.pipeline import Pipeline
+from sagemaker.workflow.conditions import ConditionGreaterThanOrEqualTo
+from sagemaker.workflow.condition_step import ConditionStep
+
+# 前処理ステップ
+step_process = ProcessingStep(
+    name="PreprocessData",
+    processor=sklearn_processor,
+    inputs=[...],
+    outputs=[...]
+)
+
+# 学習ステップ
+step_train = TrainingStep(
+    name="TrainModel",
+    estimator=xgb_estimator,
+    inputs={"train": step_process.properties.ProcessingOutputConfig},
+    depends_on=[step_process]
+)
+
+# 評価→条件分岐（精度が閾値以上ならデプロイ）
+condition = ConditionGreaterThanOrEqualTo(
+    left=JsonGet(step_name=step_eval.name, property_file=evaluation_report,
+                 json_path="classification_metrics.accuracy.value"),
+    right=0.80
+)
+
+step_cond = ConditionStep(
+    name="CheckAccuracyCondition",
+    conditions=[condition],
+    if_steps=[step_register],
+    else_steps=[step_fail]
+)
+
+pipeline = Pipeline(
+    name="MyMLPipeline",
+    steps=[step_process, step_train, step_eval, step_cond]
+)
+        </div>
+    </div>
+
+    <h3>6.2 AWS CodePipeline との統合</h3>
+
+    <div class="grid-2">
+        <div class="card">
+            <h4>MLOps CI/CD の典型的なステージ</h4>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <strong>ソース</strong> — CodeCommit / GitHub でコード・設定変更を検知
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <strong>ビルド</strong> — CodeBuild でユニットテスト、コンテナイメージビルド
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <strong>モデルビルド</strong> — SageMaker Pipelines で学習・評価パイプライン実行
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <strong>承認</strong> — Model Registry で人間によるモデル承認
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">5</div>
+                    <div class="timeline-content">
+                        <strong>デプロイ</strong> — ステージング→本番へのカナリアデプロイ
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h4>関連AWSサービス</h4>
+            <table style="width:100%; font-size:0.9em;">
+                <tr>
+                    <td><strong>AWS CodeCommit</strong></td>
+                    <td>Gitリポジトリ（コード・設定管理）</td>
+                </tr>
+                <tr style="background:#f5f5f5;">
+                    <td><strong>AWS CodeBuild</strong></td>
+                    <td>マネージドビルドサービス</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS CodePipeline</strong></td>
+                    <td>CI/CDオーケストレーション</td>
+                </tr>
+                <tr style="background:#f5f5f5;">
+                    <td><strong>Amazon ECR</strong></td>
+                    <td>コンテナイメージレジストリ</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Step Functions</strong></td>
+                    <td>複雑なMLワークフロー定義</td>
+                </tr>
+                <tr style="background:#f5f5f5;">
+                    <td><strong>Amazon EventBridge</strong></td>
+                    <td>イベント駆動型トリガー</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <h3>6.3 実験管理 — Amazon SageMaker Experiments</h3>
+
+    <div class="concept-box">
+        <h4>SageMaker Experiments の概要</h4>
+        <p>複数の実験を体系的に管理し、再現性を確保するサービス：</p>
+        <ul>
+            <li><strong>実験（Experiment）：</strong>関連する試みのグループ（例：モデル改善プロジェクト）</li>
+            <li><strong>実行（Run）：</strong>個々のトレーニング実行</li>
+            <li><strong>メトリクス記録：</strong>損失、精度などの自動ログ</li>
+            <li><strong>パラメータ比較：</strong>ハイパーパラメータと結果の可視化比較</li>
+        </ul>
+        <br>
+        <div class="code-block">
+import sagemaker
+from sagemaker.experiments.run import Run
+
+# 実験実行のコンテキスト管理
+with Run(
+    experiment_name="fraud-detection-v2",
+    run_name="xgboost-lr0.01-depth6",
+    sagemaker_session=sagemaker_session
+) as run:
+    run.log_parameter("learning_rate", 0.01)
+    run.log_parameter("max_depth", 6)
+
+    # 学習実行
+    model.fit(train_data)
+
+    run.log_metric("train:accuracy", 0.95)
+    run.log_metric("validation:accuracy", 0.91)
+    run.log_metric("test:auc", 0.93)
+        </div>
+    </div>
+
+    <h3>6.4 Infrastructure as Code (IaC) による再現性</h3>
+
+    <div class="info-box">
+        <strong>AWS CloudFormation / AWS CDK の活用：</strong><br>
+        MLインフラ（エンドポイント設定、監視ルール、IAMロール、VPC設定など）をコードで管理することで、環境間の一貫性を確保し、設定ドリフトを防止します。SageMaker Studio のドメイン設定や実験環境もコード化することが推奨されます。
+    </div>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> SageMaker PipelinesはML特化のワークフローオーケストレーション。条件分岐（ConditionStep）で評価メトリクスが閾値を超えた場合のみデプロイするゲーティングが実装できる。
+    </div>
+</div>
+
+<!-- ===== SECTION 7 ===== -->
+<div class="section" id="sec7">
+    <span class="section-time">⏱ 第7部 (約30分)</span>
+    <h2>7. コスト最適化と責任あるAI運用</h2>
+
+    <h3>7.1 SageMaker コスト最適化戦略</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>最適化手法</th>
+                <th>対象フェーズ</th>
+                <th>削減効果</th>
+                <th>注意点</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Spot インスタンス</strong></td>
+                <td>学習</td>
+                <td>最大90%削減</td>
+                <td>中断される可能性あり。チェックポイント必須</td>
+            </tr>
+            <tr>
+                <td><strong>Savings Plans</strong></td>
+                <td>推論（常時稼働）</td>
+                <td>最大64%削減</td>
+                <td>1〜3年のコミットメント必要</td>
+            </tr>
+            <tr>
+                <td><strong>サーバーレス推論</strong></td>
+                <td>推論（散発的）</td>
+                <td>大幅削減（アイドル時ゼロ）</td>
+                <td>コールドスタートのレイテンシ増加</td>
+            </tr>
+            <tr>
+                <td><strong>モデル最適化<br>（量子化・プルーニング）</strong></td>
+                <td>推論</td>
+                <td>インスタンスサイズ縮小</td>
+                <td>精度とのトレードオフ評価必要</td>
+            </tr>
+            <tr>
+                <td><strong>Inferentia / Trainium</strong></td>
+                <td>推論・学習</td>
+                <td>最大75%削減（GPU比）</td>
+                <td>Neuron SDKによる最適化が必要</td>
+            </tr>
+            <tr>
+                <td><strong>自動シャットダウン</strong></td>
+                <td>開発環境</td>
+                <td>ノートブックのアイドルコスト削減</td>
+                <td>保存忘れに注意</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>7.2 AWS Inferentia と AWS Trainium</h3>
+
+    <div class="grid-2">
+        <div class="card">
+            <h4>AWS Inferentia (inf1, inf2)</h4>
+            <span class="badge">推論専用チップ</span>
+            <ul style="margin-top:10px;">
+                <li>大規模推論ワークロード向けAWSカスタムチップ</li>
+                <li>GPU比で高スループット・低コスト</li>
+                <li><strong>AWS Neuron SDK</strong>でモデルをコンパイル</li>
+                <li>PyTorch、TensorFlowをサポート</li>
+                <li>LLM推論（Llama、BERT等）に特に有効</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>AWS Trainium (trn1, trn2)</h4>
+            <span class="badge badge-blue">学習専用チップ</span>
+            <ul style="margin-top:10px;">
+                <li>大規模モデルの学習向けAWSカスタムチップ</li>
+                <li>GPU比で最大50%低コスト</li>
+                <li>同じく<strong>AWS Neuron SDK</strong>を使用</li>
+                <li>分散学習に対応（NeuronCore）</li>
+                <li>基盤モデルの事前学習・ファインチューニングに有効</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>7.3 責任あるAI (Responsible AI) の運用原則</h3>
+
+    <div class="concept-box">
+        <h4>AWSの責任あるAI フレームワーク</h4>
+        <p>本番環境でのAI運用において、倫理・公平性・透明性を継続的に確保することが求められます。</p>
+    </div>
+
+    <div class="grid-3">
+        <div class="card">
+            <h4>公平性（Fairness）</h4>
+            <ul>
+                <li>保護属性によるバイアスを継続監視</li>
+                <li>SageMaker Clarifyで定期的なバイアス評価</li>
+                <li>異なるグループ間の性能差を最小化</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>透明性（Transparency）</h4>
+            <ul>
+                <li>モデルの判断根拠をステークホルダーに説明</li>
+                <li>SHAP値による予測根拠の提示</li>
+                <li>モデルカード（Model Card）の作成・公開</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>プライバシー（Privacy）</h4>
+            <ul>
+                <li>学習データのPII（個人情報）を適切に処理</li>
+                <li>Amazon Macieでデータのセキュリティ監視</li>
+                <li>差分プライバシーの適用検討</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>安全性（Safety）</h4>
+            <ul>
+                <li>モデルの出力を人間がレビューする仕組み</li>
+                <li>有害な出力を検出・フィルタリング</li>
+                <li>Amazon Guardrails for Bedrock の活用</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>頑牢性（Robustness）</h4>
+            <ul>
+                <li>敵対的入力への耐性テスト</li>
+                <li>エッジケースでの動作確認</li>
+                <li>定期的な再評価・再学習</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>説明責任（Accountability）</h4>
+            <ul>
+                <li>全ての決定・変更の監査ログ</li>
+                <li>SageMaker Lineage Trackingで系譜管理</li>
+                <li>規制要件への準拠記録</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>7.4 Amazon SageMaker Lineage Tracking</h3>
+
+    <div class="info-box">
+        <strong>系譜追跡（Lineage Tracking）とは：</strong><br>
+        モデルのトレーサビリティを確保するため、「このモデルはいつ、どのデータで、どのコードで学習されたか」を自動的に記録します。規制産業（医療・金融）では特に重要で、監査対応や障害時の原因特定に不可欠です。
+        <br><br>
+        <strong>追跡される情報：</strong> データセット → 前処理ジョブ → 学習ジョブ → モデルアーティファクト → エンドポイント
+    </div>
+
+    <h3>7.5 AWS Cost Explorer と予算アラート</h3>
+
+    <div class="concept-box">
+        <h4>ML コスト管理のベストプラクティス</h4>
+        <ul>
+            <li><strong>タグ戦略：</strong> プロジェクト・チーム・環境別にリソースをタグ付けし、コストを分離</li>
+            <li><strong>AWS Budgets：</strong> 月次予算に対する実績・予測でアラートを設定</li>
+            <li><strong>Cost Anomaly Detection：</strong> 機械学習を使って異常なコストスパイクを自動検出</li>
+            <li><strong>SageMaker Savings Plans：</strong> SageMaker全サービスに適用可能なフレキシブルな割引プラン</li>
+        </ul>
+    </div>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> AWS Inferentiaは推論コスト削減、AWS Trainiumは学習コスト削減のための専用チップ。Spotインスタンスは学習コストを最大90%削減できるが、チェックポイントによる耐中断設計が必須。
+    </div>
+</div>
+
+<!-- ===== SECTION 8: QUIZ ===== -->
+<div class="section" id="sec8">
+    <h2>8. 確認テスト</h2>
+    <p>以下の問題に回答し、3時間の学習内容を確認してください。</p>
+
+    <div class="quiz-box">
+        <h3>練習問題（全10問）</h3>
+
+        <div class="quiz-question">
+            <p>Q1. ある企業が新しいバージョンのMLモデルをデプロイしたいと考えています。本番トラフィックの5%のみを新モデルに送り、問題がなければ段階的に増やす戦略はどれですか？</p>
+            <ol type="A">
+                <li>Blue/Green デプロイメント</li>
+                <li>カナリアリリース</li>
+                <li>シャドウデプロイ</li>
+                <li>ローリングアップデート</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: B (カナリアリリース)</strong><br>
+                    カナリアリリースは本番トラフィックの一部（少量）を新バージョンへ段階的に移行する戦略です。Blue/Greenは一括切替、シャドウはユーザーへの影響なし（結果を非表示）、ローリングは順次更新です。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q2. SageMaker Model Monitorには4種類のモニタリングがあります。入力特徴量の統計的分布の変化（平均・標準偏差・欠損率など）を監視するのはどれですか？</p>
+            <ol type="A">
+                <li>モデル品質モニタリング</li>
+                <li>モデルバイアスモニタリング</li>
+                <li>データ品質モニタリング</li>
+                <li>モデル説明可能性モニタリング</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: C (データ品質モニタリング)</strong><br>
+                    データ品質モニタリングは入力データの統計的特性（平均・標準偏差・欠損率・データ型）を監視します。モデル品質は予測精度（正解ラベルとの比較）、バイアスは公平性、説明可能性はSHAP値の変化を監視します。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q3. 詐欺検知モデルを運用中に、詐欺師が新しい攻撃手法を開発したため、以前は詐欺と強く相関していた特徴量が意味をなさなくなりました。これはどの種類のドリフトですか？</p>
+            <ol type="A">
+                <li>データドリフト（共変量シフト）</li>
+                <li>ラベルドリフト（事前確率シフト）</li>
+                <li>コンセプトドリフト</li>
+                <li>予測ドリフト</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: C (コンセプトドリフト)</strong><br>
+                    コンセプトドリフトは、入出力の関係（学習したパターン）自体が変化する最も深刻なドリフトです。データドリフトは入力分布が変化するもの、ラベルドリフトはラベルの割合が変化するものです。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q4. SageMaker Pipelinesで、モデルの評価精度が80%以上の場合のみモデルレジストリに登録するゲーティングを実装するために使用するステップタイプはどれですか？</p>
+            <ol type="A">
+                <li>ProcessingStep</li>
+                <li>TrainingStep</li>
+                <li>ConditionStep</li>
+                <li>CreateModelStep</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: C (ConditionStep)</strong><br>
+                    ConditionStepはメトリクスの条件に基づいてパイプラインの分岐を制御します。ConditionGreaterThanOrEqualToなどの条件を使って「精度≥80%ならif_steps（登録）、それ以外はelse_steps（失敗）」を実装します。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q5. 推論コストを削減したい企業が、GPU比で大幅にコストを下げられるAWS独自の推論専用チップを使用したいと考えています。どのサービスを使うべきですか？</p>
+            <ol type="A">
+                <li>AWS Trainium</li>
+                <li>AWS Inferentia</li>
+                <li>Amazon SageMaker Spot Training</li>
+                <li>AWS Graviton</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: B (AWS Inferentia)</strong><br>
+                    AWS Inferentiaは推論専用のAWSカスタムチップで、GPU比で大幅なコスト削減が可能です。AWS Trainiumは学習専用チップ、Spot Trainingは学習コスト削減、Gravitonは汎用ARMプロセッサです。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q6. MLOps成熟度Level 2の特徴として最も正確なものはどれですか？</p>
+            <ol type="A">
+                <li>すべて手動で実行され、モデルは稀にしか更新されない</li>
+                <li>MLトレーニングパイプラインは自動化されているが、パイプライン自体のデプロイは手動</li>
+                <li>MLパイプラインのビルド・テスト・デプロイもCI/CDで完全自動化されている</li>
+                <li>データ収集のみが自動化されている</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: C</strong><br>
+                    Level 0: 手動。Level 1: MLトレーニングパイプラインの自動化。Level 2: パイプライン自体のCI/CD（ビルド・テスト・デプロイ）まで完全自動化されている状態です。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q7. Population Stability Index (PSI) の値が0.30であった場合、どのように解釈しますか？</p>
+            <ol type="A">
+                <li>変化はほとんどなく、現状のモデルで問題ない</li>
+                <li>軽微な変化があるが、モニタリングを継続すれば良い</li>
+                <li>重大な変化があり、モデルの再学習を検討すべき</li>
+                <li>PSIはドリフト検出に使用できない指標である</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: C</strong><br>
+                    PSIの解釈基準：&lt;0.10 = 変化なし（問題なし）、0.10〜0.25 = 軽微な変化（要監視）、&gt;0.25 = 重大な変化（再学習を検討）。0.30は0.25を超えているため重大な変化と判断します。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q8. トラフィックが不規則（日中は多く、夜間はほぼゼロ）なアプリケーションで、コストを最小化しながらSageMakerで推論を提供する最適な方法はどれですか？</p>
+            <ol type="A">
+                <li>リアルタイム推論エンドポイント（常時稼働）</li>
+                <li>サーバーレス推論</li>
+                <li>バッチ変換ジョブ</li>
+                <li>非同期推論エンドポイント</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: B (サーバーレス推論)</strong><br>
+                    サーバーレス推論はリクエスト時のみ課金され、アイドル時はコストゼロです。トラフィックが不規則でコスト最小化が目標の場合に最適です。ただしコールドスタートによるレイテンシ増加に注意が必要です。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q9. SageMaker Clarifyが提供する2つの主要機能はどれですか？（2つ選択）</p>
+            <ol type="A">
+                <li>バイアス検出</li>
+                <li>モデルデプロイメント</li>
+                <li>説明可能性（SHAP値）</li>
+                <li>ハイパーパラメータ最適化</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: A と C (バイアス検出と説明可能性)</strong><br>
+                    SageMaker Clarifyは、①バイアス検出（学習前・学習後、および本番モニタリング）と②説明可能性（SHAP値による特徴量重要度の計算）を提供します。モデルデプロイはエンドポイント作成、HPOはHyperparameter Tunerが担当します。
+                </div>
+            </details>
+        </div>
+
+        <div class="quiz-question">
+            <p>Q10. 新しいモデルを本番環境のユーザーへの影響なしに、実際の本番トラフィックを使って検証したい場合、どのデプロイ戦略を使うべきですか？</p>
+            <ol type="A">
+                <li>カナリアリリース</li>
+                <li>Blue/Green デプロイ</li>
+                <li>シャドウデプロイ</li>
+                <li>A/B テスト</li>
+            </ol>
+            <details>
+                <summary>回答を表示</summary>
+                <div class="answer">
+                    <strong>正解: C (シャドウデプロイ)</strong><br>
+                    シャドウデプロイは本番トラフィックを新モデルにも複製しますが、新モデルの結果はユーザーへ返却されません（影のように動作）。ユーザーへの影響ゼロで本番負荷での動作を検証できます。カナリアやA/Bはユーザーへの影響があります。
+                </div>
+            </details>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 学習まとめ ===== -->
+<div class="section">
+    <h2>学習まとめ：運用とモニタリングの要点</h2>
+
+    <div class="learning-path">
+        <strong>Day 19-21 で習得した主要概念：</strong>
+        <ul>
+            <li><strong>MLOps：</strong>コード・データ・モデルを統合管理する手法。成熟度はLevel 0〜2で段階的に自動化が進む</li>
+            <li><strong>デプロイ戦略：</strong>カナリア（段階的移行）・Blue/Green（一括切替）・シャドウ（影響なし検証）・A/Bテスト（比較実験）の使い分け</li>
+            <li><strong>Model Monitor：</strong>データ品質・モデル品質・バイアス・説明可能性の4種類の継続的監視</li>
+            <li><strong>CloudWatch：</strong>SageMakerエンドポイントの標準メトリクス収集・アラーム・Auto Scaling連携</li>
+            <li><strong>ドリフト：</strong>データドリフト（入力変化）とコンセプトドリフト（関係変化）を区別。PSIで重大度を定量化</li>
+            <li><strong>SageMaker Pipelines：</strong>ConditionStepで品質ゲーティングを実装するML特化ワークフロー</li>
+            <li><strong>コスト最適化：</strong>Inferentia（推論）・Trainium（学習）でGPUコスト削減。Spot/サーバーレス/Savings Plansの使い分け</li>
+            <li><strong>責任あるAI：</strong>公平性・透明性・プライバシー・安全性・頑牢性・説明責任の6原則を本番で継続維持</li>
+        </ul>
+    </div>
+
+    <div class="learning-path">
+        <strong>次のステップ（Day 22以降）：</strong>
+        <p>生成AIとLLMの基礎、Amazon Bedrock の活用、プロンプトエンジニアリングなど、生成AIドメインへ進んでいきます。</p>
+    </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+    <p>AWS AIF-C01 対策 | Day 19-21: 運用とモニタリング | 作成日: 2026-06-02</p>
+    <p style="margin-top:10px; font-size:0.85em;">本資料はAWS認定試験対策を目的とした教育用テキストです。</p>
+</footer>
+
+</div><!-- /container -->
+</body>
+</html>
