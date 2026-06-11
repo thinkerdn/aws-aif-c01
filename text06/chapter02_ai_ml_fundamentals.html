@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第2章: AIと機械学習の基礎 - AWS AIF-C01 試験対策テキスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        header {
+            background: linear-gradient(135deg, #00695c 0%, #00897b 60%, #26a69a 100%);
+            color: white;
+            padding: 48px 36px;
+            text-align: center;
+        }
+        header .chapter-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            border: 2px solid rgba(255,255,255,0.6);
+            border-radius: 20px;
+            padding: 4px 18px;
+            font-size: 0.9em;
+            letter-spacing: 0.05em;
+            margin-bottom: 14px;
+        }
+        header h1 {
+            font-size: 2.3em;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        header p {
+            font-size: 1.05em;
+            opacity: 0.92;
+            margin-top: 6px;
+        }
+        .toc {
+            background: #e0f2f1;
+            padding: 24px 36px;
+            border-bottom: 3px solid #00897b;
+        }
+        .toc h2 {
+            color: #00695c;
+            margin-bottom: 16px;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+        .toc ol {
+            list-style: decimal;
+            margin-left: 20px;
+        }
+        .toc li {
+            margin-bottom: 7px;
+        }
+        .toc a {
+            color: #00695c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+            color: #00897b;
+        }
+        .toc .toc-sub {
+            list-style: disc;
+            margin-left: 22px;
+            margin-top: 5px;
+            color: #555;
+            font-size: 0.95em;
+        }
+        .toc .toc-sub li {
+            margin-bottom: 4px;
+        }
+        .toc .toc-sub a {
+            color: #00897b;
+            font-weight: 400;
+        }
+        .content {
+            padding: 44px 36px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section h2 {
+            color: #00695c;
+            font-size: 1.75em;
+            margin-bottom: 22px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #00897b;
+            font-weight: 700;
+        }
+        .section h3 {
+            color: #00695c;
+            font-size: 1.2em;
+            margin-top: 28px;
+            margin-bottom: 14px;
+            padding-left: 12px;
+            border-left: 4px solid #26a69a;
+            font-weight: 600;
+        }
+        .section h4 {
+            color: #00695c;
+            font-size: 1.05em;
+            margin-top: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 14px;
+        }
+        ul, ol {
+            margin: 14px 0 14px 28px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* --- CSS Classes --- */
+
+        .concept-box {
+            background: #f5fffe;
+            border: 2px solid #b2dfdb;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+        .concept-box h4 {
+            color: #00695c;
+            margin-bottom: 12px;
+        }
+
+        .key-point {
+            background: #e0f2f1;
+            border-left: 5px solid #00897b;
+            padding: 14px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .key-point strong {
+            color: #00695c;
+        }
+
+        .aws-highlight {
+            background: #fff8e1;
+            border-left: 5px solid #ffa000;
+            padding: 14px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .aws-highlight strong {
+            color: #e65100;
+        }
+
+        .warning-box {
+            background: #fbe9e7;
+            border-left: 5px solid #e53935;
+            padding: 14px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning-box strong {
+            color: #b71c1c;
+        }
+
+        .tip-box {
+            background: #f3e5f5;
+            border-left: 5px solid #8e24aa;
+            padding: 14px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .tip-box strong {
+            color: #6a1b9a;
+        }
+
+        .example {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 14px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .example strong {
+            color: #e65100;
+        }
+
+        .formula-box {
+            background: #e8f5e9;
+            border: 2px solid #a5d6a7;
+            border-radius: 8px;
+            padding: 18px 24px;
+            margin: 20px 0;
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 0.97em;
+        }
+        .formula-box h4 {
+            color: #2e7d32;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin-bottom: 12px;
+        }
+        .formula-box .formula {
+            background: white;
+            border: 1px solid #c8e6c9;
+            border-radius: 4px;
+            padding: 10px 16px;
+            margin: 8px 0;
+            color: #1b5e20;
+            font-weight: 600;
+        }
+
+        .diagram {
+            background: #f5fffe;
+            border: 2px solid #b2dfdb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .diagram h4 {
+            color: #00695c;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .diagram pre {
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 0.88em;
+            line-height: 1.5;
+            color: #004d40;
+            text-align: left;
+            white-space: pre;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #00897b;
+            color: white;
+            font-size: 0.78em;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 12px;
+            margin-right: 6px;
+            vertical-align: middle;
+            letter-spacing: 0.04em;
+        }
+        .badge.blue { background: #1976d2; }
+        .badge.purple { background: #7b1fa2; }
+        .badge.orange { background: #e65100; }
+        .badge.red { background: #c62828; }
+        .badge.gray { background: #546e7a; }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .comparison-table th {
+            background: #00695c;
+            color: white;
+            padding: 13px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.97em;
+        }
+        .comparison-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.95em;
+            vertical-align: top;
+        }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f5fffe;
+        }
+        .comparison-table tr:hover {
+            background: #e0f2f1;
+        }
+
+        .step-box {
+            counter-reset: step-counter;
+            margin: 20px 0;
+        }
+        .step-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 18px;
+            align-items: flex-start;
+        }
+        .step-num {
+            min-width: 36px;
+            height: 36px;
+            background: #00897b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1em;
+            flex-shrink: 0;
+        }
+        .step-content h4 {
+            margin-top: 4px;
+            margin-bottom: 6px;
+        }
+
+        /* Confusion matrix special table */
+        .matrix-table {
+            width: auto;
+            border-collapse: collapse;
+            margin: 20px auto;
+            font-size: 0.95em;
+        }
+        .matrix-table th, .matrix-table td {
+            border: 2px solid #00897b;
+            padding: 12px 18px;
+            text-align: center;
+        }
+        .matrix-table th {
+            background: #00695c;
+            color: white;
+        }
+        .matrix-table .tp { background: #e8f5e9; color: #1b5e20; font-weight: 700; }
+        .matrix-table .tn { background: #e8f5e9; color: #1b5e20; font-weight: 700; }
+        .matrix-table .fp { background: #ffebee; color: #b71c1c; font-weight: 700; }
+        .matrix-table .fn { background: #ffebee; color: #b71c1c; font-weight: 700; }
+
+        /* Practice questions */
+        .quiz-section {
+            margin-top: 20px;
+        }
+        .quiz-item {
+            background: #f5fffe;
+            border: 2px solid #b2dfdb;
+            border-radius: 8px;
+            padding: 22px 26px;
+            margin-bottom: 28px;
+        }
+        .quiz-item .q-num {
+            display: inline-block;
+            background: #00897b;
+            color: white;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 14px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .quiz-item .question {
+            font-weight: 600;
+            color: #00695c;
+            margin-bottom: 14px;
+            font-size: 1.02em;
+        }
+        .quiz-item .choices {
+            list-style: upper-alpha;
+            margin-left: 22px;
+            margin-bottom: 16px;
+        }
+        .quiz-item .choices li {
+            margin-bottom: 6px;
+        }
+        .quiz-item .answer-block {
+            background: #e0f2f1;
+            border-left: 4px solid #00897b;
+            padding: 14px 18px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 12px;
+        }
+        .quiz-item .answer-block .correct {
+            font-weight: 700;
+            color: #00695c;
+            margin-bottom: 8px;
+        }
+        .quiz-item .answer-block .explanation {
+            color: #333;
+            font-size: 0.97em;
+        }
+
+        footer {
+            background: #004d40;
+            color: #b2dfdb;
+            padding: 28px 36px;
+            text-align: center;
+        }
+        footer strong {
+            color: white;
+        }
+        footer a {
+            color: #80cbc4;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="chapter-badge">AWS AIF-C01 試験対策テキスト</div>
+        <h1>第2章: AIと機械学習の基礎</h1>
+        <p>AI/MLの概念・学習種別・MLパイプライン・モデル評価 を体系的に理解する</p>
+        <p style="margin-top:10px; font-size:0.9em; opacity:0.8;">対象: AWS AIF-C01 全受験者 | 難易度: 基礎〜中級</p>
+    </header>
+
+    <!-- ========== TABLE OF CONTENTS ========== -->
+    <div class="toc">
+        <h2>目次</h2>
+        <ol>
+            <li><a href="#s1">2-1 AIの基本的な概念と用語</a>
+                <ul class="toc-sub">
+                    <li><a href="#s1-1">AIの基本用語</a></li>
+                    <li><a href="#s1-2">推論の種類</a></li>
+                    <li><a href="#s1-3">データの種類とデータ分割</a></li>
+                    <li><a href="#s1-4">学習の種類（教師あり・なし・強化学習 など）</a></li>
+                    <li><a href="#s1-5">モデルの適合性とバイアス</a></li>
+                </ul>
+            </li>
+            <li><a href="#s2">2-2 AIのユースケース</a>
+                <ul class="toc-sub">
+                    <li><a href="#s2-1">AIが適切な場合とそうでない場合</a></li>
+                    <li><a href="#s2-2">学習方法別のユースケース</a></li>
+                    <li><a href="#s2-3">AWSのAIサービス応用例</a></li>
+                </ul>
+            </li>
+            <li><a href="#s3">2-3 ML開発のライフサイクル</a>
+                <ul class="toc-sub">
+                    <li><a href="#s3-1">MLOps</a></li>
+                    <li><a href="#s3-2">MLパイプラインの構成要素（全7ステップ）</a></li>
+                    <li><a href="#s3-3">MLモデルのソース</a></li>
+                    <li><a href="#s3-4">モデル評価メトリクス</a></li>
+                </ul>
+            </li>
+            <li><a href="#s4">練習問題（6問）</a></li>
+        </ol>
+    </div>
+
+    <!-- ========== CONTENT ========== -->
+    <div class="content">
+
+        <!-- ===== SECTION 1 ===== -->
+        <div class="section" id="s1">
+            <h2>2-1 AIの基本的な概念と用語</h2>
+
+            <!-- 2-1-1 基本用語 -->
+            <h3 id="s1-1">AIの基本用語</h3>
+            <p>
+                AWS AIF-C01 では、AI・ML分野の基本用語を正確に理解していることが問われます。
+                以下の用語と定義を確実に押さえましょう。
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>用語</th>
+                        <th>定義・説明</th>
+                        <th>試験ポイント</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>人工知能 (AI)</strong></td>
+                        <td>人間の知能をコンピューターで模倣する技術の総称。推論・学習・問題解決・認識などを含む。</td>
+                        <td>MLやDLはAIの一部（サブセット）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>機械学習 (ML)</strong></td>
+                        <td>明示的にプログラムせずに、データからパターンを学習するAIの手法。</td>
+                        <td>DLはMLのサブセット</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ディープラーニング (DL)</strong></td>
+                        <td>多層（深い）ニューラルネットワークを使った機械学習。画像・音声・自然言語処理に強い。</td>
+                        <td>大量データとGPUが必要</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ニューラルネットワーク</strong></td>
+                        <td>脳の神経回路を模倣した計算モデル。入力層・隠れ層・出力層で構成される。</td>
+                        <td>層を深くしたのがDL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>基盤モデル (Foundation Model)</strong></td>
+                        <td>大量の汎用データで事前学習した大規模モデル。様々なタスクにファインチューニングして使用可能。</td>
+                        <td>Amazon Bedrockで利用</td>
+                    </tr>
+                    <tr>
+                        <td><strong>大規模言語モデル (LLM)</strong></td>
+                        <td>テキスト生成・理解に特化した大型基盤モデル。GPT-4、Claude、Titanなどが該当。</td>
+                        <td>LLMは基盤モデルのサブセット</td>
+                    </tr>
+                    <tr>
+                        <td><strong>パラメータ</strong></td>
+                        <td>モデルの学習によって調整される重み（数値）。GPT-4は推定1.8兆パラメータ。</td>
+                        <td>パラメータ数 ∝ モデル性能・コスト</td>
+                    </tr>
+                    <tr>
+                        <td><strong>トークン</strong></td>
+                        <td>LLMがテキストを分割する最小単位。英語では約0.75単語/トークン、日本語は1〜2文字/トークン程度。</td>
+                        <td>入出力コストの計算単位</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="diagram">
+                <h4>AI・ML・DL の包含関係</h4>
+                <pre>
+┌─────────────────────────────────────────────────┐
+│  人工知能 (AI)                                    │
+│  ┌──────────────────────────────────────────┐    │
+│  │  機械学習 (ML)                             │    │
+│  │  ┌─────────────────────────────────────┐  │    │
+│  │  │  ディープラーニング (DL)              │  │    │
+│  │  │  ┌──────────────────────────────┐   │  │    │
+│  │  │  │  基盤モデル / LLM            │   │  │    │
+│  │  │  └──────────────────────────────┘   │  │    │
+│  │  └─────────────────────────────────────┘  │    │
+│  └──────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────┘
+</pre>
+            </div>
+
+            <!-- 2-1-2 推論の種類 -->
+            <h3 id="s1-2">推論の種類</h3>
+            <p>AIシステムが結論を導き出す推論の形式を理解しておきましょう。</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>推論の種類</th>
+                        <th>説明</th>
+                        <th>AIでの応用例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>演繹的推論</strong><br><span class="badge gray">Deductive</span></td>
+                        <td>一般原則・ルールから具体的な結論を導く。「すべてのAはBである。XはAである。∴XはBである。」</td>
+                        <td>ルールベースAI、エキスパートシステム</td>
+                    </tr>
+                    <tr>
+                        <td><strong>帰納的推論</strong><br><span class="badge">Inductive</span></td>
+                        <td>多数の具体例から一般的な法則・パターンを導く。機械学習の基礎となる考え方。</td>
+                        <td>機械学習全般（訓練データからパターン学習）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>統計的推論</strong><br><span class="badge blue">Statistical</span></td>
+                        <td>確率・統計に基づいて不確実な状況下で判断を下す。</td>
+                        <td>ベイズ分類器、確率的モデル</td>
+                    </tr>
+                    <tr>
+                        <td><strong>連想推論</strong><br><span class="badge purple">Associative</span></td>
+                        <td>関連するパターン・類似性に基づいて推測する。「Aが起きた状況でBも起きやすい」。</td>
+                        <td>推薦システム、協調フィルタリング</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 2-1-3 データの種類 -->
+            <h3 id="s1-3">機械学習に使うデータの種類とデータ分割</h3>
+
+            <h4>データの種類</h4>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>データ種類</th>
+                        <th>説明・形式</th>
+                        <th>対応するAWS/アルゴリズム</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>構造化データ</strong></td>
+                        <td>テーブル形式で整理されたデータ（CSV、RDB など）。行と列で管理可能。</td>
+                        <td>XGBoost、Linear Learner、Amazon Redshift</td>
+                    </tr>
+                    <tr>
+                        <td><strong>非構造化データ</strong></td>
+                        <td>テキスト、画像、音声、動画など定型フォーマットを持たないデータ。全データの約80%。</td>
+                        <td>Deep Learning、Rekognition、Comprehend、Transcribe</td>
+                    </tr>
+                    <tr>
+                        <td><strong>半構造化データ</strong></td>
+                        <td>JSON、XML、ログファイルなど、スキーマはあるが完全なテーブル形式ではないデータ。</td>
+                        <td>AWS Glue、Amazon Athena</td>
+                    </tr>
+                    <tr>
+                        <td><strong>時系列データ</strong></td>
+                        <td>タイムスタンプ付きのシーケンシャルデータ（センサー値、株価、売上推移 など）。</td>
+                        <td>Amazon Forecast、DeepAR（SageMaker組み込み）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="concept-box">
+                <h4>ラベルデータ vs 非ラベルデータ</h4>
+                <ul>
+                    <li><strong>ラベルデータ（アノテーション済みデータ）:</strong> 各データに正解ラベル（目的変数）が付与されているデータ。例: メールに「スパム/非スパム」のラベルが付いている。教師あり学習に必要。</li>
+                    <li><strong>非ラベルデータ:</strong> 正解ラベルがないデータ。教師なし学習や自己教師あり学習で活用。大量に存在するため、LLMの事前学習はこのデータを利用。</li>
+                </ul>
+                <div class="key-point" style="margin-top:12px;">
+                    <strong>試験ポイント:</strong> ラベリングは高コスト。少量のラベルデータ + 大量の非ラベルデータを活用するのが「半教師あり学習」。
+                </div>
+            </div>
+
+            <h4>データ分割の原則（3分割）</h4>
+            <div class="diagram">
+                <h4>データセットの3分割</h4>
+                <pre>
+全データセット（100%）
+┌─────────────────────────────────────────────────────┐
+│  訓練データ (Training Set)    │検証データ│テストデータ  │
+│         70〜80%               │ 10〜15% │  10〜15%    │
+│  モデルのパラメータを学習する  │ハイパーパラ│最終性能評価  │
+│                               │メータ調整 │（一度だけ使用）│
+└─────────────────────────────────────────────────────┘
+</pre>
+            </div>
+            <div class="warning-box">
+                <strong>注意:</strong> テストデータはモデル開発中には一切使用してはいけません。開発途中で使用すると「情報漏洩（Data Leakage）」が発生し、実際の性能を正しく評価できなくなります。
+            </div>
+
+            <!-- 2-1-4 学習の種類 -->
+            <h3 id="s1-4">学習の種類</h3>
+
+            <div class="concept-box">
+                <h4>教師あり学習 (Supervised Learning)</h4>
+                <ul>
+                    <li><strong>定義:</strong> ラベル付きデータ（入力と正解のペア）でモデルを訓練する</li>
+                    <li><strong>タスク:</strong>
+                        <ul>
+                            <li>分類（Classification）: カテゴリを予測。例: スパム判定、画像分類</li>
+                            <li>回帰（Regression）: 連続値を予測。例: 価格予測、需要予測</li>
+                        </ul>
+                    </li>
+                    <li><strong>代表例:</strong> スパムメール検出、医療診断、株価予測、顔認識</li>
+                    <li><strong>AWSアルゴリズム:</strong> XGBoost、Linear Learner、Factorization Machines、Image Classification</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <h4>教師なし学習 (Unsupervised Learning)</h4>
+                <ul>
+                    <li><strong>定義:</strong> ラベルなしデータから自律的にパターンや構造を発見する</li>
+                    <li><strong>タスク:</strong>
+                        <ul>
+                            <li>クラスタリング（Clustering）: 類似データのグループ分け</li>
+                            <li>次元削減（Dimensionality Reduction）: 特徴量の圧縮・可視化</li>
+                            <li>異常検知（Anomaly Detection）: 通常パターンから外れたデータの検出</li>
+                        </ul>
+                    </li>
+                    <li><strong>代表例:</strong> 顧客セグメンテーション、不正取引検知、レコメンデーション</li>
+                    <li><strong>AWSアルゴリズム:</strong> K-Means（クラスタリング）、PCA（次元削減）、Random Cut Forest（異常検知）</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <h4>強化学習 (Reinforcement Learning)</h4>
+                <ul>
+                    <li><strong>定義:</strong> エージェントが環境と相互作用し、試行錯誤を通じて累積報酬を最大化する学習</li>
+                    <li><strong>構成要素:</strong>
+                        <ul>
+                            <li>エージェント（Agent）: 意思決定を行う主体</li>
+                            <li>環境（Environment）: エージェントが相互作用する外部システム</li>
+                            <li>状態（State）: 現在の環境の状況</li>
+                            <li>行動（Action）: エージェントが選択できる操作</li>
+                            <li>報酬（Reward）: 行動の結果として得るフィードバック</li>
+                        </ul>
+                    </li>
+                    <li><strong>代表例:</strong> ゲームAI（AlphaGo）、ロボット制御、広告入札最適化、推薦システム</li>
+                    <li><strong>AWS:</strong> Amazon SageMaker RL（Ray RLlib統合）</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <h4>半教師あり学習 (Semi-Supervised Learning)</h4>
+                <ul>
+                    <li><strong>定義:</strong> 少量のラベルデータと大量の非ラベルデータを組み合わせて学習する</li>
+                    <li><strong>メリット:</strong> ラベリングのコストを大幅に削減しつつ、高い性能を維持できる</li>
+                    <li><strong>活用例:</strong> 医療画像診断（ラベリングに専門家が必要）、Webコンテンツ分類</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <h4>自己教師あり学習 (Self-Supervised Learning)</h4>
+                <ul>
+                    <li><strong>定義:</strong> データ自体から自動的に教師信号（ラベル）を生成して学習する</li>
+                    <li><strong>仕組みの例:</strong>
+                        <ul>
+                            <li>BERT: 文章の一部を隠して予測させる（Masked Language Modeling）</li>
+                            <li>GPT: 次のトークンを予測させる（Causal Language Modeling）</li>
+                        </ul>
+                    </li>
+                    <li><strong>重要性:</strong> 人手でのラベリング不要で、インターネット上の膨大なテキストを学習できる。LLMの事前学習（Pre-training）の基礎。</li>
+                </ul>
+            </div>
+
+            <div class="diagram">
+                <h4>学習の種類の比較フロー</h4>
+                <pre>
+ラベルあり？
+    │
+    ├─ YES ─→ 教師あり学習（分類・回帰）
+    │
+    ├─ NO ──→ パターン発見が目的？
+    │              │
+    │              ├─ YES ─→ 教師なし学習（クラスタリング・次元削減）
+    │              │
+    │              └─ NO ──→ 逐次的意思決定が目的？
+    │                             │
+    │                             └─ YES ─→ 強化学習
+    │
+    └─ 少量ラベル + 大量非ラベル ─→ 半教師あり学習
+       データ自体からラベル生成 ─→ 自己教師あり学習
+</pre>
+            </div>
+
+            <!-- 2-1-5 適合性とバイアス -->
+            <h3 id="s1-5">モデルの適合性とバイアス</h3>
+
+            <h4>過学習 (Overfitting) と未学習 (Underfitting)</h4>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>問題</th>
+                        <th>状態</th>
+                        <th>原因</th>
+                        <th>対策</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>過学習</strong><br>(Overfitting)</td>
+                        <td>訓練データに過度に適合し、未知データへの汎化性能が低下した状態。訓練誤差は小さいが、テスト誤差が大きい。</td>
+                        <td>
+                            <ul>
+                                <li>モデルが複雑すぎる</li>
+                                <li>訓練データが少ない</li>
+                                <li>学習しすぎ（エポック過多）</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>正則化（L1/L2）</li>
+                                <li>ドロップアウト（Dropout）</li>
+                                <li>データ拡張（Data Augmentation）</li>
+                                <li>早期停止（Early Stopping）</li>
+                                <li>交差検証（Cross-Validation）</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>未学習</strong><br>(Underfitting)</td>
+                        <td>訓練データにも十分適合できない状態。訓練誤差もテスト誤差も大きい。</td>
+                        <td>
+                            <ul>
+                                <li>モデルが単純すぎる</li>
+                                <li>特徴量が不足している</li>
+                                <li>学習不足（エポック不足）</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>より複雑なモデルを選択</li>
+                                <li>特徴量エンジニアリング</li>
+                                <li>学習率・エポック数の調整</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="formula-box">
+                <h4>バイアス・バリアンス トレードオフ</h4>
+                <div class="formula">
+                    期待誤差 = バイアス² + バリアンス + 不可避ノイズ
+                </div>
+                <ul style="font-family:'Segoe UI',sans-serif; margin-top:12px;">
+                    <li><strong>高バイアス（High Bias）</strong> = 未学習の状態。モデルが単純すぎて真のパターンを捉えられない。</li>
+                    <li><strong>高バリアンス（High Variance）</strong> = 過学習の状態。モデルがデータのノイズまで学習してしまう。</li>
+                    <li><strong>トレードオフ:</strong> バイアスを下げるとバリアンスが上がる傾向があり、両者を同時に下げることは困難。</li>
+                </ul>
+            </div>
+
+            <h4>データバイアスの種類</h4>
+            <div class="warning-box">
+                <strong>重要:</strong> データバイアスは、AIモデルが不公平・差別的な予測をする根本原因となります。AIF-C01では「責任あるAI」の観点からも頻出テーマです。
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>バイアスの種類</th>
+                        <th>説明</th>
+                        <th>具体例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>選択バイアス</strong></td>
+                        <td>母集団を代表しないデータを収集してしまう偏り。</td>
+                        <td>医療データで特定の人種・年齢層が少ない</td>
+                    </tr>
+                    <tr>
+                        <td><strong>確認バイアス</strong></td>
+                        <td>既存の仮説を支持するデータのみを集め、反証するデータを無視する偏り。</td>
+                        <td>「製品が優れている」という前提でレビューを収集</td>
+                    </tr>
+                    <tr>
+                        <td><strong>歴史的バイアス</strong></td>
+                        <td>過去の社会的差別・偏見がデータに反映されている偏り。</td>
+                        <td>過去の採用データで女性の採用率が低い → 採用モデルが女性を低評価</td>
+                    </tr>
+                    <tr>
+                        <td><strong>測定バイアス</strong></td>
+                        <td>データの収集方法・測定方法・ラベリングが不正確であることによる偏り。</td>
+                        <td>センサーの精度が低いグループのデータが不正確</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== SECTION 2 ===== -->
+        <div class="section" id="s2">
+            <h2>2-2 AIのユースケース</h2>
+
+            <!-- 2-2-1 適切・不適切な場合 -->
+            <h3 id="s2-1">AIが適切な場合とそうでない場合</h3>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>AIが適切な場合</th>
+                        <th>AIが不適切な場合</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>パターン認識が必要（画像分類、音声認識）</li>
+                                <li>大量データからの予測（需要予測、不正検知）</li>
+                                <li>繰り返し作業の自動化（文書分類、翻訳）</li>
+                                <li>人間には不可能なスピードでの処理（リアルタイム推薦）</li>
+                                <li>大量かつ高品質な学習データが存在する</li>
+                                <li>わずかな誤りが許容される用途</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>高度な倫理的・道徳的判断が必要な場面</li>
+                                <li>学習データが極端に少ない</li>
+                                <li>明確なルールで解決できる（単純な計算等）</li>
+                                <li>説明責任が厳格に求められる（一部の医療・法律判断）</li>
+                                <li>誤りが重大な結果を招く高リスク環境（核兵器管理等）</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 2-2-2 学習方法別ユースケース -->
+            <h3 id="s2-2">学習方法別のユースケース</h3>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>学習の種類</th>
+                        <th>代表的なユースケース</th>
+                        <th>AWSサービス例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>教師あり学習</strong></td>
+                        <td>スパムメール検出、医療診断支援、住宅価格予測、画像分類、与信審査</td>
+                        <td>SageMaker（XGBoost/Linear Learner）、Amazon Comprehend、Fraud Detector</td>
+                    </tr>
+                    <tr>
+                        <td><strong>教師なし学習</strong></td>
+                        <td>顧客セグメンテーション、異常検知、トピック分析、推薦システム</td>
+                        <td>SageMaker（K-Means/RCF）、Amazon Personalize</td>
+                    </tr>
+                    <tr>
+                        <td><strong>強化学習</strong></td>
+                        <td>ゲームAI、広告入札最適化、ロボット制御、物流ルート最適化</td>
+                        <td>Amazon SageMaker RL（Ray RLlib統合）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>生成AI</strong></td>
+                        <td>テキスト生成・要約・翻訳、画像生成、コード補完、チャットボット</td>
+                        <td>Amazon Bedrock（Claude/Titan/Llama等）、Amazon Q、CodeWhisperer</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 2-2-3 AWSのAIサービス応用例 -->
+            <h3 id="s2-3">AWSのAIサービス応用例</h3>
+            <p>AWSは主要なAIユースケースをカバーするマネージドAIサービスを提供しています。試験では各サービスの目的と対応するユースケースが問われます。</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>分野</th>
+                        <th>AWSサービス</th>
+                        <th>主なユースケース</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>コンピュータビジョン</strong></td>
+                        <td>Amazon Rekognition</td>
+                        <td>顔認識・顔比較、物体検出・ラベリング、コンテンツモデレーション（不適切画像検出）、テキスト検出（OCR）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>自然言語処理</strong></td>
+                        <td>Amazon Comprehend</td>
+                        <td>感情分析（ポジティブ/ネガティブ）、エンティティ抽出、言語検出、トピックモデリング</td>
+                    </tr>
+                    <tr>
+                        <td><strong>機械翻訳</strong></td>
+                        <td>Amazon Translate</td>
+                        <td>75以上の言語間のリアルタイム翻訳、カスタム用語集のサポート</td>
+                    </tr>
+                    <tr>
+                        <td><strong>チャットボット</strong></td>
+                        <td>Amazon Lex</td>
+                        <td>会話型インターフェース構築、音声・テキスト対応のボット</td>
+                    </tr>
+                    <tr>
+                        <td><strong>音声 → テキスト</strong></td>
+                        <td>Amazon Transcribe</td>
+                        <td>音声ファイルの自動文字起こし、コールセンター録音の分析</td>
+                    </tr>
+                    <tr>
+                        <td><strong>テキスト → 音声</strong></td>
+                        <td>Amazon Polly</td>
+                        <td>自然な合成音声の生成、ニュースリーダー、音声ガイド</td>
+                    </tr>
+                    <tr>
+                        <td><strong>需要予測</strong></td>
+                        <td>Amazon Forecast</td>
+                        <td>小売在庫予測、需要・供給計画、エネルギー消費予測</td>
+                    </tr>
+                    <tr>
+                        <td><strong>不正検知</strong></td>
+                        <td>Amazon Fraud Detector</td>
+                        <td>オンライン詐欺検知、不正注文・アカウント乗っ取り検出</td>
+                    </tr>
+                    <tr>
+                        <td><strong>推薦システム</strong></td>
+                        <td>Amazon Personalize</td>
+                        <td>Amazonの実績ある推薦技術を活用。パーソナライズされた商品・コンテンツ推薦</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ドキュメント処理</strong></td>
+                        <td>Amazon Textract</td>
+                        <td>帳票・請求書・身分証明書からのデータ抽出（OCR + 構造化）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>医療文書解析</strong></td>
+                        <td>Amazon Comprehend Medical</td>
+                        <td>医療記録からの病名・薬名・治療法の抽出、ICD-10コードへのマッピング</td>
+                    </tr>
+                    <tr>
+                        <td><strong>生成AI プラットフォーム</strong></td>
+                        <td>Amazon Bedrock</td>
+                        <td>Claude、Titan、Llama等の基盤モデルAPIへのアクセス、RAG、ファインチューニング</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="aws-highlight">
+                <strong>試験頻出:</strong> Amazon Personalize は「Amazonが自社ECサイトで使用している推薦技術と同じ技術」という点が特徴です。Amazon Forecast は AutoML で最適な予測アルゴリズムを自動選択します。
+            </div>
+        </div>
+
+        <!-- ===== SECTION 3 ===== -->
+        <div class="section" id="s3">
+            <h2>2-3 ML開発のライフサイクル</h2>
+
+            <!-- 2-3-1 MLOps -->
+            <h3 id="s3-1">MLOps</h3>
+
+            <div class="concept-box">
+                <h4>MLOps とは</h4>
+                <p>
+                    <strong>MLOps（Machine Learning Operations）</strong>は、機械学習システムの本番環境への展開・運用を効率化するための実践・ツール・組織文化の総称です。ソフトウェア開発の DevOps をML分野に応用した概念です。
+                </p>
+                <ul>
+                    <li><strong>目標:</strong> 再現性・スケーラビリティ・自動化・継続的モニタリングの実現</li>
+                    <li><strong>主要概念:</strong>
+                        <ul>
+                            <li><strong>CI（継続的インテグレーション）:</strong> コード・データ・モデルの変更を自動でテスト</li>
+                            <li><strong>CD（継続的デリバリー）:</strong> 検証済みモデルを自動で本番環境にデプロイ</li>
+                            <li><strong>CT（継続的トレーニング）:</strong> 新データで定期的にモデルを再学習</li>
+                            <li><strong>モデルバージョニング:</strong> モデルのバージョン管理と再現性の確保</li>
+                            <li><strong>フィーチャーストア（Feature Store）:</strong> 特徴量の一元管理・共有・再利用</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>AWS MLOps ツール</th>
+                        <th>役割</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SageMaker Pipelines</strong></td>
+                        <td>ML ワークフロー（データ前処理→学習→評価→デプロイ）をコードで定義・自動化するCI/CDパイプライン</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SageMaker Model Registry</strong></td>
+                        <td>学習済みモデルのバージョン管理、承認ワークフロー、メタデータ管理</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SageMaker Model Monitor</strong></td>
+                        <td>本番モデルのデータドリフト・モデル品質・バイアスをリアルタイムで監視</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SageMaker Feature Store</strong></td>
+                        <td>特徴量の保存・共有・再利用。オンラインストア（低レイテンシー推論用）とオフラインストア（学習用）を提供</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SageMaker Experiments</strong></td>
+                        <td>学習実験の追跡・比較・管理</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 2-3-2 MLパイプライン -->
+            <h3 id="s3-2">MLパイプラインの構成要素（全7ステップ）</h3>
+
+            <div class="diagram">
+                <h4>ML開発ライフサイクル</h4>
+                <pre>
+┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+│ 1.問題定義 │───▶│2.データ収集│───▶│3.前処理・  │───▶│4.モデル選択│
+│          │    │          │    │  特徴量ENG │    │  &トレーニング
+└──────────┘    └──────────┘    └──────────┘    └──────────┘
+                                                       │
+┌──────────┐    ┌──────────┐    ┌──────────┐         │
+│7.モニタリング│◀──│6.モデル   │◀──│5.モデル   │◀────────┘
+│  &再学習  │    │  デプロイ  │    │  評価    │
+└──────────┘    └──────────┘    └──────────┘
+        │                                              ▲
+        └──────────── 再学習ループ ────────────────────┘
+</pre>
+            </div>
+
+            <div class="step-box">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>問題定義</h4>
+                        <ul>
+                            <li>ビジネス課題をMLで解決可能な問題に変換する</li>
+                            <li>成功指標（KPI、モデルメトリクス）を事前に定義する</li>
+                            <li>必要なデータの利用可能性を確認する</li>
+                            <li>例: 「解約率を下げたい」→「顧客ごとの解約確率を予測する2値分類モデル」</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>データ収集</h4>
+                        <ul>
+                            <li><strong>データソース:</strong> Amazon RDS、Amazon S3、Amazon Kinesis、外部API</li>
+                            <li><strong>AWS Glue:</strong> データカタログ（メタデータ管理）、ETL（抽出・変換・ロード）処理。サーバーレスで動作。</li>
+                            <li><strong>Amazon Kinesis:</strong> ストリームデータのリアルタイム収集・処理</li>
+                            <li><strong>Amazon S3:</strong> MLデータレイクの標準ストレージ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>データ前処理・特徴量エンジニアリング</h4>
+                        <p>ML性能の80%は「データの質」で決まるとも言われる最重要ステップ。</p>
+                        <table class="comparison-table" style="margin-top:12px;">
+                            <thead>
+                                <tr>
+                                    <th>処理</th>
+                                    <th>手法</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>欠損値処理</strong></td>
+                                    <td>行の削除、平均値/中央値（数値）・最頻値（カテゴリ）での補完、予測補完</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>外れ値処理</strong></td>
+                                    <td>IQR（四分位範囲）ベース除去、Winsorization（外れ値をパーセンタイル値に置換）</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>正規化・標準化</strong></td>
+                                    <td>Min-Max正規化（0〜1にスケーリング）、Z-score標準化（平均0・標準偏差1）</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>カテゴリ変数のエンコード</strong></td>
+                                    <td>One-Hot Encoding（カテゴリ間に順序がない場合）、Label Encoding（順序あり場合）</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>特徴量選択</strong></td>
+                                    <td>相関分析、特徴量重要度（XGBoost等）、主成分分析（PCA）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="aws-highlight" style="margin-top:12px;">
+                            <strong>AWSツール:</strong><br>
+                            • <strong>SageMaker Data Wrangler</strong>: GUIベースのデータ前処理・可視化・変換ツール。300以上の組み込みデータ変換を提供。<br>
+                            • <strong>SageMaker Feature Store</strong>: 処理済み特徴量を保存・管理・チームで共有。リアルタイムとバッチの両用途に対応。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h4>モデル選択とトレーニング</h4>
+                        <p><strong>SageMaker 組み込みアルゴリズム一覧（試験頻出）:</strong></p>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>アルゴリズム</th>
+                                    <th>用途</th>
+                                    <th>入力データ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>XGBoost</strong></td>
+                                    <td>分類・回帰（構造化データで最高性能）</td>
+                                    <td>CSV、libsvm</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Linear Learner</strong></td>
+                                    <td>線形分類・線形回帰</td>
+                                    <td>recordIO-wrapped protobuf、CSV</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>BlazingText</strong></td>
+                                    <td>テキスト分類（Word2Vec形式）</td>
+                                    <td>テキストファイル</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Image Classification</strong></td>
+                                    <td>画像の多クラス分類</td>
+                                    <td>RecordIO、画像ファイル</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Object Detection</strong></td>
+                                    <td>画像内の物体検出（バウンディングボックス）</td>
+                                    <td>RecordIO、JSON</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Seq2Seq</strong></td>
+                                    <td>機械翻訳、テキスト要約</td>
+                                    <td>RecordIO</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DeepAR</strong></td>
+                                    <td>時系列予測（複数時系列の同時予測）</td>
+                                    <td>JSON Lines</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>IP Insights</strong></td>
+                                    <td>異常なIPアクセスパターンの検出</td>
+                                    <td>CSV</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Random Cut Forest (RCF)</strong></td>
+                                    <td>時系列データの異常検知</td>
+                                    <td>recordIO-wrapped protobuf</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>K-Means</strong></td>
+                                    <td>クラスタリング（教師なし学習）</td>
+                                    <td>recordIO-wrapped protobuf、CSV</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PCA</strong></td>
+                                    <td>次元削減（主成分分析）</td>
+                                    <td>recordIO-wrapped protobuf</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Factorization Machines</strong></td>
+                                    <td>推薦システム、クリック率予測</td>
+                                    <td>recordIO-wrapped protobuf（スパースデータ）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="tip-box" style="margin-top:12px;">
+                            <strong>ハイパーパラメータチューニング:</strong> SageMaker Automatic Model Tuning（AMT）を使用。ベイズ最適化（Bayesian Optimization）により、ランダムサーチより効率的に最良のハイパーパラメータ組み合わせを探索します。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">5</div>
+                    <div class="step-content">
+                        <h4>モデル評価</h4>
+                        <p>評価メトリクスは次のセクション（2-3-4）で詳述します。</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">6</div>
+                    <div class="step-content">
+                        <h4>モデルデプロイ</h4>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>デプロイ方式</th>
+                                    <th>AWSサービス</th>
+                                    <th>特徴・ユースケース</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>リアルタイム推論</strong></td>
+                                    <td>SageMaker Real-time Endpoints</td>
+                                    <td>常時起動のエンドポイント。低レイテンシーが求められる本番APIに最適。</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>バッチ推論</strong></td>
+                                    <td>SageMaker Batch Transform</td>
+                                    <td>大量データを一括処理。常時接続不要で費用効率が高い。</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>サーバーレス推論</strong></td>
+                                    <td>SageMaker Serverless Inference</td>
+                                    <td>低頻度アクセスのユースケース。使用時のみ課金、コールドスタートあり。</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>非同期推論</strong></td>
+                                    <td>SageMaker Async Inference</td>
+                                    <td>大きな入力ペイロードや長い処理時間に対応。キューで管理。</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>エッジデプロイ</strong></td>
+                                    <td>SageMaker Edge Manager / AWS IoT Greengrass</td>
+                                    <td>エッジデバイス（IoTセンサー、カメラ等）上でのローカル推論。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">7</div>
+                    <div class="step-content">
+                        <h4>モニタリングと再学習</h4>
+                        <div class="concept-box">
+                            <h4>SageMaker Model Monitor の監視機能</h4>
+                            <ul>
+                                <li><strong>データドリフト（Data Drift）:</strong> 本番データの統計的分布が学習時から変化していないかを監視</li>
+                                <li><strong>モデル品質（Model Quality）:</strong> 予測精度の劣化を監視（Ground Truthとの比較）</li>
+                                <li><strong>バイアスドリフト（Bias Drift）:</strong> モデルの公平性指標の変化を監視（SageMaker Clarifyと統合）</li>
+                                <li><strong>特徴量重要度のドリフト（Feature Attribution Drift）:</strong> SHAP値の変化を監視</li>
+                            </ul>
+                        </div>
+                        <div class="key-point">
+                            <strong>再学習のトリガー:</strong> 性能劣化の検知、データドリフトの検知、新しい大量データの蓄積、定期スケジュール（例: 週次）などがあります。SageMaker Pipelines と EventBridge を組み合わせて自動化できます。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2-3-3 MLモデルのソース -->
+            <h3 id="s3-3">MLモデルのソース</h3>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>モデルのソース</th>
+                        <th>特徴</th>
+                        <th>AWSでの実現方法</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>スクラッチから構築</strong></td>
+                        <td>最大の柔軟性。専門的なMLの知識が必要。TensorFlow、PyTorch等を使用。</td>
+                        <td>SageMaker + カスタムコード（Bring Your Own Container も可）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>組み込みアルゴリズム</strong></td>
+                        <td>AWSが最適化済みのアルゴリズムを使用。コードほぼ不要で高速に学習可能。</td>
+                        <td>SageMaker Built-in Algorithms（XGBoost、BlazingText 等）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AWS Marketplace</strong></td>
+                        <td>サードパーティが提供するモデル・アルゴリズムを購入・利用。</td>
+                        <td>AWS Marketplace for Machine Learning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>事前学習モデル</strong></td>
+                        <td>パブリックな事前学習済みモデルをすぐに利用またはファインチューニング可能。</td>
+                        <td>SageMaker JumpStart（Hugging Face モデルとの統合含む）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>基盤モデル API</strong></td>
+                        <td>大規模基盤モデルをAPIで利用。インフラ管理不要、最も手軽。</td>
+                        <td>Amazon Bedrock（Claude / Titan / Llama 2 / Mistral 等）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <strong>試験のヒント:</strong> モデルのソースは「作る vs. 買う vs. 借りる」のトレードオフです。
+                <ul>
+                    <li>カスタム性が高い順: スクラッチ &gt; ファインチューニング &gt; プロンプトエンジニアリング</li>
+                    <li>コスト・手間が低い順: Bedrock API &gt; JumpStart &gt; 組み込みアルゴリズム &gt; スクラッチ</li>
+                </ul>
+            </div>
+
+            <!-- 2-3-4 モデル評価メトリクス -->
+            <h3 id="s3-4">モデル評価メトリクス</h3>
+
+            <h4>分類モデルの評価</h4>
+            <p>分類モデルの評価は「<strong>混同行列（Confusion Matrix）</strong>」を基にします。</p>
+
+            <div style="overflow-x:auto;">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th colspan="2">予測値</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Positive（陽性）</th>
+                            <th>Negative（陰性）</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" style="font-weight:700; background:#00695c; color:white; text-align:center;">実際<br>の値</td>
+                            <td style="font-weight:700;">Positive（陽性）</td>
+                            <td class="tp">TP（真陽性）<br>正しく陽性と予測</td>
+                            <td class="fn">FN（偽陰性）<br>見逃し（Type II Error）</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;">Negative（陰性）</td>
+                            <td class="fp">FP（偽陽性）<br>誤検知（Type I Error）</td>
+                            <td class="tn">TN（真陰性）<br>正しく陰性と予測</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="formula-box">
+                <h4>分類モデルの主要評価指標</h4>
+                <div class="formula">正解率（Accuracy）  = (TP + TN) / (TP + TN + FP + FN)</div>
+                <div class="formula">適合率（Precision） = TP / (TP + FP)  ← 「陽性と予測したもののうち、実際に陽性の割合」</div>
+                <div class="formula">再現率（Recall）    = TP / (TP + FN)  ← 「実際の陽性のうち、正しく検出できた割合」</div>
+                <div class="formula">F1スコア（F1-Score）= 2 × (Precision × Recall) / (Precision + Recall)</div>
+                <div class="formula">AUC-ROC             : 閾値に依存しない性能指標（0.5 = ランダム、1.0 = 完全）</div>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>指標</th>
+                        <th>重視すべきシナリオ</th>
+                        <th>具体例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>適合率（Precision）</strong></td>
+                        <td>偽陽性（False Positive）を減らしたい場合</td>
+                        <td>スパムフィルター（正常メールをスパム判定するのは困る）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>再現率（Recall）</strong></td>
+                        <td>偽陰性（False Negative）を減らしたい場合</td>
+                        <td>がん検診（病気を見逃すのは命に関わる）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>F1スコア</strong></td>
+                        <td>Precision と Recall のバランスが重要な場合</td>
+                        <td>情報検索、不均衡データセットでの評価</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AUC-ROC</strong></td>
+                        <td>分類閾値を決める前のモデル全体の識別能力を評価したい場合</td>
+                        <td>信用スコアリング、医療診断モデルの比較</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>回帰モデルの評価</h4>
+
+            <div class="formula-box">
+                <h4>回帰モデルの主要評価指標</h4>
+                <div class="formula">MAE（平均絶対誤差）  = (1/n) × Σ|実際値 - 予測値|</div>
+                <div class="formula">MSE（平均二乗誤差）  = (1/n) × Σ(実際値 - 予測値)²</div>
+                <div class="formula">RMSE（二乗平均平方根誤差） = √MSE  ← 元データと同じ単位で解釈できる</div>
+                <div class="formula">R²（決定係数）       = 1 - (Σ(y - ŷ)² / Σ(y - ȳ)²)  ← 0〜1、1が完全</div>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>指標</th>
+                        <th>外れ値への感度</th>
+                        <th>特徴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>MAE</strong></td>
+                        <td>低い（頑健）</td>
+                        <td>各誤差を均等に評価。直感的に理解しやすい。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MSE</strong></td>
+                        <td>高い（敏感）</td>
+                        <td>大きな誤差を二乗するため外れ値が大きく影響する。最適化に使われる。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RMSE</strong></td>
+                        <td>高い（敏感）</td>
+                        <td>MSEの平方根で元データと同じ単位になる。最もよく使われる指標。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>R²</strong></td>
+                        <td>中程度</td>
+                        <td>モデルの説明力を0〜1で表す。1に近いほど良い。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>生成AIモデルの評価</h4>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>評価指標</th>
+                        <th>用途</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>BLEU</strong><br>(Bilingual Evaluation Understudy)</td>
+                        <td>機械翻訳</td>
+                        <td>参照文との n-gram の一致率を計算。0〜1、高いほど良い。翻訳品質の標準的指標。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ROUGE</strong><br>(Recall-Oriented Understudy for Gisting Evaluation)</td>
+                        <td>要約、テキスト生成</td>
+                        <td>参照要約との n-gram 再現率を計算。ROUGE-1（ユニグラム）、ROUGE-L（最長共通部分列）等がある。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BERTScore</strong></td>
+                        <td>テキスト生成全般</td>
+                        <td>BERT の文脈埋め込みを使った意味的類似度の評価。表層的な一致ではなく意味を評価。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Perplexity（困惑度）</strong></td>
+                        <td>言語モデル評価</td>
+                        <td>モデルがテキストをどれだけ予測できるかの不確かさ。低いほど良い。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Human Evaluation（人手評価）</strong></td>
+                        <td>全般</td>
+                        <td>人間が「流暢さ」「関連性」「正確性」「有害性の有無」を評価。最も信頼性が高いが高コスト。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-point">
+                <strong>試験ポイント:</strong> BLEU は機械翻訳の品質評価、ROUGE はテキスト要約の品質評価に使われます。自動評価指標（BLEU/ROUGE）は人手評価と完全には一致しないため、重要なタスクでは人手評価を組み合わせることが推奨されます。
+            </div>
+        </div>
+
+        <!-- ===== SECTION 4: PRACTICE QUESTIONS ===== -->
+        <div class="section" id="s4">
+            <h2>練習問題</h2>
+            <p>以下の問題を解いて、第2章の理解を確認してください。</p>
+
+            <div class="quiz-section">
+
+                <!-- Q1 -->
+                <div class="quiz-item">
+                    <div class="q-num">問題 1</div>
+                    <div class="question">
+                        顧客の購買履歴データを使って顧客をグループに分類し、それぞれのグループに最適なマーケティングメッセージを送りたい。購買履歴データにはラベル（グループ情報）がない。このユースケースに最も適した機械学習の手法はどれか？
+                    </div>
+                    <ol class="choices">
+                        <li>教師あり学習（Supervised Learning）</li>
+                        <li>教師なし学習（Unsupervised Learning）</li>
+                        <li>強化学習（Reinforcement Learning）</li>
+                        <li>自己教師あり学習（Self-Supervised Learning）</li>
+                    </ol>
+                    <div class="answer-block">
+                        <div class="correct">正解: B. 教師なし学習（Unsupervised Learning）</div>
+                        <div class="explanation">
+                            ラベル（グループ情報）なしのデータから類似した顧客をグループに分ける作業はクラスタリングです。クラスタリングは教師なし学習の代表的なタスクです。AWSでは SageMaker の組み込みアルゴリズム「K-Means」が使用できます。また、Amazon Personalize を活用することでパーソナライズされた推薦システムも構築できます。
+                            <br>• A は不正解: 教師あり学習にはラベルデータが必要。
+                            <br>• C は不正解: 強化学習はエージェントが環境と相互作用し報酬を最大化するため、用途が異なる。
+                            <br>• D は不正解: 自己教師あり学習はデータ自身からラベルを生成する手法で、主にLLMの事前学習に使われる。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="quiz-item">
+                    <div class="q-num">問題 2</div>
+                    <div class="question">
+                        病院が癌検診のAIモデルを評価しています。「癌を見逃す」リスクを最小限にしたい場合、最も重視すべき評価指標はどれか？
+                    </div>
+                    <ol class="choices">
+                        <li>正解率（Accuracy）</li>
+                        <li>適合率（Precision）</li>
+                        <li>再現率（Recall）</li>
+                        <li>AUC-ROC</li>
+                    </ol>
+                    <div class="answer-block">
+                        <div class="correct">正解: C. 再現率（Recall）</div>
+                        <div class="explanation">
+                            「癌を見逃す」とは偽陰性（False Negative）が発生することを指します。再現率（Recall）は「実際に癌である患者のうち、AIが正しく癌と検出できた割合」= TP / (TP + FN) です。再現率を最大化することで偽陰性を最小化できます。
+                            <br>• A は不正解: 正解率は不均衡データ（癌は稀）では指標として不適切。全員を陰性と予測するだけで高い正解率が出てしまう。
+                            <br>• B は不正解: 適合率は「陽性と予測したもののうち実際に陽性の割合」。偽陽性を減らしたい場面（スパムフィルター等）で重視。
+                            <br>• D は不正解: AUC-ROC は閾値非依存の総合的指標だが、「見逃しを最小化」という特定の優先事項を直接制御するのは再現率。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="quiz-item">
+                    <div class="q-num">問題 3</div>
+                    <div class="question">
+                        あるMLモデルが訓練データでは99%の精度を達成しているが、テストデータでは65%の精度しか出ない。この状態を最も適切に表しているのはどれか？また、この問題への対策として適切なものを一つ選べ。
+                    </div>
+                    <ol class="choices">
+                        <li>未学習（Underfitting）— 対策: より複雑なモデルへの変更</li>
+                        <li>過学習（Overfitting）— 対策: L1/L2正則化の適用</li>
+                        <li>未学習（Underfitting）— 対策: 学習率の増加</li>
+                        <li>過学習（Overfitting）— 対策: より多くのエポックで学習する</li>
+                    </ol>
+                    <div class="answer-block">
+                        <div class="correct">正解: B. 過学習（Overfitting）— 対策: L1/L2正則化の適用</div>
+                        <div class="explanation">
+                            訓練データで極めて高い精度（99%）を示す一方、テストデータでは大幅に低い精度（65%）となっているのは「過学習（Overfitting）」の典型的な症状です。モデルが訓練データのノイズやパターンを過度に記憶してしまい、新しいデータへの汎化性能が失われています。
+                            <br>正則化（L1: Lasso / L2: Ridge）は、モデルの係数に制約を加えることで過度な複雑さを抑制し、過学習を防ぐ有効な手法です。
+                            <br>• D は不正解: さらに学習を続けると過学習がより深刻になる。
+                            <br>• A/C は不正解: 未学習は訓練データでもテストデータでも精度が低い状態。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="quiz-item">
+                    <div class="q-num">問題 4</div>
+                    <div class="question">
+                        EC サイトで商品ごとの日次売上を翌30日分予測するシステムを構築したい。SageMaker の組み込みアルゴリズムとして最も適切なものはどれか？
+                    </div>
+                    <ol class="choices">
+                        <li>XGBoost</li>
+                        <li>K-Means</li>
+                        <li>DeepAR</li>
+                        <li>BlazingText</li>
+                    </ol>
+                    <div class="answer-block">
+                        <div class="correct">正解: C. DeepAR</div>
+                        <div class="explanation">
+                            DeepAR は SageMaker の組み込み時系列予測アルゴリズムです。深層学習（RNN）ベースで、複数の関連時系列（例: 数千商品の売上）を同時に学習し、将来の値と予測区間を出力できます。
+                            <br>• A は不正解: XGBoost は構造化データの分類・回帰に強いが、時系列の順序関係を直接モデル化しない。
+                            <br>• B は不正解: K-Means はクラスタリング（教師なし学習）で、時系列予測には使用しない。
+                            <br>• D は不正解: BlazingText はテキスト分類（Word2Vec）に特化したアルゴリズム。
+                            <br>なお、マネージドサービスとしては Amazon Forecast も同様のユースケースをカバーします。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="quiz-item">
+                    <div class="q-num">問題 5</div>
+                    <div class="question">
+                        機械翻訳モデルを評価するために最もよく使われる自動評価指標はどれか？
+                    </div>
+                    <ol class="choices">
+                        <li>ROUGE</li>
+                        <li>BLEU</li>
+                        <li>F1スコア</li>
+                        <li>Perplexity（困惑度）</li>
+                    </ol>
+                    <div class="answer-block">
+                        <div class="correct">正解: B. BLEU</div>
+                        <div class="explanation">
+                            BLEU（Bilingual Evaluation Understudy）は、機械翻訳の出力文と参照翻訳（正解文）の間の n-gram の一致率を計算する指標です。機械翻訳品質の標準的な自動評価指標として広く使われています。
+                            <br>• A は不正解: ROUGE（Recall-Oriented Understudy for Gisting Evaluation）はテキスト要約の評価に使われる。
+                            <br>• C は不正解: F1スコアは分類タスクの評価指標。
+                            <br>• D は不正解: Perplexity は言語モデル自体の不確かさを評価する指標で、翻訳品質の評価には使わない。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="quiz-item">
+                    <div class="q-num">問題 6</div>
+                    <div class="question">
+                        ML チームが本番環境にデプロイしたモデルを監視しています。最近、入力データの統計的分布が学習時のデータから大きくずれてきていることを検知しました。この現象の名称と、それを自動的に監視するために使用すべき AWS サービスの正しい組み合わせはどれか？
+                    </div>
+                    <ol class="choices">
+                        <li>モデルドリフト — SageMaker Experiments</li>
+                        <li>データドリフト — SageMaker Model Monitor</li>
+                        <li>過学習 — SageMaker Automatic Model Tuning</li>
+                        <li>コンセプトドリフト — SageMaker Data Wrangler</li>
+                    </ol>
+                    <div class="answer-block">
+                        <div class="correct">正解: B. データドリフト — SageMaker Model Monitor</div>
+                        <div class="explanation">
+                            入力データの統計的分布が学習時から変化する現象は「データドリフト（Data Drift）」または「共変量シフト（Covariate Shift）」と呼ばれます。これを自動的に監視するAWSサービスが <strong>Amazon SageMaker Model Monitor</strong> です。SageMaker Model Monitor は、本番エンドポイントへの入力データと学習時のベースラインを継続的に比較し、統計的な乖離を検出してアラートを送信します。
+                            <br>• A は不正解: SageMaker Experiments は実験管理・追跡ツール。
+                            <br>• C は不正解: 過学習は本番後の問題ではなく学習時の問題。SageMaker AMT はハイパーパラメータ最適化。
+                            <br>• D は不正解: コンセプトドリフトは入力特徴量と目的変数の関係が変化することで意味は近いが、選択肢として Data Wrangler はデータ前処理ツールであり監視機能はない。
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end quiz-section -->
+        </div>
+
+    </div><!-- end .content -->
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <strong>第2章完</strong> | AWS AIF-C01 試験対策テキスト
+        <br>
+        <span style="font-size:0.9em; opacity:0.75; margin-top:6px; display:inline-block;">
+            AIと機械学習の基礎 — 学習の種類・MLパイプライン・モデル評価 をカバー
+        </span>
+    </footer>
+
+</div><!-- end .container -->
+</body>
+</html>

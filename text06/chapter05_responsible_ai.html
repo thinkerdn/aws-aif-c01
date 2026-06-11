@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5章 責任あるAI - AWS AIF-C01 試験対策テキスト</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+        header {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #43a047 100%);
+            color: white;
+            padding: 45px 30px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.3em; margin-bottom: 10px; letter-spacing: 0.02em; }
+        header .subtitle { font-size: 1.15em; opacity: 0.92; }
+        header .chapter-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 20px;
+            padding: 4px 18px;
+            font-size: 0.95em;
+            margin-bottom: 14px;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #e8f5e9;
+            padding: 25px 35px;
+            border-bottom: 3px solid #2e7d32;
+        }
+        .toc h2 { color: #1b5e20; margin-bottom: 16px; font-size: 1.3em; }
+        .toc ol { list-style: decimal; margin-left: 22px; color: #555; }
+        .toc li { margin-bottom: 8px; }
+        .toc a { color: #2e7d32; text-decoration: none; font-weight: 500; }
+        .toc a:hover { text-decoration: underline; color: #1b5e20; }
+        .toc .toc-sub { list-style: circle; margin-left: 22px; margin-top: 6px; }
+        .toc .toc-sub li { margin-bottom: 5px; font-size: 0.95em; }
+
+        /* Content */
+        .content { padding: 40px 35px; }
+        .section { margin-bottom: 55px; }
+        .section h2 {
+            color: #1b5e20;
+            font-size: 1.85em;
+            margin-bottom: 22px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2e7d32;
+        }
+        .section h3 {
+            color: #2e7d32;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 14px;
+            padding-left: 10px;
+            border-left: 4px solid #43a047;
+        }
+        .section h4 {
+            color: #1b5e20;
+            font-size: 1.1em;
+            margin-top: 18px;
+            margin-bottom: 10px;
+        }
+        ul, ol { margin: 14px 0 14px 28px; }
+        li { margin-bottom: 8px; }
+        p { margin-bottom: 12px; }
+
+        /* CSS Classes */
+        .concept-box {
+            background: #f1f8e9;
+            border: 2px solid #a5d6a7;
+            padding: 20px 22px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .concept-box h4 { color: #2e7d32; margin-bottom: 12px; font-size: 1.08em; }
+
+        .key-point {
+            background: #c8e6c9;
+            border-left: 5px solid #2e7d32;
+            padding: 14px 18px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .key-point strong { color: #1b5e20; }
+
+        .aws-highlight {
+            background: #fff8e1;
+            border-left: 5px solid #ffc107;
+            padding: 14px 18px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .aws-highlight strong { color: #e65100; }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .comparison-table th {
+            background: #2e7d32;
+            color: white;
+            padding: 13px 16px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td { padding: 12px 16px; border-bottom: 1px solid #e0e0e0; }
+        .comparison-table tr:hover { background: #f1f8e9; }
+        .comparison-table tr:last-child td { border-bottom: none; }
+
+        .warning-box {
+            background: #fce4ec;
+            border-left: 5px solid #e91e63;
+            padding: 14px 18px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning-box strong { color: #880e4f; }
+
+        .tip-box {
+            background: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 14px 18px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .tip-box strong { color: #0d47a1; }
+
+        .example {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 16px 20px;
+            margin: 18px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .example strong { color: #e65100; }
+
+        .badge {
+            display: inline-block;
+            background: #2e7d32;
+            color: white;
+            font-size: 0.8em;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin: 2px 4px;
+            font-weight: 600;
+        }
+        .badge.orange { background: #e65100; }
+        .badge.blue   { background: #1565c0; }
+        .badge.red    { background: #b71c1c; }
+        .badge.gray   { background: #616161; }
+
+        .formula-box {
+            background: #1a2e1a;
+            color: #c8e6c9;
+            padding: 22px;
+            margin: 18px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.02em;
+            text-align: center;
+            line-height: 2.4;
+        }
+        .formula-box .fh { color: #a5d6a7; font-weight: bold; font-size: 1.12em; }
+
+        /* Pillar cards */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 22px 0;
+        }
+        .pillar-card {
+            background: linear-gradient(135deg, #2e7d32, #43a047);
+            color: white;
+            border-radius: 10px;
+            padding: 18px 16px;
+            text-align: center;
+        }
+        .pillar-card .icon { font-size: 2em; margin-bottom: 8px; }
+        .pillar-card h4 { color: white; font-size: 0.98em; margin-bottom: 6px; }
+        .pillar-card p { font-size: 0.82em; opacity: 0.9; }
+
+        /* Risk level boxes */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 20px 0;
+        }
+        .risk-card {
+            border-radius: 8px;
+            padding: 16px;
+            border: 2px solid;
+        }
+        .risk-card.high   { border-color: #b71c1c; background: #ffebee; }
+        .risk-card.medium { border-color: #e65100; background: #fff3e0; }
+        .risk-card.low    { border-color: #f9a825; background: #fffde7; }
+        .risk-card.min    { border-color: #2e7d32; background: #f1f8e9; }
+        .risk-card h4 { margin-bottom: 8px; font-size: 1em; }
+        .risk-card.high h4   { color: #b71c1c; }
+        .risk-card.medium h4 { color: #e65100; }
+        .risk-card.low h4    { color: #f9a825; }
+        .risk-card.min h4    { color: #2e7d32; }
+
+        /* Step flow */
+        .step-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 20px 0; }
+        .step-box {
+            background: #2e7d32; color: white;
+            padding: 10px 16px; border-radius: 6px;
+            font-size: 0.88em; font-weight: bold;
+            text-align: center; min-width: 100px;
+        }
+        .step-arrow { font-size: 1.5em; color: #2e7d32; font-weight: bold; }
+
+        /* Quiz */
+        .quiz-section {
+            background: #f1f8e9;
+            border: 2px solid #2e7d32;
+            padding: 28px 30px;
+            margin: 35px 0;
+            border-radius: 10px;
+        }
+        .quiz-section > h2 {
+            color: #1b5e20;
+            font-size: 1.6em;
+            margin-bottom: 24px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #43a047;
+        }
+        .quiz-item { margin-bottom: 32px; }
+        .quiz-item h3 {
+            color: #1b5e20;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            background: none;
+            border-left: none;
+            padding-left: 0;
+        }
+        .quiz-options {
+            list-style: upper-alpha;
+            margin-left: 24px;
+            margin-bottom: 14px;
+        }
+        .quiz-options li { margin-bottom: 6px; font-size: 0.97em; }
+        .quiz-answer-block {
+            background: white;
+            border: 1px solid #a5d6a7;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-top: 10px;
+        }
+        .quiz-answer-block .answer-label {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 1.02em;
+            margin-bottom: 6px;
+        }
+        .quiz-answer-block p { margin-bottom: 6px; font-size: 0.97em; }
+
+        /* Two column */
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+
+        footer {
+            background: #1b5e20;
+            color: #c8e6c9;
+            padding: 28px 30px;
+            text-align: center;
+            font-size: 1em;
+        }
+        footer .footer-title { font-size: 1.15em; font-weight: bold; color: white; margin-bottom: 8px; }
+
+        /* Responsive */
+        @media (max-width: 650px) {
+            .pillar-grid { grid-template-columns: 1fr 1fr; }
+            .risk-grid { grid-template-columns: 1fr; }
+            .two-column { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.6em; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="chapter-badge">AWS AIF-C01 試験対策テキスト</div>
+    <h1>第5章　責任あるAI</h1>
+    <p class="subtitle">Responsible AI &mdash; 公平性・説明可能性・透明性・ガバナンス</p>
+</header>
+
+<!-- ===== TABLE OF CONTENTS ===== -->
+<nav class="toc" id="top">
+    <h2>目次</h2>
+    <ol>
+        <li><a href="#section51">5-1 責任あるAIシステムの開発</a>
+            <ul class="toc-sub">
+                <li><a href="#responsible-ai-def">責任あるAIとは</a></li>
+                <li><a href="#aws-7-pillars">AWSの責任あるAIの柱（7原則）</a></li>
+                <li><a href="#eu-ai-act">EU AI法の概要</a></li>
+                <li><a href="#tools-responsible-ai">責任あるAIを実現するツール</a></li>
+                <li><a href="#model-selection">モデル選択時の責任ある慣行</a></li>
+                <li><a href="#legal-risks">生成AIの法的リスク</a></li>
+                <li><a href="#dataset-quality">データセットの特徴</a></li>
+                <li><a href="#bias-impact">バイアスの影響</a></li>
+                <li><a href="#monitoring-tools">バイアス・信頼性・真実性の検出ツール</a></li>
+            </ul>
+        </li>
+        <li><a href="#section52">5-2 透明性の高い説明可能なモデルの重要性</a>
+            <ul class="toc-sub">
+                <li><a href="#why-explainability">説明可能性が必要な理由</a></li>
+                <li><a href="#explainability-tools">透明で説明可能なモデルのツール</a></li>
+                <li><a href="#tradeoffs">透明性・パフォーマンス・安全性のトレードオフ</a></li>
+                <li><a href="#human-centered">人間中心設計の原則</a></li>
+            </ul>
+        </li>
+        <li><a href="#practice">練習問題（6問）</a></li>
+    </ol>
+</nav>
+
+<!-- ===== CONTENT ===== -->
+<div class="content">
+
+<!-- =============================================
+     SECTION 5-1
+     ============================================= -->
+<div class="section" id="section51">
+    <h2>5-1　責任あるAIシステムの開発</h2>
+
+    <!-- 責任あるAIとは -->
+    <h3 id="responsible-ai-def">責任あるAIとは</h3>
+
+    <div class="concept-box">
+        <h4>定義</h4>
+        <p><strong>責任あるAI（Responsible AI）</strong> とは、AIが<strong>倫理的・安全・公平・透明、かつ説明可能な方法</strong>で設計・開発・展開されることを指します。単なる技術的な精度の追求ではなく、社会・個人への影響を考慮した包括的なアプローチです。</p>
+    </div>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> 責任あるAIは「精度が高いこと」だけを指すのではなく、公平性・説明可能性・プライバシー・堅牢性・透明性・ガバナンス・安全性を含む多面的な概念です。
+    </div>
+
+    <!-- AWSの7原則 -->
+    <h3 id="aws-7-pillars">AWSの責任あるAIの柱（7原則）</h3>
+
+    <div class="pillar-grid">
+        <div class="pillar-card">
+            <div class="icon">&#9878;</div>
+            <h4>公平性<br>Fairness</h4>
+            <p>差別のない公平な結果を提供する</p>
+        </div>
+        <div class="pillar-card">
+            <div class="icon">&#128270;</div>
+            <h4>説明可能性<br>Explainability</h4>
+            <p>決定の根拠を説明できる</p>
+        </div>
+        <div class="pillar-card">
+            <div class="icon">&#128274;</div>
+            <h4>プライバシー&amp;セキュリティ<br>Privacy &amp; Security</h4>
+            <p>データ保護と安全な運用</p>
+        </div>
+        <div class="pillar-card">
+            <div class="icon">&#128737;</div>
+            <h4>堅牢性<br>Robustness</h4>
+            <p>攻撃・異常入力への耐性</p>
+        </div>
+        <div class="pillar-card">
+            <div class="icon">&#128196;</div>
+            <h4>透明性<br>Transparency</h4>
+            <p>システムの仕組みの開示</p>
+        </div>
+        <div class="pillar-card">
+            <div class="icon">&#128203;</div>
+            <h4>ガバナンス<br>Governance</h4>
+            <p>適切な管理・監査プロセス</p>
+        </div>
+        <div class="pillar-card">
+            <div class="icon">&#9989;</div>
+            <h4>安全性<br>Safety</h4>
+            <p>有害な出力の防止</p>
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <strong>学習Tips：</strong> 7原則の英語名も覚えておきましょう。試験では日本語・英語いずれでも出題されます。<br>
+        <strong>Fairness / Explainability / Privacy &amp; Security / Robustness / Transparency / Governance / Safety</strong>
+    </div>
+
+    <!-- EU AI Act -->
+    <h3 id="eu-ai-act">EU AI法（EU AI Act）の概要</h3>
+
+    <p>EU AI法はリスクベースの規制アプローチを採用した世界初の包括的AI規制です（2024年発効）。AIシステムをリスクレベルに応じて4段階に分類します。</p>
+
+    <div class="risk-grid">
+        <div class="risk-card high">
+            <h4>&#128308; 禁止されるAI（Unacceptable Risk）</h4>
+            <ul style="margin-left:18px; font-size:0.92em;">
+                <li>社会的スコアリング（政府による市民評価）</li>
+                <li>リアルタイム生体認証（公共空間・一部例外あり）</li>
+                <li>感情操作・無意識への働きかけ</li>
+                <li>脆弱なグループへの搾取的AI</li>
+            </ul>
+        </div>
+        <div class="risk-card medium">
+            <h4>&#9888; 高リスクAI（High Risk）</h4>
+            <ul style="margin-left:18px; font-size:0.92em;">
+                <li>重要インフラ（電力・水道・交通）</li>
+                <li>採用・昇進の意思決定</li>
+                <li>信用評価・保険引受</li>
+                <li>教育（試験採点・入学判定）</li>
+            </ul>
+            <p style="font-size:0.85em; margin-top:8px;"><em>→ 厳格な要件（リスク管理・データガバナンス・説明可能性・人間の監視）</em></p>
+        </div>
+        <div class="risk-card low">
+            <h4>&#9989; 限定リスクAI（Limited Risk）</h4>
+            <ul style="margin-left:18px; font-size:0.92em;">
+                <li>チャットボット</li>
+                <li>ディープフェイク生成</li>
+            </ul>
+            <p style="font-size:0.85em; margin-top:8px;"><em>→ 透明性要件（AIであることの開示義務）</em></p>
+        </div>
+        <div class="risk-card min">
+            <h4>&#128994; 最小リスクAI（Minimal Risk）</h4>
+            <ul style="margin-left:18px; font-size:0.92em;">
+                <li>スパムフィルター</li>
+                <li>AIゲーム・推薦エンジン（一般用途）</li>
+            </ul>
+            <p style="font-size:0.85em; margin-top:8px;"><em>→ 特別な規制なし（任意の行動規範を推奨）</em></p>
+        </div>
+    </div>
+
+    <!-- Tools -->
+    <h3 id="tools-responsible-ai">責任あるAIを実現するツール</h3>
+
+    <h4>Amazon SageMaker Clarify</h4>
+    <div class="concept-box">
+        <h4>SageMaker Clarify の主な機能</h4>
+        <p><strong>バイアス検出</strong></p>
+        <ul>
+            <li><strong>学習前バイアス（Pre-training Bias）：</strong> 学習データセット自体のバイアスを測定する。モデルを訓練する前に実施。</li>
+            <li><strong>学習後バイアス（Post-training Bias）：</strong> 訓練済みモデルの出力（予測）におけるバイアスを測定する。</li>
+        </ul>
+        <p style="margin-top:12px;"><strong>主なバイアス指標</strong></p>
+        <table class="comparison-table" style="margin-top:8px;">
+            <tr>
+                <th>指標</th>
+                <th>意味</th>
+                <th>タイプ</th>
+            </tr>
+            <tr>
+                <td><span class="badge">CI</span> Class Imbalance</td>
+                <td>特徴量グループ間のサンプル数の不均衡</td>
+                <td>学習前</td>
+            </tr>
+            <tr>
+                <td><span class="badge">DPL</span> Difference in Positive Proportions in Labels</td>
+                <td>ラベルの正例比率の差（グループ間）</td>
+                <td>学習前</td>
+            </tr>
+            <tr>
+                <td><span class="badge">DPPL</span> Difference in Positive Proportions in Predictions</td>
+                <td>予測の正例比率の差（グループ間）</td>
+                <td>学習後</td>
+            </tr>
+            <tr>
+                <td><span class="badge">DI</span> Disparate Impact</td>
+                <td>不利グループの正例予測率 ÷ 有利グループの正例予測率。1.0に近いほど公平</td>
+                <td>学習後</td>
+            </tr>
+        </table>
+        <p style="margin-top:12px;"><strong>説明可能性（Explainability）</strong></p>
+        <ul>
+            <li><strong>SHAP（SHapley Additive exPlanations）：</strong> 各特徴量が予測に与えた貢献度を数値化。ゲーム理論のシャープレイ値に基づく。</li>
+            <li><strong>部分依存プロット（PDP）：</strong> 特定の特徴量とモデル出力の平均的な関係を可視化する。</li>
+            <li><strong>ICE（Individual Conditional Expectation）：</strong> 個別サンプルに対して特徴量変化が予測に与える影響を可視化する。</li>
+        </ul>
+    </div>
+
+    <h4>Amazon Bedrock Guardrails</h4>
+    <div class="aws-highlight">
+        <strong>Bedrock Guardrails</strong> は生成AIアプリケーションに安全ガードレールを実装するサービスです。
+        <ul style="margin-top:10px;">
+            <li><strong>コンテンツフィルタリング：</strong> 有害コンテンツ・暴力・性的コンテンツのブロック</li>
+            <li><strong>PIIの検出とマスキング：</strong> 氏名・電話番号・クレジットカード番号等の個人情報を自動マスク</li>
+            <li><strong>グラウンディング確認：</strong> RAGシステムにおける応答と参照ソースの整合性チェック</li>
+            <li><strong>禁止トピック設定：</strong> 特定のトピック（競合他社の製品名など）への応答を拒否</li>
+            <li><strong>単語フィルター：</strong> 特定の単語・フレーズのブロック</li>
+        </ul>
+    </div>
+
+    <h4>Amazon Augmented AI（A2I）</h4>
+    <div class="concept-box">
+        <h4>Human-in-the-Loop のマネージドサービス</h4>
+        <p>Amazon A2I は、MLモデルの低信頼度予測を人間がレビューするワークフローを構築するマネージドサービスです。</p>
+        <ul>
+            <li><strong>ユースケース：</strong> 医療画像診断の補助、金融ローン審査、コンテンツモデレーション</li>
+            <li>Amazon Rekognition（画像モデレーション）・Amazon Textract（書類抽出）との統合あり</li>
+            <li>カスタムワークフローも構築可能</li>
+        </ul>
+        <div class="step-flow" style="margin-top:14px;">
+            <div class="step-box">MLモデル<br>予測</div>
+            <div class="step-arrow">&rarr;</div>
+            <div class="step-box">信頼度<br>チェック</div>
+            <div class="step-arrow">&rarr;</div>
+            <div class="step-box">閾値以下<br>→ A2I</div>
+            <div class="step-arrow">&rarr;</div>
+            <div class="step-box">人間が<br>レビュー</div>
+            <div class="step-arrow">&rarr;</div>
+            <div class="step-box">最終<br>判定</div>
+        </div>
+    </div>
+
+    <h4>AWS AI Service Cards</h4>
+    <div class="tip-box">
+        <strong>AI Service Cards</strong> は、Amazon Rekognition・Amazon Comprehend などの AWS AI サービスの設計目的・適切な使用例・制限・精度情報を記載した文書です。透明性の確保を目的としており、利用者がサービスの能力と限界を理解するために参照します。
+    </div>
+
+    <!-- Model Selection -->
+    <h3 id="model-selection">モデルを選択する際の責任ある慣行</h3>
+
+    <ol>
+        <li><strong>ユースケースの評価：</strong> リスクレベル（高リスク業界か否か）に応じて適切なモデルを選択する</li>
+        <li><strong>パフォーマンステスト：</strong> 多様なデータセット（異なる属性・地域・言語）で評価する</li>
+        <li><strong>バイアス評価：</strong> SageMaker Clarify を用いた事前バイアス測定</li>
+        <li><strong>モデルカードの確認：</strong> モデルの意図された用途・制限事項・評価結果を記載した文書（Model Card）の確認</li>
+        <li><strong>サプライチェーンの透明性：</strong> 訓練データのソース・ライセンスの確認</li>
+        <li><strong>ベンダーのコミットメント：</strong> AWS Responsible AI 方針・利用規約・SLA の確認</li>
+    </ol>
+
+    <div class="key-point">
+        <strong>モデルカード（Model Card）とは：</strong> モデルの設計目的・訓練データ・評価結果・倫理的考慮事項・想定される誤用などを文書化したものです。SageMaker ではモデルカードを標準機能としてサポートしています。
+    </div>
+
+    <!-- Legal Risks -->
+    <h3 id="legal-risks">生成AIを使用する際の法的リスク</h3>
+
+    <div class="warning-box">
+        <strong>注意：</strong> 生成AIの利用には複数の法的リスクが存在します。AIF-C01 試験では「責任あるAI」観点でのリスク認識も問われます。
+    </div>
+
+    <table class="comparison-table">
+        <tr>
+            <th>法的リスク</th>
+            <th>説明</th>
+            <th>軽減策</th>
+        </tr>
+        <tr>
+            <td>著作権侵害</td>
+            <td>訓練データに含まれる著作物の再現・引用</td>
+            <td>ライセンスの確認、生成物の審査</td>
+        </tr>
+        <tr>
+            <td>プライバシー侵害</td>
+            <td>個人情報の漏洩や生成（PII/PHI）</td>
+            <td>Guardrails PII フィルター、マスキング</td>
+        </tr>
+        <tr>
+            <td>名誉毀損</td>
+            <td>虚偽・有害な情報の生成（ハルシネーション）</td>
+            <td>Human-in-the-Loop、出力審査</td>
+        </tr>
+        <tr>
+            <td>差別</td>
+            <td>保護属性（人種・性別・年齢等）に基づく差別的出力</td>
+            <td>バイアス評価、公平性モニタリング</td>
+        </tr>
+        <tr>
+            <td>責任の所在</td>
+            <td>AI出力の誤りに対する法的責任の帰属</td>
+            <td>利用規約の整備、人間の最終確認</td>
+        </tr>
+    </table>
+
+    <div class="concept-box">
+        <h4>リスク軽減の主な対策</h4>
+        <ul>
+            <li>利用規約・使用ポリシーの整備</li>
+            <li>人間によるレビュープロセス（Human-in-the-Loop）の組み込み</li>
+            <li>Amazon Bedrock Guardrails の実装</li>
+            <li>出力の AI 生成表示（AI Generated コンテンツの明示）</li>
+            <li>定期的な法的・倫理的レビューの実施</li>
+        </ul>
+    </div>
+
+    <!-- Dataset Quality -->
+    <h3 id="dataset-quality">データセットの特徴</h3>
+
+    <h4>品質の高いデータセットの特徴</h4>
+    <table class="comparison-table">
+        <tr>
+            <th>特徴</th>
+            <th>説明</th>
+            <th>問題が生じると</th>
+        </tr>
+        <tr>
+            <td><span class="badge">代表性</span></td>
+            <td>実世界の多様性（人種・性別・年齢・地域等）を反映</td>
+            <td>特定集団でのみ精度が高くなる（表現バイアス）</td>
+        </tr>
+        <tr>
+            <td><span class="badge">バランス</span></td>
+            <td>クラス間のサンプル数が均衡</td>
+            <td>多数クラスに過適合、少数クラスで低精度</td>
+        </tr>
+        <tr>
+            <td><span class="badge">正確性</span></td>
+            <td>ラベルが正確（アノテーションの品質）</td>
+            <td>ノイズラベルによる精度低下</td>
+        </tr>
+        <tr>
+            <td><span class="badge">完全性</span></td>
+            <td>欠損値・欠損レコードが少ない</td>
+            <td>統計的偏り・推論の不安定性</td>
+        </tr>
+        <tr>
+            <td><span class="badge">新鮮さ</span></td>
+            <td>データが時代に合った内容（データドリフトを防ぐ）</td>
+            <td>現実との乖離、モデルドリフト</td>
+        </tr>
+        <tr>
+            <td><span class="badge">プライバシー</span></td>
+            <td>PII/PHI の適切な処理（マスキング・匿名化）</td>
+            <td>個人情報の漏洩リスク</td>
+        </tr>
+    </table>
+
+    <h4>Amazon SageMaker Ground Truth</h4>
+    <div class="aws-highlight">
+        <strong>SageMaker Ground Truth</strong> は、高品質なデータラベリングを効率的に実施するマネージドサービスです。
+        <ul style="margin-top:10px;">
+            <li><strong>自動ラベリング（Active Learning）：</strong> モデルが高信頼度で自動ラベリングし、不確かなデータのみ人手にまわすことでコストを削減</li>
+            <li><strong>ハイブリッドアプローチ：</strong> ML モデルと人手（クラウドワーカー）を組み合わせた効率的なラベリング</li>
+            <li><strong>ラベルタイプ：</strong> 画像分類・物体検出・セマンティックセグメンテーション・テキスト分類・NER など多様なタスクに対応</li>
+        </ul>
+    </div>
+
+    <!-- Bias Impact -->
+    <h3 id="bias-impact">バイアスの影響</h3>
+
+    <h4>バイアスの種類（詳細）</h4>
+    <div class="two-column">
+        <div class="concept-box">
+            <h4>データ起因のバイアス</h4>
+            <ul>
+                <li><strong>表現バイアス：</strong> 特定グループがデータセットに少ない（例：女性エンジニアの事例が少ない）</li>
+                <li><strong>測定バイアス：</strong> 特定グループで異なる測定方法が使われている</li>
+                <li><strong>歴史的バイアス：</strong> 過去の社会的差別・偏見がデータに反映されている</li>
+            </ul>
+        </div>
+        <div class="concept-box">
+            <h4>処理・設計起因のバイアス</h4>
+            <ul>
+                <li><strong>集計バイアス：</strong> サブグループ間の違いを無視して集計した際に生じるバイアス</li>
+                <li><strong>評価バイアス：</strong> 特定グループに対して異なる基準で評価が行われること</li>
+                <li><strong>確証バイアス：</strong> 既存の仮説に合ったデータのみを重視するバイアス</li>
+            </ul>
+        </div>
+    </div>
+
+    <h4>実際の影響例</h4>
+    <div class="example">
+        <strong>実例：</strong>
+        <ul>
+            <li>採用 AI が女性候補者を不当に低評価（Amazon 社内ツールの事例として報告）</li>
+            <li>顔認識 AI がダークスキンの顔の認識精度が著しく低い（MIT Media Lab の研究）</li>
+            <li>与信・ローン審査 AI が特定の人種・民族グループを不当に扱う</li>
+            <li>機械翻訳 AI が職業（医師・看護師）に性差別的な代名詞を使用</li>
+        </ul>
+    </div>
+
+    <!-- Monitoring Tools -->
+    <h3 id="monitoring-tools">バイアス・信頼性・真実性を検出およびモニタリングするためのツール</h3>
+
+    <table class="comparison-table">
+        <tr>
+            <th>ツール</th>
+            <th>主な目的</th>
+            <th>タイミング</th>
+        </tr>
+        <tr>
+            <td><strong>SageMaker Clarify</strong></td>
+            <td>統計的バイアス指標（CI・DPL・DPPL・DI）の自動計算、SHAP による説明可能性</td>
+            <td>学習前・学習後・推論時</td>
+        </tr>
+        <tr>
+            <td><strong>SageMaker Model Monitor</strong></td>
+            <td>本番環境でのモデルバイアスドリフト・データドリフトの継続監視</td>
+            <td>本番運用中（常時）</td>
+        </tr>
+        <tr>
+            <td><strong>Bedrock Guardrails</strong></td>
+            <td>有害出力・PII・禁止トピックのリアルタイムフィルタリング</td>
+            <td>推論時（リアルタイム）</td>
+        </tr>
+        <tr>
+            <td><strong>Amazon A2I</strong></td>
+            <td>不確かな予測・コンテンツの人手レビューワークフロー</td>
+            <td>推論時（非同期）</td>
+        </tr>
+        <tr>
+            <td><strong>Amazon CloudWatch</strong></td>
+            <td>カスタムバイアスメトリクス・精度指標のモニタリングとアラート</td>
+            <td>本番運用中（常時）</td>
+        </tr>
+    </table>
+
+    <div class="key-point">
+        <strong>試験ポイント：</strong> SageMaker Model Monitor は本番モデルの「ドリフト検出」に使います。Clarify は「バイアス計算・説明生成」です。役割の違いを区別して覚えましょう。
+    </div>
+</div>
+
+<!-- =============================================
+     SECTION 5-2
+     ============================================= -->
+<div class="section" id="section52">
+    <h2>5-2　透明性の高い説明可能なモデルの重要性</h2>
+
+    <!-- Why Explainability -->
+    <h3 id="why-explainability">透明性の高い説明可能なモデルの必要性</h3>
+
+    <div class="concept-box">
+        <h4>なぜ説明可能性が重要なのか</h4>
+        <ol>
+            <li><strong>規制対応：</strong> EU AI法・GDPR 第22条（自動的意思決定の説明を受ける権利）に対応するため</li>
+            <li><strong>信頼の構築：</strong> ユーザー・ステークホルダー・規制当局への信頼を確保するため</li>
+            <li><strong>デバッグ：</strong> モデルの誤りや異常な挙動の原因を特定するため</li>
+            <li><strong>公平性の検証：</strong> 特定の特徴量（性別・人種等）がモデルに不当な影響を与えていないかを確認するため</li>
+            <li><strong>アカウンタビリティ：</strong> 意思決定の責任の明確化（医療・金融・採用などの高リスク場面）</li>
+            <li><strong>改善：</strong> 特徴量重要度を把握することで、データ収集・エンジニアリングの改善ポイントを特定するため</li>
+        </ol>
+    </div>
+
+    <div class="warning-box">
+        <strong>GDPR 第22条：</strong> EU一般データ保護規則（GDPR）は、ユーザーが「自動的な意思決定についての説明を受ける権利」を持つことを定めています。ローン審査・採用・保険など自動化された意思決定には説明義務が生じます。
+    </div>
+
+    <!-- Explainability Tools -->
+    <h3 id="explainability-tools">透明で説明可能なモデルを識別するためのツール</h3>
+
+    <h4>本質的に解釈可能なモデル（Intrinsically Interpretable Models）</h4>
+    <table class="comparison-table">
+        <tr>
+            <th>モデル</th>
+            <th>解釈方法</th>
+            <th>特徴</th>
+        </tr>
+        <tr>
+            <td>線形回帰</td>
+            <td>係数（Coefficient）が各特徴量の重要度を示す</td>
+            <td>最も単純・精度は低〜中</td>
+        </tr>
+        <tr>
+            <td>決定木（Decision Tree）</td>
+            <td>条件分岐の木構造が可視化可能</td>
+            <td>直感的・過学習しやすい</td>
+        </tr>
+        <tr>
+            <td>ロジスティック回帰</td>
+            <td>係数・オッズ比による解釈</td>
+            <td>分類問題に適用・確率出力あり</td>
+        </tr>
+    </table>
+
+    <h4>事後説明ツール（Post-hoc Explanation Tools）</h4>
+
+    <div class="concept-box">
+        <h4>SHAP（SHapley Additive exPlanations）</h4>
+        <p>ゲーム理論のシャープレイ値（Shapley Values）に基づいて、各特徴量の予測への貢献度を数値化します。</p>
+        <ul>
+            <li><strong>グローバル説明：</strong> 全データにおける特徴量の平均的な重要度（Feature Importance）</li>
+            <li><strong>ローカル説明：</strong> 個別のサンプルに対してどの特徴量がなぜその予測を導いたか</li>
+            <li><strong>サポート：</strong> SageMaker Clarify・Amazon Bedrock が SHAP に対応</li>
+        </ul>
+        <div class="formula-box">
+            <div class="fh">SHAP 値の直感的な意味</div>
+            予測値 = ベースライン（平均予測）<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ SHAP(特徴量1) + SHAP(特徴量2) + ... + SHAP(特徴量n)<br>
+            <span style="color:#81c784; font-size:0.9em;">※ 各 SHAP 値がプラスなら予測を押し上げ、マイナスなら押し下げている</span>
+        </div>
+    </div>
+
+    <div class="concept-box">
+        <h4>LIME（Local Interpretable Model-Agnostic Explanations）</h4>
+        <p>個別の予測に対して、その近傍データポイントに対して単純な線形モデルをあてはめることで、局所的な説明を生成します。</p>
+        <ul>
+            <li><strong>特徴：</strong> どんなモデルにも適用できるモデル非依存（Model-Agnostic）な手法</li>
+            <li><strong>対応データ：</strong> テキスト・画像・表形式データのいずれにも対応</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>その他の説明可能性ツール</h4>
+        <ul>
+            <li><strong>部分依存プロット（PDP：Partial Dependence Plot）：</strong> 1〜2個の特徴量とモデル出力の平均的な関係をグラフで可視化する。</li>
+            <li><strong>ICE（Individual Conditional Expectation）：</strong> 個別サンプルに対して、特定の特徴量を変化させたときの予測変化をプロットする。PDP の個別版。</li>
+            <li><strong>Attention Visualization：</strong> Transformer ベースモデルの注意機構（Attention Weights）を可視化。どの入力トークンに注目して出力を生成したかを確認できる。</li>
+        </ul>
+    </div>
+
+    <div class="aws-highlight">
+        <strong>AWS Explain Endpoint（SageMaker Clarify）：</strong> SageMaker のリアルタイム推論エンドポイントに Clarify の説明機能を統合することで、推論と同時に SHAP による説明を生成できます。バッチ変換でも利用可能です。
+    </div>
+
+    <!-- Tradeoffs -->
+    <h3 id="tradeoffs">モデルの透明性とパフォーマンス・安全性とのトレードオフ</h3>
+
+    <table class="comparison-table">
+        <tr>
+            <th>観点</th>
+            <th>解釈可能モデル<br>（線形回帰・決定木）</th>
+            <th>ブラックボックスモデル<br>（深層学習・大型LLM）</th>
+        </tr>
+        <tr>
+            <td>精度</td>
+            <td>低〜中（単純なタスクでは十分）</td>
+            <td>高（複雑なタスクで優位）</td>
+        </tr>
+        <tr>
+            <td>解釈可能性</td>
+            <td>高（直接確認可能）</td>
+            <td>低（SHAP/LIME 等のツールが必要）</td>
+        </tr>
+        <tr>
+            <td>推論速度</td>
+            <td>高速（計算コストが低い）</td>
+            <td>遅い（大型モデルは特に）</td>
+        </tr>
+        <tr>
+            <td>運用コスト</td>
+            <td>低</td>
+            <td>高（GPU・API コストが必要）</td>
+        </tr>
+        <tr>
+            <td>推奨される場面</td>
+            <td>規制産業、説明義務がある意思決定、信頼性優先</td>
+            <td>精度優先、説明不要な用途（推薦・画像認識等）</td>
+        </tr>
+    </table>
+
+    <div class="key-point">
+        <strong>トレードオフの解決策：</strong>
+        <ul style="margin-top:8px;">
+            <li>高精度モデル（XGBoost・深層学習）に SHAP などの事後説明ツールを組み合わせる</li>
+            <li>ユースケースのリスクレベルに応じたモデル選択基準を設計段階で定義する</li>
+            <li>「精度 vs. 説明可能性」の要件を事前にステークホルダーと合意する</li>
+        </ul>
+    </div>
+
+    <!-- Human-Centered -->
+    <h3 id="human-centered">説明可能なAIのための人間中心設計の原則</h3>
+
+    <div class="concept-box">
+        <h4>人間中心設計（Human-Centered Design）の6原則</h4>
+        <ol>
+            <li><strong>ユーザー中心の説明：</strong> 技術者向けではなく、意思決定者（医師・審査員・管理者）が理解できる形式で説明する</li>
+            <li><strong>適切な詳細レベル：</strong> 必要十分な情報のみを提示し、情報過多を避ける</li>
+            <li><strong>インタラクティブ性：</strong> ユーザーが自らドリルダウン・探索できる説明インターフェースを提供する</li>
+            <li><strong>信頼のキャリブレーション：</strong> AI への過信も不信も防ぎ、適切な信頼レベルを育むような説明設計</li>
+            <li><strong>継続的フィードバック：</strong> ユーザーフィードバックを収集し、説明の品質を継続的に改善する</li>
+            <li><strong>アクセシビリティ：</strong> 多様なユーザー（技術背景の差・言語・障害）に理解可能な形式で提供する</li>
+        </ol>
+    </div>
+
+    <h4>Human-in-the-Loop（HITL）のパターン</h4>
+    <table class="comparison-table">
+        <tr>
+            <th>パターン</th>
+            <th>説明</th>
+            <th>AWSサービス</th>
+        </tr>
+        <tr>
+            <td><strong>Active Learning</strong></td>
+            <td>モデルが不確かなサンプルを人間にレビュー依頼し、ラベルを取得してモデルを改善する</td>
+            <td>SageMaker Ground Truth</td>
+        </tr>
+        <tr>
+            <td><strong>Human Override</strong></td>
+            <td>AI の決定に人間が介入・上書きできる仕組みを設ける</td>
+            <td>Amazon A2I（カスタムフロー）</td>
+        </tr>
+        <tr>
+            <td><strong>Escalation</strong></td>
+            <td>信頼度が閾値以下の予測を自動的に人間にエスカレーションする</td>
+            <td>Amazon A2I</td>
+        </tr>
+        <tr>
+            <td><strong>Auditing</strong></td>
+            <td>AI の決定ログを定期的に人間がレビューし、バイアス・誤りを検出する</td>
+            <td>SageMaker Model Monitor + CloudWatch</td>
+        </tr>
+    </table>
+
+    <div class="aws-highlight">
+        <strong>Amazon A2I まとめ：</strong> Amazon Augmented AI (A2I) は Human-in-the-Loop のマネージドサービスです。Amazon Rekognition（画像モデレーション）・Amazon Textract（書類処理）との組み込み統合のほか、任意のカスタムMLモデルに対してもワークフローを構築できます。SageMaker と連携することで、信頼度スコアが低い予測を自動的にヒューマンレビューキューへ送れます。
+    </div>
+</div>
+
+<!-- =============================================
+     PRACTICE QUESTIONS
+     ============================================= -->
+<div class="quiz-section" id="practice">
+    <h2>練習問題　（全6問）</h2>
+
+    <!-- Q1 -->
+    <div class="quiz-item">
+        <h3>問題 1</h3>
+        <p>ある企業が採用選考システムにMLモデルを導入しています。このシステムが女性候補者に対して不当に低いスコアをつけていることが判明しました。この問題の原因として最も可能性が高いものはどれですか？</p>
+        <ol class="quiz-options">
+            <li>モデルの過学習（Overfitting）</li>
+            <li>訓練データの表現バイアス（特定グループの代表性の欠如）</li>
+            <li>モデルのアンダーフィッティング</li>
+            <li>ハイパーパラメータの不適切な設定</li>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：B</div>
+            <p>訓練データに過去の採用実績データ（男性の採用が多かった時代のデータ）を使用した場合、データ自体に歴史的バイアスが含まれており、モデルがその偏りを学習します。これは<strong>歴史的バイアス</strong>や<strong>表現バイアス</strong>の典型例です。過学習やアンダーフィッティングはこのような体系的な偏りの原因にはなりません。</p>
+            <p><strong>対策：</strong> SageMaker Clarify による学習前バイアス（DPL 指標）の測定、バランスの取れた訓練データの用意、Disparate Impact 指標のモニタリング。</p>
+        </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item">
+        <h3>問題 2</h3>
+        <p>Amazon SageMaker Clarify の機能に関する説明として、正しいものをすべて選んでください（複数選択）。</p>
+        <ol class="quiz-options">
+            <li>学習前バイアス（Pre-training Bias）の検出が可能である</li>
+            <li>SHAP を用いて特徴量の予測への貢献度を数値化できる</li>
+            <li>本番環境でのモデルパフォーマンスをリアルタイムでモニタリングする</li>
+            <li>学習後バイアス（Post-training Bias）の測定が可能である</li>
+            <li>チャットボットの禁止トピックを設定する</li>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：A, B, D</div>
+            <p><strong>A（正）：</strong> SageMaker Clarify は訓練データの学習前バイアスを CI・DPL などの指標で測定できます。</p>
+            <p><strong>B（正）：</strong> SHAP（SHapley Additive exPlanations）を使って特徴量の貢献度を説明する機能があります。</p>
+            <p><strong>C（誤）：</strong> 本番モデルのリアルタイムモニタリングは <strong>SageMaker Model Monitor</strong> の役割です。</p>
+            <p><strong>D（正）：</strong> 訓練後のモデル出力のバイアス（DPPL・DI 等）も測定できます。</p>
+            <p><strong>E（誤）：</strong> 禁止トピックの設定は <strong>Amazon Bedrock Guardrails</strong> の機能です。</p>
+        </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item">
+        <h3>問題 3</h3>
+        <p>EU AI法（EU AI Act）に基づいて、次のAIシステムのうち「高リスク（High Risk）」に分類されないものはどれですか？</p>
+        <ol class="quiz-options">
+            <li>銀行ローン審査の自動決定システム</li>
+            <li>求人応募者のスクリーニングシステム</li>
+            <li>ECサイトの商品推薦エンジン</li>
+            <li>公立学校の入学選考システム</li>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：C</div>
+            <p>EU AI法では、<strong>ECサイトの商品推薦エンジン</strong>は「最小リスク（Minimal Risk）」に分類され、特別な規制を受けません。</p>
+            <ul>
+                <li>A（銀行ローン審査）→ 高リスク：信用評価・金融サービス</li>
+                <li>B（採用スクリーニング）→ 高リスク：採用・昇進の意思決定</li>
+                <li>C（商品推薦）→ 最小リスク：一般的なレコメンデーション</li>
+                <li>D（学校入学選考）→ 高リスク：教育・職業訓練の機会決定</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item">
+        <h3>問題 4</h3>
+        <p>金融機関がローン審査モデルを本番環境で運用しています。規制当局から「AIモデルがローン申請を拒否した場合、その理由を顧客に説明できること」が求められています。この要件を満たすためのベストプラクティスはどれですか？</p>
+        <ol class="quiz-options">
+            <li>精度が最も高いモデルを使用するため、ディープニューラルネットワークを選択する</li>
+            <li>SageMaker Clarify の SHAP 機能を用いて、個別予測の特徴量貢献度を出力する</li>
+            <li>Amazon Bedrock Guardrails を使って有害な出力をフィルタリングする</li>
+            <li>SageMaker Model Monitor を設定してデータドリフトを監視する</li>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：B</div>
+            <p>規制対応における「説明義務」に対応するには、<strong>SageMaker Clarify の SHAP 機能</strong>を用いて個々の審査結果に対して「どの特徴量がどれだけ影響したか」をローカル説明として出力することが最適です。</p>
+            <ul>
+                <li>A：ディープニューラルネットワークは本質的にブラックボックスであり、説明可能性は低い</li>
+                <li>C：Guardrails は生成 AI の有害出力フィルタリング用であり、この要件には合致しない</li>
+                <li>D：Model Monitor はドリフト検出・品質監視用であり、個別予測の説明には使わない</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item">
+        <h3>問題 5</h3>
+        <p>医療診断支援システムを開発しています。AI が低信頼度の診断結果（例：信頼度スコアが60%未満）を出力した場合は、必ず医師がレビューするワークフローを実装したいと考えています。この要件を実現するために最適な AWS サービスはどれですか？</p>
+        <ol class="quiz-options">
+            <li>Amazon SageMaker Clarify</li>
+            <li>Amazon Augmented AI（A2I）</li>
+            <li>Amazon Bedrock Guardrails</li>
+            <li>Amazon SageMaker Model Monitor</li>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：B</div>
+            <p><strong>Amazon Augmented AI（A2I）</strong> は、Machine Learning モデルの信頼度スコアが設定した閾値を下回った場合に、自動的に人間のレビューワークフローへエスカレーションするマネージドサービスです。</p>
+            <p>この「Human-in-the-Loop（人間を意思決定ループに含める）」アーキテクチャは、医療診断・金融審査・コンテンツモデレーションなどの高リスクなユースケースで広く採用されます。</p>
+            <ul>
+                <li>A：Clarify はバイアス検出・説明可能性。リアルタイム人手レビューは対応外。</li>
+                <li>C：Guardrails は生成 AI の出力フィルタリング用。</li>
+                <li>D：Model Monitor は本番モデルの統計的監視用。人手レビュー機能はない。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item">
+        <h3>問題 6</h3>
+        <p>責任あるAIにおける「堅牢性（Robustness）」の説明として最も適切なものはどれですか？</p>
+        <ol class="quiz-options">
+            <li>AIシステムがすべてのユーザーに対して公平な結果を提供すること</li>
+            <li>AIシステムの訓練データやアルゴリズムの仕組みを外部に開示すること</li>
+            <li>AIシステムが敵対的攻撃・異常な入力・配布シフトに対して安定した動作を維持すること</li>
+            <li>AI に関する意思決定プロセスを適切に管理・監査するためのポリシーの整備</li>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：C</div>
+            <p><strong>堅牢性（Robustness）</strong> とは、AIシステムが<strong>敵対的攻撃（Adversarial Attack）・異常な入力・訓練データと異なる分布のデータ（配布シフト）</strong>に対しても安定した性能を維持することを指します。</p>
+            <ul>
+                <li>A：公平なすべてのユーザーへの公平な結果 → <strong>公平性（Fairness）</strong> の説明</li>
+                <li>B：仕組みの外部開示 → <strong>透明性（Transparency）</strong> の説明</li>
+                <li>C：正解（堅牢性）</li>
+                <li>D：管理・監査ポリシー → <strong>ガバナンス（Governance）</strong> の説明</li>
+            </ul>
+            <p><strong>試験Tips：</strong> AWS の責任あるAI 7原則の各定義を区別できるようにしておくことが重要です。</p>
+        </div>
+    </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="footer-title">第5章完　|　AWS AIF-C01 試験対策テキスト</div>
+    <p>責任あるAI &mdash; 公平性・説明可能性・透明性・ガバナンス</p>
+    <p style="margin-top:8px; font-size:0.88em; opacity:0.8;">
+        &copy; AWS AIF-C01 Study Materials &nbsp;|&nbsp; Responsible AI Chapter
+    </p>
+</footer>
+
+</div><!-- /container -->
+</body>
+</html>

@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6章 セキュリティ、コンプライアンス、ガバナンス - AWS AIF-C01 試験対策テキスト</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.12);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, #b71c1c 0%, #c62828 50%, #ef5350 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+        header .chapter-label {
+            font-size: 0.95em;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.85;
+            margin-bottom: 10px;
+        }
+        header h1 {
+            font-size: 2.4em;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.92;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        header .header-badges {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        header .header-badge {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== TABLE OF CONTENTS ===== */
+        .toc {
+            background: #fce4e4;
+            padding: 30px 40px;
+            border-bottom: 4px solid #c62828;
+        }
+        .toc h2 {
+            color: #b71c1c;
+            margin-bottom: 18px;
+            font-size: 1.25em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toc h2::before {
+            content: "📋";
+            font-size: 1.1em;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 30px;
+        }
+        .toc ol {
+            list-style: none;
+            counter-reset: toc-counter;
+        }
+        .toc li {
+            counter-increment: toc-counter;
+            margin-bottom: 7px;
+            font-size: 0.95em;
+        }
+        .toc li::before {
+            content: counter(toc-counter, decimal-leading-zero) ". ";
+            color: #b71c1c;
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+        .toc a {
+            color: #c62828;
+            text-decoration: none;
+            border-bottom: 1px dotted #c62828;
+        }
+        .toc a:hover {
+            color: #b71c1c;
+            border-bottom-style: solid;
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            padding: 50px 40px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section h2 {
+            color: #b71c1c;
+            font-size: 1.9em;
+            margin-bottom: 22px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #ef5350;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section h2 .section-num {
+            background: #b71c1c;
+            color: white;
+            border-radius: 6px;
+            padding: 2px 10px;
+            font-size: 0.7em;
+            letter-spacing: 0.05em;
+        }
+        .section h3 {
+            color: #c62828;
+            font-size: 1.35em;
+            margin-top: 30px;
+            margin-bottom: 14px;
+            padding-left: 12px;
+            border-left: 4px solid #ef5350;
+        }
+        .section h4 {
+            color: #333;
+            font-size: 1.1em;
+            margin-top: 18px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        p { margin-bottom: 14px; }
+        ul, ol {
+            margin: 10px 0 14px 24px;
+        }
+        li { margin-bottom: 6px; }
+        strong { color: #b71c1c; }
+
+        /* ===== CSS CLASSES ===== */
+        .concept-box {
+            background: #fff5f5;
+            border: 2px solid #ef9a9a;
+            padding: 20px 24px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .concept-box h4 {
+            color: #b71c1c;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+            border-bottom: 1px solid #ef9a9a;
+            padding-bottom: 6px;
+        }
+
+        .key-point {
+            background: #e8f5e9;
+            border-left: 5px solid #43a047;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .key-point strong { color: #2e7d32; }
+
+        .aws-highlight {
+            background: linear-gradient(135deg, #fff3e0, #fff8e1);
+            border: 1px solid #ffb300;
+            border-left: 5px solid #ff8f00;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .aws-highlight strong { color: #e65100; }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .comparison-table th {
+            background: #c62828;
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        .comparison-table td {
+            padding: 13px 16px;
+            border-bottom: 1px solid #f5f5f5;
+            font-size: 0.93em;
+            vertical-align: top;
+        }
+        .comparison-table tr:nth-child(even) td { background: #fafafa; }
+        .comparison-table tr:hover td { background: #fff5f5; }
+
+        .warning-box {
+            background: #fff8e1;
+            border-left: 5px solid #f57f17;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning-box strong { color: #e65100; }
+        .warning-box::before {
+            content: "⚠ 注意: ";
+            font-weight: 700;
+            color: #f57f17;
+        }
+
+        .tip-box {
+            background: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .tip-box strong { color: #0d47a1; }
+        .tip-box::before {
+            content: "💡 試験ポイント: ";
+            font-weight: 700;
+            color: #1565c0;
+        }
+
+        .example {
+            background: #f3e5f5;
+            border-left: 5px solid #8e24aa;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .example strong { color: #6a1b9a; }
+        .example::before {
+            content: "📌 例: ";
+            font-weight: 700;
+            color: #7b1fa2;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #b71c1c;
+            color: white;
+            border-radius: 12px;
+            padding: 2px 12px;
+            font-size: 0.78em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin: 2px 4px;
+            vertical-align: middle;
+        }
+        .badge.green { background: #2e7d32; }
+        .badge.blue  { background: #1565c0; }
+        .badge.orange{ background: #e65100; }
+        .badge.purple{ background: #6a1b9a; }
+
+        .formula-box {
+            background: #f5f5f5;
+            border: 2px dashed #bdbdbd;
+            border-radius: 8px;
+            padding: 18px 24px;
+            margin: 18px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            color: #333;
+        }
+        .formula-box .formula-title {
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 700;
+            color: #b71c1c;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        /* Service cards */
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .service-card {
+            background: #fff5f5;
+            border: 1px solid #ef9a9a;
+            border-top: 3px solid #c62828;
+            border-radius: 6px;
+            padding: 16px;
+        }
+        .service-card h4 {
+            color: #b71c1c;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        .service-card ul {
+            margin: 0 0 0 18px;
+            font-size: 0.88em;
+        }
+
+        /* Lifecycle steps */
+        .lifecycle {
+            counter-reset: step-counter;
+            margin: 20px 0;
+        }
+        .lifecycle-step {
+            counter-increment: step-counter;
+            background: white;
+            border: 1px solid #ef9a9a;
+            border-left: none;
+            border-radius: 0 6px 6px 0;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 60px;
+        }
+        .lifecycle-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 44px;
+            background: #c62828;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            font-weight: 700;
+            border-radius: 0 0 0 6px;
+        }
+        .lifecycle-step h4 { color: #b71c1c; margin-bottom: 6px; font-size: 1em; }
+        .lifecycle-step ul { margin: 0 0 0 18px; font-size: 0.9em; }
+
+        /* Quiz section */
+        .quiz-section {
+            background: #fff5f5;
+            border-top: 4px solid #b71c1c;
+            padding: 40px;
+            margin-top: 20px;
+        }
+        .quiz-section h2 {
+            color: #b71c1c;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .quiz-item {
+            background: white;
+            border: 1px solid #ef9a9a;
+            border-radius: 8px;
+            padding: 22px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 4px rgba(183,28,28,0.08);
+        }
+        .quiz-q {
+            font-weight: 700;
+            color: #b71c1c;
+            margin-bottom: 14px;
+            font-size: 0.97em;
+        }
+        .quiz-q .q-num {
+            background: #b71c1c;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        .quiz-options {
+            list-style: none;
+            margin: 0 0 16px 0;
+        }
+        .quiz-options li {
+            padding: 8px 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            font-size: 0.93em;
+            cursor: default;
+        }
+        .quiz-options li::before {
+            font-weight: 700;
+            color: #666;
+            margin-right: 8px;
+        }
+        .quiz-options li:nth-child(1)::before { content: "A. "; }
+        .quiz-options li:nth-child(2)::before { content: "B. "; }
+        .quiz-options li:nth-child(3)::before { content: "C. "; }
+        .quiz-options li:nth-child(4)::before { content: "D. "; }
+        .quiz-answer {
+            background: #e8f5e9;
+            border-left: 4px solid #43a047;
+            border-radius: 0 6px 6px 0;
+            padding: 14px 18px;
+            font-size: 0.92em;
+        }
+        .quiz-answer .ans-label {
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 6px;
+        }
+        .quiz-options li.correct {
+            background: #e8f5e9;
+            border-color: #43a047;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: #b71c1c;
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+            font-size: 0.92em;
+        }
+        footer p { opacity: 0.9; margin-bottom: 6px; }
+        footer p:last-child { opacity: 0.7; font-size: 0.85em; margin-bottom: 0; }
+
+        @media (max-width: 700px) {
+            header { padding: 30px 20px; }
+            header h1 { font-size: 1.7em; }
+            .toc { padding: 20px; }
+            .toc-grid { grid-template-columns: 1fr; }
+            .content { padding: 30px 20px; }
+            .service-grid { grid-template-columns: 1fr; }
+            .quiz-section { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="chapter-label">AWS AIF-C01 試験対策テキスト</div>
+    <h1>第6章</h1>
+    <h1>セキュリティ、コンプライアンス、ガバナンス</h1>
+    <p>AIシステムの保護、規制対応、ガバナンス戦略を体系的に理解する</p>
+    <div class="header-badges">
+        <span class="header-badge">試験ドメイン5</span>
+        <span class="header-badge">重要度: 高</span>
+        <span class="header-badge">AWS サービス 20+</span>
+        <span class="header-badge">実践問題 6問</span>
+    </div>
+</header>
+
+<!-- ===== TABLE OF CONTENTS ===== -->
+<div class="toc">
+    <h2>目次</h2>
+    <div class="toc-grid">
+        <ol>
+            <li><a href="#sec6-1">6-1 AIシステムの保護</a></li>
+            <li><a href="#sec6-1-1">AWSのセキュリティサービス概要</a></li>
+            <li><a href="#sec6-1-2">Macie / IAM / KMS</a></li>
+            <li><a href="#sec6-1-3">VPC / CloudTrail / Inspector</a></li>
+            <li><a href="#sec6-1-4">GuardDuty / Bedrock Guardrails</a></li>
+            <li><a href="#sec6-1-5">ソース引用とデータ出典の文書化</a></li>
+            <li><a href="#sec6-1-6">安全なデータエンジニアリング</a></li>
+            <li><a href="#sec6-1-7">AIセキュリティとプライバシーの考慮事項</a></li>
+        </ol>
+        <ol start="9">
+            <li><a href="#sec6-2">6-2 ガバナンスとコンプライアンス規制</a></li>
+            <li><a href="#sec6-2-1">主要規制フレームワーク (GDPR/HIPAA等)</a></li>
+            <li><a href="#sec6-2-2">コンプライアンス支援AWSサービス</a></li>
+            <li><a href="#sec6-2-3">データガバナンス戦略</a></li>
+            <li><a href="#sec6-2-4">モデルガバナンスライフサイクル</a></li>
+            <li><a href="#sec6-2-5">AI倫理委員会の役割</a></li>
+            <li><a href="#quiz">練習問題</a></li>
+        </ol>
+    </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="content">
+
+<!-- ==================== SECTION 6-1 ==================== -->
+<div class="section" id="sec6-1">
+    <h2><span class="section-num">6-1</span> AIシステムの保護</h2>
+
+    <p>AIシステムはデータ収集・モデル訓練・推論という独自のライフサイクルを持ち、各フェーズに特有のセキュリティリスクが存在します。AWS は IAM、KMS、VPC、CloudTrail などの基盤サービスを組み合わせて、エンドツーエンドの保護を実現します。</p>
+
+    <div class="tip-box">
+        AIF-C01 では「どのシナリオにどのAWSサービスを使うか」が問われます。各サービスの主要ユースケースと他サービスとの組み合わせパターンを理解してください。
+    </div>
+
+    <!-- 6-1-1 -->
+    <h3 id="sec6-1-1">AIシステムを保護するためのAWSのサービスと機能 — 概要</h3>
+
+    <p>AIシステムのセキュリティは以下の4つの観点で整理できます。</p>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>観点</th>
+                <th>主要AWSサービス</th>
+                <th>目的</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>データ保護</strong></td>
+                <td>Amazon Macie, AWS KMS</td>
+                <td>機密データの検出・暗号化</td>
+            </tr>
+            <tr>
+                <td><strong>アクセス制御</strong></td>
+                <td>AWS IAM, Lake Formation</td>
+                <td>最小権限の実施・細粒度認可</td>
+            </tr>
+            <tr>
+                <td><strong>ネットワーク保護</strong></td>
+                <td>Amazon VPC, セキュリティグループ</td>
+                <td>通信の隔離・暗号化</td>
+            </tr>
+            <tr>
+                <td><strong>検知・対応</strong></td>
+                <td>CloudTrail, GuardDuty, Inspector, Security Hub</td>
+                <td>脅威検知・監査証跡</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 6-1-2 -->
+    <h3 id="sec6-1-2">Amazon Macie / AWS IAM / AWS KMS</h3>
+
+    <div class="concept-box">
+        <h4>Amazon Macie</h4>
+        <p>機械学習を活用して <strong>S3 バケット内の機密データを自動検出・分類</strong>するサービスです。AIシステムの ML データセットに含まれる個人情報の特定に不可欠です。</p>
+        <ul>
+            <li><strong>PII 検出対象:</strong> 氏名、メールアドレス、クレジットカード番号、マイナンバー、パスポート番号、銀行口座番号など</li>
+            <li><strong>自動的なバケット評価:</strong> パブリック公開・暗号化なし・外部共有バケットを自動フラグ</li>
+            <li><strong>ML データセットスキャン:</strong> 訓練データに混入した機密情報を検出</li>
+            <li><strong>コンプライアンス監査レポートの自動生成:</strong> GDPR・HIPAA 対応に活用</li>
+            <li><strong>EventBridge 連携:</strong> PII 検出時に自動修復ワークフローを起動</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>AWS Identity and Access Management (IAM)</h4>
+        <p>AWSリソースへのアクセスを <strong>最小権限の原則</strong> に基づいて制御します。SageMaker での主要なロール設計は以下の通りです。</p>
+        <table class="comparison-table">
+            <thead>
+                <tr><th>IAM ロール</th><th>用途</th><th>主な許可ポリシー</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>SageMaker サービスロール</strong></td>
+                    <td>SageMaker が AWS サービスを呼び出す</td>
+                    <td>S3 読み書き、ECR イメージ取得</td>
+                </tr>
+                <tr>
+                    <td><strong>実行ロール (Training)</strong></td>
+                    <td>トレーニングジョブの実行コンテナ</td>
+                    <td>S3 データアクセス、CloudWatch Logs 書き込み</td>
+                </tr>
+                <tr>
+                    <td><strong>エンドポイント呼び出しロール</strong></td>
+                    <td>推論 API の呼び出し権限</td>
+                    <td>sagemaker:InvokeEndpoint</td>
+                </tr>
+                <tr>
+                    <td><strong>Bedrock 実行ロール</strong></td>
+                    <td>Bedrock API の呼び出し</td>
+                    <td>bedrock:InvokeModel、S3 アクセス (RAG用)</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>重要な IAM 条件キー:</strong></p>
+        <ul>
+            <li><code>sagemaker:VolumeKmsMasterKey</code> — KMS キーの強制</li>
+            <li><code>sagemaker:NetworkIsolation</code> — ネットワーク隔離の強制</li>
+            <li><code>aws:SourceVpc</code> — VPC からのアクセスのみ許可</li>
+            <li><code>aws:SecureTransport</code> — HTTPS 通信のみ許可</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>AWS Key Management Service (KMS)</h4>
+        <p>暗号化キーの一元管理により、<strong>保存時・転送時のデータ保護</strong>を実現します。</p>
+        <ul>
+            <li><strong>保存時暗号化の対象:</strong> S3 オブジェクト、SageMaker ノートブックインスタンス、EBS ボリューム、SageMaker Feature Store、SageMaker Model Registry</li>
+            <li><strong>キーポリシー:</strong> IAM ポリシーより優先して評価されるリソースベースのポリシー</li>
+            <li><strong>自動キーローテーション:</strong> CMK を年 1 回自動ローテーション (AWS マネージドキーは自動、CMK は有効化が必要)</li>
+            <li><strong>マルチリージョンキー:</strong> 同一キーマテリアルを複数リージョンで使用し、DR 対応を容易化</li>
+            <li><strong>CloudTrail 連携:</strong> 全キー使用履歴を記録しコンプライアンス証跡として活用</li>
+        </ul>
+        <div class="formula-box">
+            <div class="formula-title">S3 暗号化オプションの比較</div>
+SSE-S3 (AES-256): AWSがキー管理、追加料金なし
+SSE-KMS        : KMS CMK を使用、キー使用の CloudTrail 記録あり ← 推奨
+SSE-C          : クライアントがキーを提供、AWSはキーを保持しない
+クライアント側暗号化: S3 に到達する前に暗号化、最高レベルの制御
+        </div>
+    </div>
+
+    <div class="tip-box">
+        SSE-KMS は CloudTrail にキー使用ログが残るため、<strong>監査証跡が必要なコンプライアンス要件</strong>に最適です。SSE-S3 より監査性が高い点を試験では選択の根拠にしてください。
+    </div>
+
+    <!-- 6-1-3 -->
+    <h3 id="sec6-1-3">Amazon VPC / AWS CloudTrail / Amazon Inspector</h3>
+
+    <div class="concept-box">
+        <h4>Amazon VPC (SageMaker での活用)</h4>
+        <p>SageMaker を VPC 内で実行することで、<strong>MLデータがインターネットを経由しない</strong>安全な環境を構築できます。</p>
+        <ul>
+            <li><strong>VPC 内でのトレーニングジョブ実行:</strong> S3 や他の AWS サービスとの通信をプライベートに保つ</li>
+            <li><strong>VPC エンドポイント (PrivateLink):</strong>
+                <ul>
+                    <li>S3 ゲートウェイエンドポイント: S3 へのプライベートアクセス</li>
+                    <li>SageMaker API エンドポイント: SageMaker コントロールプレーンへのプライベートアクセス</li>
+                    <li>Bedrock インターフェイスエンドポイント: Bedrock API のプライベートアクセス</li>
+                </ul>
+            </li>
+            <li><strong>セキュリティグループ:</strong> インバウンド/アウトバウンドトラフィックをポート・プロトコル・送信元 IP で制御</li>
+            <li><strong>ネットワーク隔離 (Network Isolation):</strong> トレーニングコンテナからの一切の外部通信を遮断 (<code>EnableNetworkIsolation: true</code>)</li>
+            <li><strong>NACLs (ネットワーク ACL):</strong> サブネットレベルの追加防御層</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>AWS CloudTrail</h4>
+        <p>AWS アカウント内の<strong>全 API コールを記録</strong>するサービスです。AI/ML システムのコンプライアンス監査の根幹を担います。</p>
+        <ul>
+            <li><strong>記録対象:</strong> SageMaker、Bedrock、Rekognition、Comprehend、すべての AWS AI サービス</li>
+            <li><strong>記録内容:</strong> 誰が・いつ・どのリソースに・何の操作をしたか + レスポンス</li>
+            <li><strong>S3 への長期保存:</strong> 監査証跡として 1〜7 年間の保持を推奨</li>
+            <li><strong>CloudWatch Logs 連携:</strong> リアルタイム監視・異常アクティビティへの自動アラート</li>
+            <li><strong>CloudTrail Lake:</strong> SQL クエリによるマネージド監査ログ分析 (Athena 不要)</li>
+            <li><strong>Athena との連携:</strong> S3 上のログを SQL クエリで分析 (コスト効率が高い)</li>
+            <li><strong>整合性検証:</strong> ログファイルのハッシュ検証により改ざん検知</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>Amazon Inspector</h4>
+        <p><strong>EC2・Lambda・ECR コンテナの脆弱性を自動スキャン</strong>するサービスです。</p>
+        <ul>
+            <li><strong>SageMaker コンテナの脆弱性検出:</strong> ECR に push されたカスタムコンテナの CVE スキャン</li>
+            <li><strong>継続的スキャン:</strong> 新しい CVE が公開されると自動的に再評価</li>
+            <li><strong>CVSS スコア:</strong> 脆弱性の深刻度を定量評価 (0〜10)</li>
+            <li><strong>Security Hub 連携:</strong> 検出結果を一元的なダッシュボードで管理</li>
+        </ul>
+    </div>
+
+    <!-- 6-1-4 -->
+    <h3 id="sec6-1-4">AWS Security Hub / Amazon GuardDuty / Bedrock Guardrails</h3>
+
+    <div class="service-grid">
+        <div class="service-card">
+            <h4>AWS Security Hub</h4>
+            <ul>
+                <li>セキュリティアラートの一元管理ダッシュボード</li>
+                <li>AWS 基礎セキュリティのベストプラクティス準拠確認</li>
+                <li>GuardDuty・Inspector・Macie の結果を統合</li>
+                <li>自動修復ワークフロー (Security Hub Automations)</li>
+                <li>クロスアカウント・クロスリージョン集約</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <h4>Amazon GuardDuty</h4>
+            <ul>
+                <li>脅威インテリジェンスによる機械学習ベースの異常検知</li>
+                <li>S3 バケットへの不正アクセス検知</li>
+                <li>異常な IAM アクティビティの検知</li>
+                <li>GuardDuty for ML: SageMaker の異常 API コール検知</li>
+                <li>EventBridge 連携による自動インシデント対応</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="concept-box">
+        <h4>Amazon Bedrock Guardrails (セキュリティ観点)</h4>
+        <p>生成 AI アプリケーションのセキュリティとコンプライアンスを<strong>コード変更なしで実施</strong>できるガードレール機能です。</p>
+        <ul>
+            <li><strong>プロンプトインジェクション防御:</strong> 悪意あるユーザーがシステムプロンプトを上書きしようとする攻撃を検知・ブロック</li>
+            <li><strong>機密情報の PII フィルタリング:</strong> 入力・出力両方向で氏名、SSN、クレジットカード番号等を自動マスキング</li>
+            <li><strong>カスタムデニーリスト:</strong> 禁止ワード・トピックをカスタム設定でブロック (競合他社名、機密プロジェクト名等)</li>
+            <li><strong>グラウンディング検証:</strong> 応答が参照ドキュメントに基づいているかの確認 (ハルシネーション抑制)</li>
+            <li><strong>コンテンツフィルタリング:</strong> 有害・不適切なコンテンツの 6 カテゴリフィルタリング</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        <strong>Bedrock Guardrails</strong> はモデル自体の変更ではなく、入出力層に適用されるレイヤーです。すべての Bedrock 対応モデルに適用でき、Fine-tuning されたモデルにも有効です。
+    </div>
+
+    <!-- 6-1-5 -->
+    <h3 id="sec6-1-5">ソース引用とデータ出典の文書化</h3>
+
+    <div class="concept-box">
+        <h4>データリネージとトレーサビリティ</h4>
+        <p>AI システムが信頼できる出力を生成していることを証明するためには、<strong>データの出所から最終的な推論結果まで</strong>の全経路を追跡できる仕組みが必要です。</p>
+        <ul>
+            <li><strong>Bedrock Knowledge Bases:</strong> RAG 応答に引用元チャンクを自動付与。どのドキュメントのどのページが根拠かをトレース可能</li>
+            <li><strong>モデルカード (Model Cards — SageMaker):</strong> モデルの訓練データ・意図・評価結果・制限事項・倫理的考慮事項を標準フォーマットで文書化</li>
+            <li><strong>AWS Glue Data Catalog:</strong> データセットのスキーマ・メタデータ・データオーナー・更新履歴を中央管理</li>
+            <li><strong>Amazon SageMaker Feature Store:</strong> 特徴量の作成者・時刻・リネージ (どのデータソースから生成されたか) を追跡</li>
+            <li><strong>SageMaker Experiments:</strong> 実験の設定・データ・コード・メトリクスをリネージグラフとして可視化</li>
+        </ul>
+    </div>
+
+    <div class="key-point">
+        <strong>著作権管理の観点:</strong> 生成 AI の出力が著作権で保護されたソースを使用しているかを記録することは、企業の法的リスク管理において重要です。Bedrock の引用付き応答は、この課題への一つの対応手段です。
+    </div>
+
+    <!-- 6-1-6 -->
+    <h3 id="sec6-1-6">安全なデータエンジニアリングのベストプラクティス</h3>
+
+    <h4>1. データの暗号化</h4>
+    <div class="formula-box">
+        <div class="formula-title">転送時暗号化の強制 (S3 バケットポリシー)</div>
+{
+  "Effect": "Deny",
+  "Principal": "*",
+  "Action": "s3:*",
+  "Resource": "arn:aws:s3:::my-ml-bucket/*",
+  "Condition": {
+    "Bool": { "aws:SecureTransport": "false" }
+  }
+}
+— TLS 1.2 以上を強制。HTTP アクセスを拒否
+    </div>
+
+    <h4>2. データアクセス制御</h4>
+    <table class="comparison-table">
+        <thead>
+            <tr><th>制御手段</th><th>粒度</th><th>ユースケース</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>S3 バケットポリシー</strong></td>
+                <td>バケット・オブジェクト</td>
+                <td>パブリックアクセスブロック、クロスアカウント制御</td>
+            </tr>
+            <tr>
+                <td><strong>VPC エンドポイントポリシー</strong></td>
+                <td>サービス・リソース</td>
+                <td>特定 S3 バケットへのアクセスのみ許可</td>
+            </tr>
+            <tr>
+                <td><strong>IAM リソースポリシー</strong></td>
+                <td>API アクション</td>
+                <td>最小権限、MFA 条件付きアクセス</td>
+            </tr>
+            <tr>
+                <td><strong>AWS Lake Formation</strong></td>
+                <td>列・行レベル</td>
+                <td>分析チームごとに参照可能な列を制限</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>3. データの匿名化・仮名化</h4>
+    <div class="service-grid">
+        <div class="service-card">
+            <h4>Amazon Macie</h4>
+            <ul>
+                <li>S3 内 PII の自動検出</li>
+                <li>機密レベルの分類・レポート</li>
+                <li>EventBridge で自動修復トリガー</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <h4>AWS Glue + Comprehend</h4>
+            <ul>
+                <li>Glue ETL でデータマスキング変換</li>
+                <li>Comprehend で PII エンティティ検出</li>
+                <li>Comprehend の自動マスキング機能</li>
+            </ul>
+        </div>
+    </div>
+
+    <h4>4. データ保持ポリシー</h4>
+    <ul>
+        <li><strong>S3 Lifecycle Policy:</strong> 一定期間後の自動削除・低コストストレージ層への移行</li>
+        <li><strong>S3 Object Lock (WORM):</strong> コンプライアンス要件による削除防止・改ざん防止</li>
+        <li><strong>AWS Backup:</strong> バックアップポリシーの一元管理・クロスリージョンバックアップ</li>
+        <li><strong>Amazon Macie + EventBridge:</strong> 保持期限超過データの自動通知・削除トリガー</li>
+    </ul>
+
+    <!-- 6-1-7 -->
+    <h3 id="sec6-1-7">AIシステムのセキュリティとプライバシーに関する考慮事項</h3>
+
+    <h4>モデルに対するセキュリティ攻撃の分類</h4>
+
+    <table class="comparison-table">
+        <thead>
+            <tr><th>攻撃の種類</th><th>内容</th><th>対策手段</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>データポイズニング</strong></td>
+                <td>悪意あるデータを訓練セットに注入し、モデルの挙動を意図的に操作する</td>
+                <td>訓練データの出所検証、Macie によるデータ品質スキャン</td>
+            </tr>
+            <tr>
+                <td><strong>モデル抽出攻撃</strong></td>
+                <td>大量の API クエリを通じてモデルの機能を模倣したコピーモデルを作成する</td>
+                <td>API レート制限、GuardDuty による異常呼び出し検知</td>
+            </tr>
+            <tr>
+                <td><strong>敵対的サンプル (Adversarial Examples)</strong></td>
+                <td>人間には識別困難な微細な変更を加えた入力で意図的に誤分類させる</td>
+                <td>入力検証・サニタイゼーション、モデルの堅牢性向上</td>
+            </tr>
+            <tr>
+                <td><strong>プロンプトインジェクション</strong></td>
+                <td>LLM のシステムプロンプトや指示を上書きする悪意ある入力を注入する</td>
+                <td>Bedrock Guardrails、入力検証、最小権限のシステムプロンプト設計</td>
+            </tr>
+            <tr>
+                <td><strong>モデルインバージョン</strong></td>
+                <td>モデルの出力から訓練データ (特に PII) を逆算・推測する</td>
+                <td>差分プライバシー、訓練データの匿名化</td>
+            </tr>
+            <tr>
+                <td><strong>メンバーシップ推測</strong></td>
+                <td>特定のデータが訓練セットに含まれていたかどうかを推測する</td>
+                <td>差分プライバシー、訓練データアクセスの厳格な管理</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>プライバシー保護技術</h4>
+
+    <div class="service-grid">
+        <div class="service-card">
+            <h4>差分プライバシー (Differential Privacy)</h4>
+            <ul>
+                <li>出力にノイズを追加し個人情報の推測を困難にする</li>
+                <li>数学的なプライバシー保証 (ε の設定)</li>
+                <li>集計統計・モデル訓練に適用</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <h4>連合学習 (Federated Learning)</h4>
+            <ul>
+                <li>データを中央サーバーに送らずモデルを分散学習</li>
+                <li>各デバイス/組織でローカルに訓練しモデル重みのみを共有</li>
+                <li>医療・金融分野での活用事例</li>
+            </ul>
+        </div>
+    </div>
+
+    <h4>AWS 固有のプライバシー保護</h4>
+    <div class="key-point">
+        <strong>Amazon Bedrock のデータプライバシー:</strong> デフォルトでは、ユーザーの入力データはモデルの再学習・改善に使用されません。データは AWS リージョン内で処理され、Bedrock の推論処理は AWS インフラ内に留まります。
+    </div>
+    <ul>
+        <li><strong>AWS Artifact:</strong> AWS のコンプライアンスレポートをセルフサービスでダウンロード。監査人への提出資料として活用</li>
+        <li><strong>AWS データ常駐:</strong> リージョン選択によりデータが特定地理的区域内に留まることを保証</li>
+        <li><strong>同型暗号 (研究段階):</strong> 暗号化したまま計算を行い、クラウドプロバイダにも平文データを見せない技術</li>
+    </ul>
+</div><!-- /section 6-1 -->
+
+<!-- ==================== SECTION 6-2 ==================== -->
+<div class="section" id="sec6-2">
+    <h2><span class="section-num">6-2</span> AIシステムのガバナンスとコンプライアンス規制</h2>
+
+    <p>AIシステムの普及に伴い、各国・業界で規制フレームワークが整備されています。AWS はこれらの規制要件を満たすための認証取得済みサービスと、コンプライアンスを自動化・可視化するサービス群を提供しています。</p>
+
+    <!-- 6-2-1 -->
+    <h3 id="sec6-2-1">AIシステムの規制コンプライアンス基準</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>規制</th>
+                <th>適用範囲</th>
+                <th>AI に関連する主要要件</th>
+                <th>AWS 対応</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>GDPR</strong><br><small>EU一般データ保護規則</small></td>
+                <td>EU の個人データを扱う全事業者</td>
+                <td>
+                    データ最小化、目的制限、同意管理<br>
+                    第22条: 自動的意思決定への異議申し立て権<br>
+                    忘れられる権利、データ侵害 72h 通知
+                </td>
+                <td>GDPR 準拠 Conformance Pack、Macie、Audit Manager</td>
+            </tr>
+            <tr>
+                <td><strong>HIPAA</strong><br><small>米国医療情報保護</small></td>
+                <td>米国の医療関連事業者 (Covered Entity, BA)</td>
+                <td>
+                    PHI 18 項目の保護<br>
+                    BAA の締結<br>
+                    アクセスログ保持 (6 年)
+                </td>
+                <td>BAA 対応サービス: S3, SageMaker, Comprehend Medical, Macie 等</td>
+            </tr>
+            <tr>
+                <td><strong>PCI DSS</strong><br><small>クレジットカードデータ</small></td>
+                <td>カード会員データを扱う事業者</td>
+                <td>
+                    カード番号の暗号化<br>
+                    アクセス制御 (最小権限)<br>
+                    脆弱性管理・定期テスト
+                </td>
+                <td>PCI DSS Level 1 認定、Conformance Pack</td>
+            </tr>
+            <tr>
+                <td><strong>SOC 2</strong><br><small>Service Organization Controls</small></td>
+                <td>SaaS・クラウドサービスプロバイダー</td>
+                <td>
+                    Type I: 設計評価<br>
+                    Type II: 6 か月以上の運用評価<br>
+                    5 信頼基準: セキュリティ・可用性・処理整合性・機密性・プライバシー
+                </td>
+                <td>AWS SOC 2 レポート (AWS Artifact で入手)</td>
+            </tr>
+            <tr>
+                <td><strong>ISO 27001</strong><br><small>ISMS 国際規格</small></td>
+                <td>情報セキュリティ管理システム</td>
+                <td>
+                    ISMS の確立・運用・監視・改善<br>
+                    リスクアセスメント
+                </td>
+                <td>複数リージョンで ISO 27001 認定取得済み</td>
+            </tr>
+            <tr>
+                <td><strong>EU AI 法</strong><br><small>EU AI Act (2024〜)</small></td>
+                <td>EU 市場向け AI システム提供者・利用者</td>
+                <td>
+                    リスクベース規制 (高リスク AI 要件)<br>
+                    適合性評価・文書化・人間による監督<br>
+                    汎用 AI モデル (GPAI) の透明性義務
+                </td>
+                <td>SageMaker Model Cards、Bedrock Guardrails、Audit Manager</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="concept-box">
+        <h4>GDPR 第 22 条 — 自動化された意思決定と AI</h4>
+        <p>AIシステムが個人に対して<strong>法的効力または重大な影響を与える自動的意思決定</strong>を行う場合、その個人は人間による審査を要求する権利があります。試験では、「GDPR に準拠した AIシステムが持つべき機能」として頻出です。</p>
+        <ul>
+            <li>ローン審査 AI による否決 → 人間審査の要求権</li>
+            <li>採用 AI による書類選考落ち → 理由の説明と人間審査の要求権</li>
+            <li>対応手段: SageMaker Clarify によるモデル説明可能性、人間参加型ワークフロー (Amazon Augmented AI / A2I)</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>HIPAA — PHI (Protected Health Information) の 18 識別子</h4>
+        <p>HIPAA が保護対象とする PHI には以下の 18 の識別子が含まれます。<strong>Comprehend Medical</strong> はこれらを電子カルテ等のテキストから自動検出します。</p>
+        <div class="formula-box">
+            <div class="formula-title">PHI 18 識別子 (抜粋)</div>
+氏名 / 地理的データ / 日付 (誕生日・入院日等) / 電話番号 / FAX番号
+メールアドレス / SSN / カルテ番号 / 健康保険番号 / 口座番号
+証明書番号 / 自動車登録番号 / デバイス識別子 / URL / IPアドレス
+指紋・声紋等の生体情報 / 顔写真 / その他固有の識別子
+        </div>
+    </div>
+
+    <!-- 6-2-2 -->
+    <h3 id="sec6-2-2">ガバナンスと規制コンプライアンスを支援するAWSのサービスと機能</h3>
+
+    <div class="concept-box">
+        <h4>AWS Config</h4>
+        <p>AWS リソースの<strong>設定を継続的に記録・評価</strong>し、コンプライアンス状態をリアルタイムで可視化します。</p>
+        <ul>
+            <li><strong>コンフォーマンスパック (Conformance Packs):</strong> HIPAA・PCI DSS・GDPR・CIS Benchmark 等の業界フレームワークに対応したルールセットをワンクリックで展開</li>
+            <li><strong>マネージドルール例:</strong>
+                <ul>
+                    <li><code>s3-bucket-server-side-encryption-enabled</code>: S3 暗号化を確認</li>
+                    <li><code>sagemaker-notebook-no-direct-internet-access</code>: ノートブックの直接インターネットアクセスを検出</li>
+                    <li><code>sagemaker-endpoint-config-kms-key-configured</code>: エンドポイントの KMS 暗号化を確認</li>
+                </ul>
+            </li>
+            <li><strong>Configuration History:</strong> 誰が・いつ・どのように設定を変更したかを時系列で追跡</li>
+            <li><strong>自動修復 (Auto Remediation):</strong> 非準拠リソースを SSM Automation で自動修復</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>AWS Audit Manager</h4>
+        <p>監査の準備作業を<strong>自動化</strong>し、コンプライアンス評価のエビデンスを継続的に収集します。</p>
+        <ul>
+            <li><strong>対応フレームワーク:</strong> GDPR、HIPAA、PCI DSS、SOC 2、ISO 27001、NIST CSF、FedRAMP 等</li>
+            <li><strong>エビデンスの自動収集:</strong> AWS Config、CloudTrail、Security Hub から自動的にエビデンスを収集・整理</li>
+            <li><strong>カスタムフレームワーク:</strong> 自社ポリシーに基づくカスタム評価フレームワークの作成</li>
+            <li><strong>監査レポートの自動生成:</strong> 外部監査人への提出用レポートをワンクリック生成</li>
+            <li><strong>評価の継続性:</strong> 四半期ごとの監査ではなく、常時エビデンスを蓄積</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>AWS Artifact</h4>
+        <p>AWS 自身のコンプライアンスレポートとアグリーメントに<strong>セルフサービスでアクセス</strong>できるポータルです。</p>
+        <ul>
+            <li><strong>入手可能なドキュメント:</strong> ISO 認定書 (ISO 27001/27017/27018)、SOC 1/2/3 レポート、PCI DSS AOC、HIPAA ホワイトペーパー、FedRAMP 認定証 等</li>
+            <li><strong>NDA 管理:</strong> 機密レポートへのアクセスに必要な NDA を電子署名で締結</li>
+            <li><strong>AWS Artifact Agreements:</strong> BAA (HIPAA)、GDPR DPA 等のアグリーメントをコンソールで締結・管理</li>
+        </ul>
+    </div>
+
+    <div class="service-grid">
+        <div class="service-card">
+            <h4>SageMaker Model Cards</h4>
+            <ul>
+                <li>モデルの透明性文書化</li>
+                <li>記載: 目的、訓練データ、評価結果、制限事項、倫理的考慮</li>
+                <li>Model Registry と統合</li>
+                <li>EU AI 法の技術文書要件への対応</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <h4>SageMaker Governance (Model Dashboard)</h4>
+            <ul>
+                <li>全モデルの一元的な可視化</li>
+                <li>リスクレーティングの付与</li>
+                <li>コンプライアンスステータスの追跡</li>
+                <li>ドリフト・バイアスアラートの集約</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="concept-box">
+        <h4>AWS CloudTrail + Amazon CloudWatch の組み合わせ</h4>
+        <p>すべての AWS AI/ML API アクティビティを記録・監視する基盤です。</p>
+        <ul>
+            <li><strong>CloudTrail → CloudWatch Logs:</strong> API ログをリアルタイムで CloudWatch に転送</li>
+            <li><strong>CloudWatch Metric Filter:</strong> 特定パターン (例: Bedrock モデル呼び出しの急増、Root 利用者ログイン) を検出してアラーム作成</li>
+            <li><strong>CloudWatch Logs Insights:</strong> ログを SQL ライクなクエリで分析</li>
+            <li><strong>CloudWatch Contributor Insights:</strong> 最も多くリソースを消費しているユーザー/IP を自動特定</li>
+            <li><strong>インシデント対応証跡:</strong> セキュリティインシデント発生時の完全な操作履歴を提供</li>
+        </ul>
+    </div>
+
+    <div class="tip-box">
+        試験では「コンプライアンス証明のために監査人にどのドキュメントを提供するか」という問いに対し <strong>AWS Artifact</strong>、「自社リソースの設定コンプライアンスを継続的に評価する」には <strong>AWS Config</strong>、「監査エビデンスを自動収集する」には <strong>AWS Audit Manager</strong> を選択してください。
+    </div>
+
+    <!-- 6-2-3 -->
+    <h3 id="sec6-2-3">データガバナンス戦略</h3>
+
+    <div class="concept-box">
+        <h4>データガバナンスフレームワークの構成要素</h4>
+        <table class="comparison-table">
+            <thead>
+                <tr><th>構成要素</th><th>AWSサービス</th><th>機能</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>データカタログ</strong></td>
+                    <td>AWS Glue Data Catalog</td>
+                    <td>データセットのメタデータ (スキーマ・所有者・更新日・分類) を中央管理</td>
+                </tr>
+                <tr>
+                    <td><strong>データ品質</strong></td>
+                    <td>AWS Glue Data Quality</td>
+                    <td>データ品質ルールの自動チェック・スコアリング (完全性・正確性・一貫性)</td>
+                </tr>
+                <tr>
+                    <td><strong>データリネージ</strong></td>
+                    <td>SageMaker Feature Store, AWS Glue</td>
+                    <td>データの変換・加工の系譜を追跡し影響分析を可能にする</td>
+                </tr>
+                <tr>
+                    <td><strong>アクセス管理</strong></td>
+                    <td>IAM + Lake Formation</td>
+                    <td>列・行レベルの細粒度アクセス制御と一元的な権限管理</td>
+                </tr>
+                <tr>
+                    <td><strong>データ分類</strong></td>
+                    <td>Amazon Macie</td>
+                    <td>機密レベル (Public / Internal / Confidential / Restricted) の自動分類</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="concept-box">
+        <h4>AWS Lake Formation — データレイクのセキュリティ一元管理</h4>
+        <p>AWS Lake Formation は Glue Data Catalog と統合し、<strong>データレイク全体の細粒度アクセス制御</strong>を提供します。</p>
+        <ul>
+            <li><strong>テーブルレベルアクセス制御:</strong> 特定のデータベース・テーブルへのアクセスをロール単位で付与</li>
+            <li><strong>列レベルセキュリティ (Column-Level Security):</strong> 機密列 (SSN、給与等) を特定ロールのみに公開</li>
+            <li><strong>行レベルフィルタリング (Row Filter):</strong> 部門・地域・ユーザー属性に応じたデータフィルタリング</li>
+            <li><strong>データセルフィルター:</strong> 列 + 行フィルターの組み合わせで精密なアクセス制御</li>
+            <li><strong>ガバナンスレポート:</strong> 誰がどのデータにアクセスしたかの監査ログ</li>
+            <li><strong>クロスアカウント共有:</strong> RAM (Resource Access Manager) を使った組織横断のデータ共有</li>
+        </ul>
+    </div>
+
+    <div class="concept-box">
+        <h4>データメッシュアーキテクチャ</h4>
+        <p>大規模組織における分散型データガバナンスアーキテクチャです。</p>
+        <ul>
+            <li><strong>ドメイン主導のデータ所有:</strong> 各事業部門が自身のデータに対するオーナーシップと責任を持つ</li>
+            <li><strong>データプロダクトとしての提供:</strong> 各ドメインが発見可能・信頼できる・自己記述的なデータプロダクトを公開</li>
+            <li><strong>連合したガバナンス:</strong> 中央チームが全体ポリシーを定め、各ドメームが自律的に実施</li>
+            <li><strong>AWS での実装:</strong> Lake Formation (中央ガバナンス) + Glue Data Catalog (データカタログ) + RAM (クロスアカウント共有)</li>
+        </ul>
+    </div>
+
+    <!-- 6-2-4 -->
+    <h3 id="sec6-2-4">ガバナンスプロトコルに従うためのプロセス — モデルガバナンスのライフサイクル</h3>
+
+    <div class="lifecycle">
+        <div class="lifecycle-step">
+            <h4>モデル開発標準の策定</h4>
+            <ul>
+                <li>コーディング規約・ドキュメント化要件の標準化</li>
+                <li>バイアス評価の必須化 (SageMaker Clarify による事前評価)</li>
+                <li>訓練データの出所確認・ライセンス確認プロセス</li>
+                <li>セキュリティレビューのチェックリスト策定</li>
+            </ul>
+        </div>
+        <div class="lifecycle-step">
+            <h4>モデルレジストリによる一元管理</h4>
+            <ul>
+                <li><strong>SageMaker Model Registry:</strong> バージョン管理・承認フロー・メタデータ保持</li>
+                <li>記録項目: 精度・バイアスメトリクス・訓練データ情報・Model Cards リンク</li>
+                <li>承認ステータス: Pending Review → Approved / Rejected</li>
+                <li>コンテナイメージのバージョン管理と再現性の確保</li>
+            </ul>
+        </div>
+        <div class="lifecycle-step">
+            <h4>承認ワークフロー</h4>
+            <ul>
+                <li>本番デプロイ前のゲートレビュー (技術・法務・倫理の各観点)</li>
+                <li>ステークホルダー承認プロセス (Product Owner・Security・Compliance)</li>
+                <li>Model Cards の提出と審査</li>
+                <li>SageMaker Pipelines の <code>RegisterModel</code> ステップとの統合</li>
+            </ul>
+        </div>
+        <div class="lifecycle-step">
+            <h4>継続的モニタリング</h4>
+            <ul>
+                <li><strong>SageMaker Model Monitor:</strong> データドリフト・予測品質・バイアスドリフト・説明可能性ドリフトを定期監視</li>
+                <li><strong>閾値設定:</strong> バイアスメトリクスが閾値を超えた場合に自動アラート</li>
+                <li><strong>自動再学習トリガー:</strong> ドリフト検知 → EventBridge → SageMaker Pipeline 起動</li>
+                <li><strong>SageMaker Clarify:</strong> バイアスレポートの定期生成</li>
+            </ul>
+        </div>
+        <div class="lifecycle-step">
+            <h4>インシデント対応</h4>
+            <ul>
+                <li>モデルの緊急停止プロセス (エンドポイント削除・トラフィックゼロへの切替)</li>
+                <li>ロールバック手順 (Model Registry の以前バージョンへの切替)</li>
+                <li>影響を受けたユーザーへの通知 (Amazon SNS + SES)</li>
+                <li>根本原因分析 (RCA) の実施と再発防止策の策定</li>
+            </ul>
+        </div>
+        <div class="lifecycle-step">
+            <h4>定期的なレビューと廃止管理</h4>
+            <ul>
+                <li>四半期ごとのモデル性能レビューとコンプライアンス監査</li>
+                <li>バイアス評価の定期的再実施 (データ分布の変化に対応)</li>
+                <li>モデル廃止プロセス: エンドポイント削除 → アーティファクトのアーカイブ → ドキュメント最終化</li>
+                <li>後継モデルへの移行計画と依存サービスへの通知</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 6-2-5 -->
+    <h3 id="sec6-2-5">AI 倫理委員会の役割</h3>
+
+    <div class="concept-box">
+        <h4>AI ガバナンスにおける組織的役割分担</h4>
+        <p>技術的コントロールだけでなく、<strong>組織的なガバナンス体制</strong>が AI システムの責任ある運用に不可欠です。</p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr><th>組織・役割</th><th>主な責任</th><th>関連AWSサービス</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>AI 倫理委員会</strong></td>
+                    <td>AIシステムの倫理審査、ガイドライン策定・更新、インシデントエスカレーション先</td>
+                    <td>SageMaker Model Cards (審査の根拠文書)</td>
+                </tr>
+                <tr>
+                    <td><strong>AI リスク管理チーム</strong></td>
+                    <td>リスク評価フレームワークの策定・維持、リスクレジスターの管理</td>
+                    <td>SageMaker Governance, AWS Audit Manager</td>
+                </tr>
+                <tr>
+                    <td><strong>データオーナー (ドメイン)</strong></td>
+                    <td>データ品質・分類・アクセスポリシーの管理</td>
+                    <td>Lake Formation, Glue Data Catalog</td>
+                </tr>
+                <tr>
+                    <td><strong>MLOps チーム</strong></td>
+                    <td>モデルのデプロイ・監視・再学習プロセスの運用</td>
+                    <td>SageMaker Model Monitor, SageMaker Pipelines</td>
+                </tr>
+                <tr>
+                    <td><strong>セキュリティチーム</strong></td>
+                    <td>脅威モデリング、脆弱性管理、インシデント対応</td>
+                    <td>GuardDuty, Security Hub, Inspector, CloudTrail</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="aws-highlight">
+        <strong>AWS の責任共有モデルと AI ガバナンス:</strong>
+        AWS はインフラ層のセキュリティに責任を持ちますが、AIモデルの<strong>バイアス・公平性・倫理性・アプリケーション層のセキュリティ</strong>はお客様の責任です。AI ガバナンスフレームワークと技術的コントロールの組み合わせが不可欠です。
+    </div>
+
+    <div class="key-point">
+        <strong>まとめ — 試験に出やすいサービス対応関係:</strong><br>
+        PII 自動検出 → <strong>Amazon Macie</strong> / S3 暗号化証跡 → <strong>CloudTrail + KMS</strong> / VPC 内 ML → <strong>SageMaker VPC + エンドポイント</strong> / コンプライアンスレポート入手 → <strong>AWS Artifact</strong> / 継続的設定評価 → <strong>AWS Config</strong> / 監査エビデンス自動収集 → <strong>AWS Audit Manager</strong> / モデル透明性文書 → <strong>Model Cards</strong> / プロンプトインジェクション防御 → <strong>Bedrock Guardrails</strong>
+    </div>
+</div><!-- /section 6-2 -->
+
+</div><!-- /content -->
+
+<!-- ==================== QUIZ SECTION ==================== -->
+<div class="quiz-section" id="quiz">
+    <h2>練習問題</h2>
+    <p style="text-align:center; margin-bottom: 30px; color: #666;">各設問を読み、最適な選択肢を選んでから解答を確認してください。</p>
+
+    <!-- Q1 -->
+    <div class="quiz-item">
+        <div class="quiz-q">
+            <span class="q-num">1</span>
+            ある医療系スタートアップが Amazon SageMaker を使って患者の画像診断 AI を開発しています。訓練データセットには HIPAA が定める PHI が含まれる可能性があります。訓練データが保存されている S3 バケットを自動的にスキャンして PHI を検出し、コンプライアンスレポートを生成するには、どのサービスが最も適切ですか？
+        </div>
+        <ul class="quiz-options">
+            <li>AWS Config の s3-bucket-server-side-encryption-enabled ルール</li>
+            <li class="correct">Amazon Macie</li>
+            <li>Amazon Inspector</li>
+            <li>AWS Security Hub</li>
+        </ul>
+        <div class="quiz-answer">
+            <div class="ans-label">正解: B — Amazon Macie</div>
+            <p><strong>Amazon Macie</strong> は機械学習を使って S3 バケット内の機密データ (PHI を含む PII) を自動検出・分類し、コンプライアンスレポートを生成するサービスです。</p>
+            <ul>
+                <li>A (AWS Config): S3 バケットの設定コンプライアンス (暗号化有無等) を評価しますが、データの内容は検査しません。</li>
+                <li>C (Amazon Inspector): EC2・Lambda・ECR コンテナの CVE 脆弱性をスキャンするサービスで、データ内容の分析は対象外です。</li>
+                <li>D (AWS Security Hub): 各サービスのセキュリティアラートを集約するダッシュボードです。自身は PII を検出しません。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item">
+        <div class="quiz-q">
+            <span class="q-num">2</span>
+            大手金融機関が社内の生成 AI チャットボット (Amazon Bedrock ベース) を構築しています。ユーザーが意図的にシステムプロンプトを上書きして機密情報を引き出そうとする攻撃 (プロンプトインジェクション) と、応答に顧客の口座番号が含まれてしまうリスクの両方を防ぐには、どのサービスの機能が最も直接的に対応できますか？
+        </div>
+        <ul class="quiz-options">
+            <li>Amazon GuardDuty for Machine Learning</li>
+            <li>AWS WAF のマネージドルールグループ</li>
+            <li class="correct">Amazon Bedrock Guardrails</li>
+            <li>SageMaker Model Monitor のデータ品質モニタリング</li>
+        </ul>
+        <div class="quiz-answer">
+            <div class="ans-label">正解: C — Amazon Bedrock Guardrails</div>
+            <p><strong>Amazon Bedrock Guardrails</strong> はプロンプトインジェクション防御と PII フィルタリング (入出力両方向) を単一の機能として提供します。コード変更なしで全 Bedrock 対応モデルに適用できます。</p>
+            <ul>
+                <li>A (GuardDuty for ML): SageMaker の異常 API 呼び出しを検知しますが、プロンプト内容のフィルタリングは行いません。</li>
+                <li>B (AWS WAF): HTTP レイヤーの Web アプリケーションファイアウォールで、LLM プロンプトのセマンティックな評価はできません。</li>
+                <li>D (Model Monitor): 本番モデルのデータドリフト・品質を監視するサービスです。リアルタイムの入出力フィルタリングは対象外です。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item">
+        <div class="quiz-q">
+            <span class="q-num">3</span>
+            EU に本社を置く EC 事業者が機械学習を使ったパーソナライズレコメンデーションエンジンを運用しています。GDPR 第 22 条への準拠のため、ユーザーが自動推薦の決定に異議を申し立てた場合に人間によるレビューを提供できる仕組みが必要です。このユースケースに最も適した AWS サービスはどれですか？
+        </div>
+        <ul class="quiz-options">
+            <li>AWS Audit Manager の GDPR フレームワーク</li>
+            <li>Amazon SageMaker Clarify のバイアスレポート</li>
+            <li class="correct">Amazon Augmented AI (A2I)</li>
+            <li>AWS Config の GDPR コンフォーマンスパック</li>
+        </ul>
+        <div class="quiz-answer">
+            <div class="ans-label">正解: C — Amazon Augmented AI (A2I)</div>
+            <p><strong>Amazon Augmented AI (A2I)</strong> は ML モデルの予測に対して人間によるレビューワークフローを組み込むサービスです。GDPR 第 22 条が要求する「自動的意思決定に対する人間による審査」の仕組みを実装するのに直接対応します。</p>
+            <ul>
+                <li>A (Audit Manager): コンプライアンスエビデンスの収集・整理に特化し、エンドユーザーへの審査フローは提供しません。</li>
+                <li>B (SageMaker Clarify): モデルの説明可能性・バイアス分析レポートを生成しますが、エンドユーザー向けの審査フローではありません。</li>
+                <li>D (AWS Config): リソース設定のコンプライアンスを評価しますが、ユーザー向けの異議申し立てフローとは無関係です。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item">
+        <div class="quiz-q">
+            <span class="q-num">4</span>
+            セキュリティ担当者が「SageMaker トレーニングジョブ実行中に、訓練コンテナが外部インターネット上の第三者サービスに接続しようとした」というインシデントを調査しています。このような外部通信を技術的に防ぐための SageMaker の設定はどれですか？
+        </div>
+        <ul class="quiz-options">
+            <li>SageMaker ノートブックインスタンスのルートアクセスを無効化する</li>
+            <li>KMS カスタムキーで EBS ボリュームを暗号化する</li>
+            <li>CloudTrail を有効化してすべての API コールを S3 に記録する</li>
+            <li class="correct">Network Isolation (EnableNetworkIsolation: true) をトレーニングジョブに設定する</li>
+        </ul>
+        <div class="quiz-answer">
+            <div class="ans-label">正解: D — Network Isolation (EnableNetworkIsolation: true)</div>
+            <p><strong>ネットワーク隔離 (Network Isolation)</strong> を有効にすると、SageMaker トレーニングコンテナからのすべての外部ネットワーク通信が遮断されます。コンテナは S3 (指定のインプット/アウトプット) にのみアクセスでき、インターネットへの通信はブロックされます。</p>
+            <ul>
+                <li>A (ルートアクセス無効化): ノートブックインスタンス内でのルート権限の制限であり、トレーニングコンテナのネットワーク制御ではありません。</li>
+                <li>B (KMS 暗号化): データの機密性保護であり、ネットワーク通信制御ではありません。</li>
+                <li>C (CloudTrail): 事後の調査・記録には有効ですが、通信を「防ぐ」制御ではありません。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item">
+        <div class="quiz-q">
+            <span class="q-num">5</span>
+            ある企業の CISO が SOC 2 Type II 認定に向けた外部監査に備えています。AWS インフラ層の SOC 2 レポートを取得し、AWS がセキュリティ・可用性・機密性の要件を満たしていることを監査人に証明する最も効率的な方法はどれですか？
+        </div>
+        <ul class="quiz-options">
+            <li>AWS Config の Conformance Pack で SOC 2 フレームワークを展開して評価レポートを出力する</li>
+            <li class="correct">AWS Artifact にアクセスして SOC 2 レポートをダウンロードし監査人に提供する</li>
+            <li>AWS Audit Manager で SOC 2 フレームワークを選択してエビデンスを収集する</li>
+            <li>Amazon Inspector の評価レポートを SOC 2 証拠として提出する</li>
+        </ul>
+        <div class="quiz-answer">
+            <div class="ans-label">正解: B — AWS Artifact</div>
+            <p><strong>AWS Artifact</strong> は AWS 自身の第三者機関による SOC 2 レポート・ISO 認定書・PCI DSS AOC 等の公式コンプライアンスドキュメントをセルフサービスでダウンロードできるポータルです。</p>
+            <ul>
+                <li>A (AWS Config): 自社 AWS リソースの設定コンプライアンスを評価します。AWS インフラ層の SOC 2 証明書は取得できません。</li>
+                <li>C (AWS Audit Manager): 自社アカウントのリソースに対するコンプライアンスエビデンスを収集します。AWS 自身の SOC 2 レポートとは別物です。</li>
+                <li>D (Amazon Inspector): 脆弱性スキャン結果であり、SOC 2 レポートの代替にはなりません。</li>
+            </ul>
+            <p style="margin-top:8px;"><strong>補足:</strong> A と C は自社のリソース・プロセスが SOC 2 要件を満たしていることを証明するためのサービスです。B は AWS インフラ層の SOC 2 準拠を証明します。両者を組み合わせることで完全な SOC 2 対応が可能です。</p>
+        </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item">
+        <div class="quiz-q">
+            <span class="q-num">6</span>
+            データサイエンティストチームが複数の部門にまたがる分析データレイクを構築しています。マーケティング部門は顧客の購買履歴テーブルにアクセスできますが、給与列や年齢列は参照できないようにする必要があります。また、営業部門は自分の担当リージョンの行データのみ参照できる制御が必要です。このような細粒度アクセス制御を実現するために最適なサービスはどれですか？
+        </div>
+        <ul class="quiz-options">
+            <li>S3 バケットポリシーで各部門のプレフィックスへのアクセスを制限する</li>
+            <li>IAM ポリシーで各部門のロールに対して Glue テーブルへの許可を設定する</li>
+            <li class="correct">AWS Lake Formation で列レベルセキュリティと行フィルターを設定する</li>
+            <li>SageMaker Feature Store のオフラインストアのアクセスポリシーを利用する</li>
+        </ul>
+        <div class="quiz-answer">
+            <div class="ans-label">正解: C — AWS Lake Formation の列レベルセキュリティと行フィルター</div>
+            <p><strong>AWS Lake Formation</strong> はデータレイクに対して<strong>列レベルセキュリティ (Column-Level Security)</strong>と<strong>行レベルフィルタリング (Row Filter)</strong>を提供します。Glue Data Catalog と統合し、テーブル・列・行の組み合わせで精密なアクセス制御が可能です。</p>
+            <ul>
+                <li>A (S3 バケットポリシー): S3 オブジェクト (ファイル) レベルの制御であり、列・行レベルの制御はできません。</li>
+                <li>B (IAM ポリシー): テーブルへのアクセス許可は設定できますが、列単位・行単位のフィルタリングは IAM では実現できません。</li>
+                <li>D (SageMaker Feature Store): 特徴量管理に特化したサービスであり、汎用のデータレイクアクセス制御には適していません。</li>
+            </ul>
+        </div>
+    </div>
+
+</div><!-- /quiz-section -->
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <p>第6章完 | AWS AIF-C01 試験対策テキスト</p>
+    <p>セキュリティ、コンプライアンス、ガバナンス &nbsp;|&nbsp; 第6章 全セクション収録</p>
+    <p>本テキストは試験対策を目的とした学習資料です。AWSサービスの仕様は変更される場合があります。最新情報は AWS 公式ドキュメントをご参照ください。</p>
+</footer>
+
+</div><!-- /container -->
+</body>
+</html>

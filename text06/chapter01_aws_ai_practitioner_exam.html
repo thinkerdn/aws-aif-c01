@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第1章: AWS認定AIプラクティショナー試験 - AWS AIF-C01 試験対策テキスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        header {
+            background: linear-gradient(135deg, #1565c0 0%, #1976d2 60%, #42a5f5 100%);
+            color: white;
+            padding: 48px 30px 40px;
+            text-align: center;
+        }
+        header .chapter-label {
+            font-size: 0.95em;
+            letter-spacing: 0.12em;
+            opacity: 0.85;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        header p {
+            font-size: 1.05em;
+            opacity: 0.92;
+            margin-top: 6px;
+        }
+        header .meta-badges {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        header .meta-badge {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.45);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.88em;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #e3f2fd;
+            padding: 24px 30px;
+            border-bottom: 3px solid #1976d2;
+        }
+        .toc h2 {
+            color: #1565c0;
+            margin-bottom: 16px;
+            font-size: 1.2em;
+            border-left: 4px solid #1565c0;
+            padding-left: 10px;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 30px;
+        }
+        .toc ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .toc li {
+            margin-bottom: 6px;
+        }
+        .toc a {
+            color: #1565c0;
+            text-decoration: none;
+            font-size: 0.95em;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+            color: #0d47a1;
+        }
+        .toc .toc-section {
+            font-weight: 700;
+            color: #1565c0;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            font-size: 0.95em;
+        }
+        .toc .toc-sub {
+            margin-left: 16px;
+            font-size: 0.9em;
+            color: #1976d2;
+        }
+
+        /* Main content */
+        .content {
+            padding: 40px 30px;
+        }
+        .section {
+            margin-bottom: 56px;
+        }
+        .section h2 {
+            color: #1565c0;
+            font-size: 1.75em;
+            margin-bottom: 22px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1976d2;
+        }
+        .section h3 {
+            color: #1976d2;
+            font-size: 1.25em;
+            margin-top: 28px;
+            margin-bottom: 14px;
+            padding-left: 10px;
+            border-left: 4px solid #42a5f5;
+        }
+        .section h4 {
+            color: #0d47a1;
+            font-size: 1.05em;
+            margin-top: 18px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        ul, ol {
+            margin: 14px 0 14px 28px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Concept box - light blue bg, left border */
+        .concept-box {
+            background: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 18px 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .concept-box h4 {
+            color: #1565c0;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        .concept-box p, .concept-box ul, .concept-box ol {
+            color: #1a237e;
+            margin-bottom: 0;
+        }
+
+        /* Key point - yellow/warning style */
+        .key-point {
+            background: #fff8e1;
+            border-left: 5px solid #ffc107;
+            padding: 16px 20px;
+            margin: 18px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .key-point strong {
+            color: #e65100;
+        }
+        .key-point::before {
+            content: "★ 重要ポイント";
+            display: block;
+            color: #f57f17;
+            font-weight: 700;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        /* AWS highlight - AWS orange accent */
+        .aws-highlight {
+            background: #fff3e0;
+            border-left: 5px solid #ff6d00;
+            border-top: 1px solid #ffccbc;
+            border-bottom: 1px solid #ffccbc;
+            border-right: 1px solid #ffccbc;
+            padding: 18px 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .aws-highlight h4 {
+            color: #bf360c;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .aws-highlight::before {
+            content: "AWS";
+            display: inline-block;
+            background: #ff6d00;
+            color: white;
+            font-size: 0.78em;
+            font-weight: 700;
+            padding: 1px 8px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+            letter-spacing: 0.08em;
+        }
+
+        /* Warning box - red accent */
+        .warning-box {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+            padding: 16px 20px;
+            margin: 18px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning-box::before {
+            content: "! 注意";
+            display: block;
+            color: #c62828;
+            font-weight: 700;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .warning-box p, .warning-box ul {
+            color: #b71c1c;
+        }
+
+        /* Tip box - green accent */
+        .tip-box {
+            background: #e8f5e9;
+            border-left: 5px solid #43a047;
+            padding: 16px 20px;
+            margin: 18px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .tip-box::before {
+            content: "Tips";
+            display: block;
+            color: #2e7d32;
+            font-weight: 700;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .tip-box p, .tip-box ul, .tip-box ol {
+            color: #1b5e20;
+        }
+
+        /* Example box - gray bg */
+        .example {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 16px 20px;
+            margin: 18px 0;
+            border-radius: 6px;
+        }
+        .example strong {
+            color: #424242;
+        }
+        .example-label {
+            display: inline-block;
+            background: #616161;
+            color: white;
+            font-size: 0.8em;
+            font-weight: 700;
+            padding: 1px 8px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+        }
+
+        /* Badge - inline colored label */
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 700;
+            vertical-align: middle;
+            margin: 0 3px;
+        }
+        .badge-blue {
+            background: #1976d2;
+            color: white;
+        }
+        .badge-orange {
+            background: #ff6d00;
+            color: white;
+        }
+        .badge-green {
+            background: #43a047;
+            color: white;
+        }
+        .badge-red {
+            background: #f44336;
+            color: white;
+        }
+        .badge-purple {
+            background: #7b1fa2;
+            color: white;
+        }
+        .badge-gray {
+            background: #757575;
+            color: white;
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            font-size: 0.95em;
+        }
+        .comparison-table th {
+            background: #1565c0;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 700;
+        }
+        .comparison-table td {
+            padding: 11px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f5f9ff;
+        }
+        .comparison-table tr:hover {
+            background: #e3f2fd;
+        }
+        .comparison-table .cat-header {
+            background: #1976d2;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        /* Domain chart */
+        .domain-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .domain-item {
+            display: flex;
+            align-items: center;
+            background: #f5f7fa;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .domain-num {
+            background: #1565c0;
+            color: white;
+            padding: 14px 16px;
+            font-weight: 700;
+            font-size: 1.1em;
+            min-width: 52px;
+            text-align: center;
+        }
+        .domain-info {
+            flex: 1;
+            padding: 12px 16px;
+        }
+        .domain-title {
+            font-weight: 700;
+            color: #1565c0;
+            font-size: 1em;
+        }
+        .domain-desc {
+            font-size: 0.88em;
+            color: #666;
+            margin-top: 2px;
+        }
+        .domain-bar-wrap {
+            padding: 12px 16px;
+            min-width: 140px;
+        }
+        .domain-bar-bg {
+            background: #e3f2fd;
+            border-radius: 8px;
+            height: 14px;
+            overflow: hidden;
+        }
+        .domain-bar-fill {
+            background: linear-gradient(90deg, #1565c0, #42a5f5);
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.5s;
+        }
+        .domain-pct {
+            font-weight: 700;
+            color: #1565c0;
+            font-size: 1em;
+            text-align: right;
+            margin-top: 3px;
+        }
+
+        /* Practice questions */
+        .exam-section {
+            background: #e8eaf6;
+            border-radius: 8px;
+            padding: 28px 28px;
+            margin: 30px 0;
+        }
+        .exam-section h2 {
+            color: #283593;
+            font-size: 1.5em;
+            border-bottom: 2px solid #3949ab;
+            padding-bottom: 10px;
+            margin-bottom: 22px;
+        }
+        .question-block {
+            background: white;
+            border: 1px solid #c5cae9;
+            border-radius: 8px;
+            padding: 22px 22px 18px;
+            margin-bottom: 22px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+        }
+        .question-num {
+            display: inline-block;
+            background: #1565c0;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            font-size: 0.95em;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .question-text {
+            font-weight: 600;
+            color: #1a237e;
+            margin-bottom: 14px;
+            font-size: 1.02em;
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+        }
+        .options {
+            list-style: none;
+            margin: 0 0 14px 0;
+            padding: 0;
+        }
+        .options li {
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 5px;
+            background: #f5f7fa;
+            border: 1px solid #e0e0e0;
+            cursor: default;
+            font-size: 0.97em;
+        }
+        .options li.correct {
+            background: #e8f5e9;
+            border-color: #43a047;
+            font-weight: 600;
+            color: #1b5e20;
+        }
+        .options li.correct::before {
+            content: "✓ ";
+            color: #43a047;
+            font-weight: 700;
+        }
+        .answer-explain {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 12px 16px;
+            border-radius: 0 5px 5px 0;
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #0d47a1;
+        }
+        .answer-explain strong {
+            color: #1565c0;
+        }
+
+        /* Two-col layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 18px 0;
+        }
+
+        /* Service card grid */
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 18px 0;
+        }
+        .service-card {
+            background: #f5f9ff;
+            border: 1px solid #bbdefb;
+            border-top: 3px solid #1976d2;
+            border-radius: 6px;
+            padding: 14px 16px;
+        }
+        .service-card h4 {
+            color: #1565c0;
+            margin: 0 0 8px 0;
+            font-size: 0.97em;
+        }
+        .service-card p, .service-card ul {
+            font-size: 0.88em;
+            color: #444;
+            margin: 0;
+        }
+        .service-card ul {
+            margin-left: 18px;
+            margin-top: 6px;
+        }
+
+        /* Responsibility model diagram */
+        .resp-model {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #90caf9;
+        }
+        .resp-aws {
+            background: #1565c0;
+            color: white;
+            padding: 20px;
+        }
+        .resp-user {
+            background: #42a5f5;
+            color: white;
+            padding: 20px;
+        }
+        .resp-aws h4, .resp-user h4 {
+            color: white;
+            font-size: 1em;
+            margin-bottom: 12px;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+        .resp-aws ul, .resp-user ul {
+            margin-left: 18px;
+            font-size: 0.9em;
+        }
+        .resp-aws li, .resp-user li {
+            margin-bottom: 5px;
+        }
+        .resp-divider {
+            background: #e3f2fd;
+            padding: 10px 20px;
+            text-align: center;
+            font-weight: 700;
+            color: #1565c0;
+            border-top: 1px solid #90caf9;
+            grid-column: 1 / -1;
+            font-size: 0.9em;
+        }
+
+        /* Exam info box */
+        .exam-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 20px 0;
+        }
+        .exam-info-card {
+            background: linear-gradient(135deg, #1565c0, #1976d2);
+            color: white;
+            border-radius: 8px;
+            padding: 18px 14px;
+            text-align: center;
+        }
+        .exam-info-card .val {
+            font-size: 2em;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .exam-info-card .lbl {
+            font-size: 0.82em;
+            opacity: 0.88;
+            margin-top: 4px;
+        }
+
+        footer {
+            background: #1565c0;
+            color: white;
+            padding: 28px 30px;
+            text-align: center;
+        }
+        footer p {
+            opacity: 0.9;
+            font-size: 0.95em;
+            margin: 4px 0;
+        }
+        footer .footer-chapter {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 700px) {
+            .toc-grid, .two-col, .service-grid, .exam-info-grid, .resp-model {
+                grid-template-columns: 1fr;
+            }
+            .domain-bar-wrap { min-width: 90px; }
+            header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <div class="chapter-label">AWS AIF-C01 試験対策テキスト</div>
+        <h1>第1章: AWS認定AIプラクティショナー試験</h1>
+        <p>試験の概要・推奨知識・対象サービスを完全網羅</p>
+        <div class="meta-badges">
+            <span class="meta-badge">ファンデーショナルレベル</span>
+            <span class="meta-badge">65問 / 130分</span>
+            <span class="meta-badge">合格スコア 720点</span>
+            <span class="meta-badge">受験料 $150 USD</span>
+        </div>
+    </header>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h2>目次</h2>
+        <div class="toc-grid">
+            <div>
+                <div class="toc-section"><a href="#section1">1-1 試験の概要</a></div>
+                <div class="toc-sub"><a href="#s1-1">AWS認定試験の全体像</a></div>
+                <div class="toc-sub"><a href="#s1-2">AIF-C01の試験概要</a></div>
+                <div class="toc-sub"><a href="#s1-3">ドメイン構成と配点</a></div>
+                <div class="toc-section"><a href="#section2">1-2 推奨されるAWSの知識</a></div>
+                <div class="toc-sub"><a href="#s2-1">AWSとは / クラウドの基礎</a></div>
+                <div class="toc-sub"><a href="#s2-2">AWSグローバルインフラ</a></div>
+                <div class="toc-sub"><a href="#s2-3">責任共有モデル</a></div>
+                <div class="toc-sub"><a href="#s2-4">AWS IAM</a></div>
+                <div class="toc-sub"><a href="#s2-5">主要サービス一覧</a></div>
+                <div class="toc-sub"><a href="#s2-6">料金モデル</a></div>
+            </div>
+            <div>
+                <div class="toc-section"><a href="#section3">1-3 対象サービス</a></div>
+                <div class="toc-sub"><a href="#s3-1">AI / 機械学習サービス</a></div>
+                <div class="toc-sub"><a href="#s3-2">分析サービス</a></div>
+                <div class="toc-sub"><a href="#s3-3">ストレージ</a></div>
+                <div class="toc-sub"><a href="#s3-4">データベース</a></div>
+                <div class="toc-sub"><a href="#s3-5">コンピューティング</a></div>
+                <div class="toc-sub"><a href="#s3-6">セキュリティ・ネットワーク</a></div>
+                <div class="toc-sub"><a href="#s3-7">管理・ガバナンス</a></div>
+                <div class="toc-section"><a href="#practice">練習問題 (5問)</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- ======================== SECTION 1 ======================== -->
+        <div class="section" id="section1">
+            <h2>1-1 AWS認定AIプラクティショナー試験の概要</h2>
+
+            <h3 id="s1-1">AWS認定試験の全体像</h3>
+
+            <p>AWSは、クラウドの専門知識を証明する認定資格プログラムを提供しています。認定は難易度に応じて4つのレベルに分類されており、AWS認定AIプラクティショナー (AIF-C01) は最も入門的な <span class="badge badge-blue">ファンデーショナル</span> レベルに属します。</p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>レベル</th>
+                    <th>対象者</th>
+                    <th>代表的な認定資格</th>
+                    <th>推奨経験</th>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-green">ファンデーショナル</span></td>
+                    <td>クラウド入門者・ビジネス担当者</td>
+                    <td>AWS Cloud Practitioner<br><strong>AWS AI Practitioner</strong></td>
+                    <td>6ヶ月程度</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-blue">アソシエイト</span></td>
+                    <td>実務経験のあるエンジニア</td>
+                    <td>Solutions Architect, Developer, SysOps, ML Associate</td>
+                    <td>1年以上</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-purple">プロフェッショナル</span></td>
+                    <td>上級エンジニア・アーキテクト</td>
+                    <td>Solutions Architect Pro, DevOps Engineer Pro</td>
+                    <td>2年以上</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-orange">スペシャルティ</span></td>
+                    <td>特定分野の専門家</td>
+                    <td>ML Specialty, Security, Networking, Database</td>
+                    <td>5年以上（分野別）</td>
+                </tr>
+            </table>
+
+            <div class="key-point">
+                AIF-C01はファンデーショナルレベルのため、深いプログラミングやML実装の知識は不要です。<strong>AIサービスの概念・ユースケース・倫理的考慮事項</strong>を理解することが中心です。Cloud Practitioner (CLF-C02) の取得者はインフラ知識があるため、有利に学習を進められます。
+            </div>
+
+            <h3 id="s1-2">AWS認定AIプラクティショナー (AIF-C01) 概要</h3>
+
+            <div class="exam-info-grid">
+                <div class="exam-info-card">
+                    <div class="val">65問</div>
+                    <div class="lbl">総問題数（採点対象50問＋評価用15問）</div>
+                </div>
+                <div class="exam-info-card">
+                    <div class="val">130分</div>
+                    <div class="lbl">試験時間（1問あたり約2分）</div>
+                </div>
+                <div class="exam-info-card">
+                    <div class="val">720点</div>
+                    <div class="lbl">合格スコア（1000点満点）</div>
+                </div>
+                <div class="exam-info-card">
+                    <div class="val">$150</div>
+                    <div class="lbl">受験料（USD / 日本円換算で約22,000円）</div>
+                </div>
+                <div class="exam-info-card">
+                    <div class="val">3年</div>
+                    <div class="lbl">認定有効期間（更新試験または上位資格取得）</div>
+                </div>
+                <div class="exam-info-card">
+                    <div class="val">日本語</div>
+                    <div class="lbl">対応言語（英語・日本語・その他）</div>
+                </div>
+            </div>
+
+            <h4>試験形式</h4>
+            <ul>
+                <li><strong>多肢選択式 (Single Choice):</strong> 4択から1つを選択する形式。問題数の大半を占める。</li>
+                <li><strong>複数回答式 (Multiple Response):</strong> 5択以上から「最も適切な2〜3つ」を選択する形式。部分点はなく、すべて正解で初めて得点になる。</li>
+            </ul>
+
+            <div class="tip-box">
+                <p>複数回答式の問題は「すべて選択してください」ではなく「<strong>最も適切な2つを選んでください</strong>」という形式です。問題文に必ず「2つ選択してください」「3つ選択してください」と明記されるので見落とさないようにしましょう。</p>
+            </div>
+
+            <h4>対象者</h4>
+            <ul>
+                <li>AIサービスを活用する<strong>ビジネスユーザー・意思決定者</strong></li>
+                <li>AI/MLプロジェクトを管理・推進するプロジェクトマネージャー</li>
+                <li>AWS AIサービスの概要を把握したいエンジニア・コンサルタント</li>
+                <li>AI倫理・責任あるAIを学びたい担当者</li>
+            </ul>
+
+            <h4>前提知識</h4>
+            <ul>
+                <li>AWSの基礎知識（6ヶ月以上の実務経験推奨）</li>
+                <li>AIおよび機械学習の基本概念</li>
+                <li>生成AI・大規模言語モデル (LLM) の基礎知識</li>
+            </ul>
+
+            <div class="aws-highlight">
+                <h4>本試験の特徴</h4>
+                <p>AIF-C01は2024年に新設された比較的新しい試験です。<strong>Amazon Bedrock</strong>（生成AIのマネージドサービス）や<strong>責任あるAI</strong>の概念が大きなウェイトを占めており、従来のML試験とは異なる出題傾向があります。生成AIブームを反映した試験構成となっています。</p>
+            </div>
+
+            <h3 id="s1-3">ドメイン構成と配点</h3>
+
+            <p>AIF-C01は5つのドメイン（出題分野）で構成されています。各ドメインの配点をしっかり把握して、学習の優先順位を決めましょう。</p>
+
+            <div class="domain-grid">
+                <div class="domain-item">
+                    <div class="domain-num">D1</div>
+                    <div class="domain-info">
+                        <div class="domain-title">AIと機械学習の基礎</div>
+                        <div class="domain-desc">ML概念、モデルタイプ、学習手法、評価指標</div>
+                    </div>
+                    <div class="domain-bar-wrap">
+                        <div class="domain-bar-bg">
+                            <div class="domain-bar-fill" style="width:20%"></div>
+                        </div>
+                        <div class="domain-pct">20%</div>
+                    </div>
+                </div>
+                <div class="domain-item">
+                    <div class="domain-num">D2</div>
+                    <div class="domain-info">
+                        <div class="domain-title">生成AIの基礎</div>
+                        <div class="domain-desc">LLM、プロンプトエンジニアリング、基盤モデルの概念</div>
+                    </div>
+                    <div class="domain-bar-wrap">
+                        <div class="domain-bar-bg">
+                            <div class="domain-bar-fill" style="width:24%"></div>
+                        </div>
+                        <div class="domain-pct">24%</div>
+                    </div>
+                </div>
+                <div class="domain-item">
+                    <div class="domain-num">D3</div>
+                    <div class="domain-info">
+                        <div class="domain-title">基盤モデルの応用</div>
+                        <div class="domain-desc">Amazon Bedrock、RAG、エージェント、微調整</div>
+                    </div>
+                    <div class="domain-bar-wrap">
+                        <div class="domain-bar-bg">
+                            <div class="domain-bar-fill" style="width:28%"></div>
+                        </div>
+                        <div class="domain-pct">28%</div>
+                    </div>
+                </div>
+                <div class="domain-item">
+                    <div class="domain-num">D4</div>
+                    <div class="domain-info">
+                        <div class="domain-title">責任あるAI</div>
+                        <div class="domain-desc">公平性、透明性、プライバシー、AI倫理</div>
+                    </div>
+                    <div class="domain-bar-wrap">
+                        <div class="domain-bar-bg">
+                            <div class="domain-bar-fill" style="width:14%"></div>
+                        </div>
+                        <div class="domain-pct">14%</div>
+                    </div>
+                </div>
+                <div class="domain-item">
+                    <div class="domain-num">D5</div>
+                    <div class="domain-info">
+                        <div class="domain-title">セキュリティ、コンプライアンス、ガバナンス</div>
+                        <div class="domain-desc">データ保護、コンプライアンス、アクセス制御</div>
+                    </div>
+                    <div class="domain-bar-wrap">
+                        <div class="domain-bar-bg">
+                            <div class="domain-bar-fill" style="width:14%"></div>
+                        </div>
+                        <div class="domain-pct">14%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-point">
+                配点の高い<strong>ドメイン3（28%）</strong>と<strong>ドメイン2（24%）</strong>で合計52%を占めます。Amazon Bedrockとプロンプトエンジニアリングへの理解が合否を左右する最重要テーマです。
+            </div>
+
+            <div class="concept-box">
+                <h4>学習優先度の目安</h4>
+                <ol>
+                    <li><strong>最優先（D3 + D2）:</strong> Amazon Bedrock、RAG、LLM基礎、プロンプトエンジニアリング → 合計52%</li>
+                    <li><strong>重要（D1）:</strong> MLの基本概念、アルゴリズム、評価指標 → 20%</li>
+                    <li><strong>標準（D4 + D5）:</strong> AI倫理・責任あるAI、セキュリティ → 合計28%</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ======================== SECTION 2 ======================== -->
+        <div class="section" id="section2">
+            <h2>1-2 推奨されるAWSの知識</h2>
+
+            <h3 id="s2-1">AWSとは / クラウドコンピューティングの基礎</h3>
+
+            <div class="concept-box">
+                <h4>クラウドコンピューティングの定義</h4>
+                <p>クラウドコンピューティングとは、<strong>ITリソース（サーバー、ストレージ、データベース、ネットワーク等）をインターネット経由でオンデマンドに提供し、使用した分だけ料金を支払うモデル</strong>です。AWSは世界最大規模のクラウドプロバイダーです。</p>
+            </div>
+
+            <h4>クラウドの6つの利点（AWS公式）</h4>
+            <ul>
+                <li><strong>固定費から変動費へ:</strong> 初期投資不要、使った分だけ払う</li>
+                <li><strong>スケールのメリット:</strong> AWSの規模により低コストで高品質のインフラ</li>
+                <li><strong>容量推測が不要:</strong> オンデマンドでスケールアップ/ダウン可能</li>
+                <li><strong>俊敏性と柔軟性:</strong> 数分でリソースをプロビジョニング可能</li>
+                <li><strong>データセンター運用コストの削減:</strong> AWSに任せて本業に集中</li>
+                <li><strong>数分でグローバル展開:</strong> 世界中のリージョンに即座にデプロイ</li>
+            </ul>
+
+            <h4>クラウドサービスモデル (IaaS / PaaS / SaaS)</h4>
+            <table class="comparison-table">
+                <tr>
+                    <th>モデル</th>
+                    <th>正式名称</th>
+                    <th>管理範囲</th>
+                    <th>AWSの例</th>
+                    <th>AI/MLの例</th>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-blue">IaaS</span></td>
+                    <td>Infrastructure as a Service</td>
+                    <td>OS・アプリはユーザー管理</td>
+                    <td>EC2, S3, VPC</td>
+                    <td>EC2 GPU (P4インスタンス)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-purple">PaaS</span></td>
+                    <td>Platform as a Service</td>
+                    <td>アプリロジックのみ管理</td>
+                    <td>Elastic Beanstalk, RDS</td>
+                    <td>Amazon SageMaker</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-green">SaaS</span></td>
+                    <td>Software as a Service</td>
+                    <td>設定・データのみ管理</td>
+                    <td>Amazon WorkMail</td>
+                    <td>Amazon Rekognition, Comprehend, Bedrock</td>
+                </tr>
+            </table>
+
+            <div class="tip-box">
+                <p>試験では「最小限の管理工数でAIを利用したい」シナリオには <strong>SaaS型のAIサービス（Rekognition, Comprehend, Bedrock等）</strong> が正解になることが多いです。逆に「カスタムモデルを訓練したい」場合は <strong>SageMaker（PaaS）</strong> が適切です。</p>
+            </div>
+
+            <h3 id="s2-2">AWSグローバルインフラストラクチャ</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>概念</th>
+                    <th>説明</th>
+                    <th>AI/MLとの関連</th>
+                </tr>
+                <tr>
+                    <td><strong>リージョン</strong></td>
+                    <td>地理的に分離された場所。現在33以上のリージョンが存在。各リージョンは独立して動作</td>
+                    <td>モデルの訓練・推論をどのリージョンで行うか。Bedrockのモデル提供リージョンが限定される場合がある</td>
+                </tr>
+                <tr>
+                    <td><strong>アベイラビリティゾーン (AZ)</strong></td>
+                    <td>各リージョンに2つ以上（多くは3つ）の物理的に分離されたデータセンター群。高可用性を実現</td>
+                    <td>SageMakerエンドポイントの高可用性デプロイ、トレーニングジョブの冗長化</td>
+                </tr>
+                <tr>
+                    <td><strong>エッジロケーション</strong></td>
+                    <td>CloudFront / Route 53 のPOP (Point of Presence)。200以上の拠点。リージョンよりも多い</td>
+                    <td>AIモデルのエッジ推論（CloudFront Functions）、低レイテンシなAPI配信</td>
+                </tr>
+                <tr>
+                    <td><strong>ローカルゾーン</strong></td>
+                    <td>主要都市近郊にAWSインフラを拡張した施設。超低レイテンシが必要なワークロード向け</td>
+                    <td>リアルタイム推論が要求されるエッジAIアプリケーション</td>
+                </tr>
+            </table>
+
+            <h4>リージョン選択の4つの基準</h4>
+            <div class="two-col">
+                <div class="concept-box">
+                    <h4>1. 法令遵守・データ主権</h4>
+                    <p>個人情報保護法、GDPR等の規制によりデータを特定の国に保管する必要がある場合。日本企業は「ap-northeast-1 (東京)」が第一候補。</p>
+                </div>
+                <div class="concept-box">
+                    <h4>2. レイテンシ（遅延）</h4>
+                    <p>ユーザーに最も近いリージョンを選択することで、AIサービスへのアクセス遅延を最小化。</p>
+                </div>
+                <div class="concept-box">
+                    <h4>3. サービス提供状況</h4>
+                    <p>すべてのAWSサービスがすべてのリージョンで利用可能とは限らない。Bedrockの特定モデルは一部リージョンのみ対応。</p>
+                </div>
+                <div class="concept-box">
+                    <h4>4. コスト</h4>
+                    <p>リージョンによって同じサービスでも料金が異なる。米国東部 (us-east-1) が最もコストが低いことが多い。</p>
+                </div>
+            </div>
+
+            <h3 id="s2-3">AWS責任共有モデル</h3>
+
+            <p>AWSとユーザーはセキュリティの責任を分担しています。このモデルを正確に理解することは、試験頻出のテーマです。</p>
+
+            <div class="resp-model">
+                <div class="resp-aws">
+                    <h4>AWSの責任<br>「クラウドのセキュリティ」</h4>
+                    <ul>
+                        <li>物理データセンターのセキュリティ</li>
+                        <li>ハードウェア・ファームウェアの保護</li>
+                        <li>ハイパーバイザー・仮想化レイヤー</li>
+                        <li>マネージドサービスの基盤インフラ</li>
+                        <li>グローバルネットワーク設備</li>
+                        <li>AWSの従業員のアクセス管理</li>
+                    </ul>
+                </div>
+                <div class="resp-user">
+                    <h4>ユーザーの責任<br>「クラウド内のセキュリティ」</h4>
+                    <ul>
+                        <li>OS・アプリのパッチ適用</li>
+                        <li>IAMユーザー・ロール・ポリシー管理</li>
+                        <li>データの暗号化（転送中・保存中）</li>
+                        <li>セキュリティグループ・ファイアウォール設定</li>
+                        <li>訓練データ・モデルの保護</li>
+                        <li>AIの出力に関する品質と倫理管理</li>
+                    </ul>
+                </div>
+                <div class="resp-divider">Amazon SageMakerの例: AWSが基盤インフラ・MLプラットフォームを管理 ／ ユーザーがモデル・訓練データ・エンドポイント設定を管理</div>
+            </div>
+
+            <div class="key-point">
+                「データの分類・暗号化・IAM設定」は<strong>常にユーザー責任</strong>です。AIサービスであっても、訓練データの個人情報保護・アクセス権管理はユーザーが行う必要があります。
+            </div>
+
+            <h3 id="s2-4">AWS Identity and Access Management (AWS IAM)</h3>
+
+            <div class="concept-box">
+                <h4>IAMの主要コンポーネント</h4>
+                <ul>
+                    <li><strong>IAMユーザー:</strong> 個人や自動化プロセスに対応するエンティティ。アクセスキー・パスワードで認証。</li>
+                    <li><strong>IAMグループ:</strong> ユーザーの集合。グループに割り当てたポリシーをメンバー全員に適用。</li>
+                    <li><strong>IAMロール:</strong> EC2・Lambda・SageMakerなどのAWSサービスやフェデレーションユーザーが引き受けるID。パスワードなしで一時的な認証情報を取得。</li>
+                    <li><strong>IAMポリシー:</strong> 何ができて何ができないかを定義するJSONドキュメント。ユーザー・グループ・ロールにアタッチ。</li>
+                </ul>
+            </div>
+
+            <h4>IAMポリシーの種類</h4>
+            <table class="comparison-table">
+                <tr>
+                    <th>種類</th>
+                    <th>説明</th>
+                    <th>ユースケース</th>
+                </tr>
+                <tr>
+                    <td><strong>AWS管理ポリシー</strong></td>
+                    <td>AWSが提供するスタンドアロンポリシー（例: AmazonS3ReadOnlyAccess）</td>
+                    <td>よく使われる権限の素早い付与</td>
+                </tr>
+                <tr>
+                    <td><strong>カスタマー管理ポリシー</strong></td>
+                    <td>ユーザーが独自に作成したスタンドアロンポリシー</td>
+                    <td>細かいアクセス制御が必要な場合</td>
+                </tr>
+                <tr>
+                    <td><strong>インラインポリシー</strong></td>
+                    <td>特定のユーザー・グループ・ロールに直接埋め込むポリシー</td>
+                    <td>そのエンティティ専用の1対1対応ポリシー</td>
+                </tr>
+            </table>
+
+            <h4>AI/MLにおけるIAMの実例</h4>
+            <div class="example">
+                <span class="example-label">実例</span>
+                <p><strong>SageMakerトレーニングジョブがS3にアクセスする場合:</strong><br>
+                SageMakerサービスが直接アクセスキーを持つのではなく、<strong>サービスロール（IAMロール）</strong>を引き受けることでS3バケット内の訓練データを読み込みます。このロールには「s3:GetObject」権限のみを持つ<strong>最小権限のポリシー</strong>をアタッチします。</p>
+                <p style="margin-top:10px;"><strong>構成:</strong> SageMaker Training Job → IAMロール (AmazonSageMakerRole) → IAMポリシー (S3読み取り権限) → S3バケット（訓練データ）</p>
+            </div>
+
+            <div class="key-point">
+                <strong>最小権限の原則（Principle of Least Privilege）</strong>: 必要最小限の権限のみを付与する。AIサービスに対しても同じ原則を適用し、訓練データや推論結果へのアクセスを限定することがセキュリティのベストプラクティスです。
+            </div>
+
+            <div class="tip-box">
+                <p><strong>MFA（多要素認証）:</strong> ルートアカウントおよびすべての特権ユーザーには必ずMFAを有効化する。特にBedrockやSageMakerの管理者権限を持つユーザーには必須です。</p>
+            </div>
+
+            <h3 id="s2-5">AWSの主要なサービスとユースケース</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>カテゴリ</th>
+                    <th>主なサービス</th>
+                    <th>AI/MLでの主な用途</th>
+                </tr>
+                <tr>
+                    <td class="cat-header" colspan="3">AI / 機械学習</td>
+                </tr>
+                <tr>
+                    <td>生成AI</td>
+                    <td>Amazon Bedrock, Amazon Q</td>
+                    <td>LLMの呼び出し、RAG、エージェント、コード生成</td>
+                </tr>
+                <tr>
+                    <td>MLプラットフォーム</td>
+                    <td>Amazon SageMaker</td>
+                    <td>モデル訓練・デプロイ・モニタリング・MLOps</td>
+                </tr>
+                <tr>
+                    <td>ビジョンAI</td>
+                    <td>Amazon Rekognition</td>
+                    <td>顔認識、物体検出、不適切コンテンツ検出</td>
+                </tr>
+                <tr>
+                    <td>自然言語処理</td>
+                    <td>Amazon Comprehend, Translate, Textract</td>
+                    <td>感情分析、翻訳、ドキュメント解析</td>
+                </tr>
+                <tr>
+                    <td>音声AI</td>
+                    <td>Amazon Polly, Amazon Transcribe, Amazon Lex</td>
+                    <td>TTS、STT、チャットボット</td>
+                </tr>
+                <tr>
+                    <td>予測・推薦</td>
+                    <td>Amazon Forecast, Amazon Personalize</td>
+                    <td>需要予測、パーソナライズドレコメンド</td>
+                </tr>
+                <tr>
+                    <td>企業検索</td>
+                    <td>Amazon Kendra</td>
+                    <td>インテリジェントなドキュメント検索</td>
+                </tr>
+                <tr>
+                    <td class="cat-header" colspan="3">ストレージ</td>
+                </tr>
+                <tr>
+                    <td>オブジェクトストレージ</td>
+                    <td>Amazon S3</td>
+                    <td>訓練データ・モデルアーティファクト・推論結果の保管</td>
+                </tr>
+                <tr>
+                    <td>ファイルシステム</td>
+                    <td>Amazon EFS</td>
+                    <td>SageMakerの共有ファイルシステム</td>
+                </tr>
+                <tr>
+                    <td>ブロックストレージ</td>
+                    <td>Amazon EBS</td>
+                    <td>EC2インスタンスのローカルストレージ</td>
+                </tr>
+                <tr>
+                    <td class="cat-header" colspan="3">コンピューティング</td>
+                </tr>
+                <tr>
+                    <td>仮想サーバー</td>
+                    <td>Amazon EC2</td>
+                    <td>P4d/P3 (GPU), Inf1/Trn1 (AWS専用チップ) でモデル訓練・推論</td>
+                </tr>
+                <tr>
+                    <td>サーバーレス</td>
+                    <td>AWS Lambda</td>
+                    <td>推論エンドポイントの呼び出し、前処理スクリプト実行</td>
+                </tr>
+                <tr>
+                    <td>コンテナ</td>
+                    <td>Amazon ECS, EKS, Fargate</td>
+                    <td>MLモデルのコンテナ化デプロイ・スケーリング</td>
+                </tr>
+                <tr>
+                    <td class="cat-header" colspan="3">データベース</td>
+                </tr>
+                <tr>
+                    <td>リレーショナル</td>
+                    <td>Amazon RDS, Aurora</td>
+                    <td>特徴量ストア、メタデータ管理、アノテーションデータ</td>
+                </tr>
+                <tr>
+                    <td>NoSQL</td>
+                    <td>Amazon DynamoDB</td>
+                    <td>リアルタイム推薦結果のキャッシュ、セッション管理</td>
+                </tr>
+                <tr>
+                    <td>データウェアハウス</td>
+                    <td>Amazon Redshift</td>
+                    <td>大規模分析クエリ、ML USING句でのモデル呼び出し</td>
+                </tr>
+                <tr>
+                    <td class="cat-header" colspan="3">分析</td>
+                </tr>
+                <tr>
+                    <td>インタラクティブクエリ</td>
+                    <td>Amazon Athena</td>
+                    <td>S3の訓練データへのアドホックSQLクエリ</td>
+                </tr>
+                <tr>
+                    <td>ETL</td>
+                    <td>AWS Glue</td>
+                    <td>訓練データの前処理・変換・カタログ管理</td>
+                </tr>
+                <tr>
+                    <td>ストリーミング</td>
+                    <td>Amazon Kinesis</td>
+                    <td>リアルタイムデータのML推論パイプライン</td>
+                </tr>
+                <tr>
+                    <td>BI</td>
+                    <td>Amazon QuickSight</td>
+                    <td>MLインサイト (ML-powered anomaly detection)</td>
+                </tr>
+                <tr>
+                    <td class="cat-header" colspan="3">ネットワーク・セキュリティ</td>
+                </tr>
+                <tr>
+                    <td>仮想ネットワーク</td>
+                    <td>Amazon VPC</td>
+                    <td>SageMakerの通信をVPC内に隔離してセキュリティ強化</td>
+                </tr>
+                <tr>
+                    <td>CDN</td>
+                    <td>Amazon CloudFront</td>
+                    <td>AIモデルAPIのグローバル低レイテンシ配信</td>
+                </tr>
+                <tr>
+                    <td>IAM</td>
+                    <td>AWS IAM, KMS, CloudTrail</td>
+                    <td>アクセス管理、暗号化、監査ログ</td>
+                </tr>
+            </table>
+
+            <h3 id="s2-6">AWSのサービス料金モデル</h3>
+
+            <h4>従量課金制の3つの原則</h4>
+            <ul>
+                <li><strong>使用した分だけ支払う:</strong> 初期費用なし、サーバーを止めれば課金も止まる</li>
+                <li><strong>長期利用でさらに割引:</strong> リザーブドインスタンス / Savings Plansで最大72%割引</li>
+                <li><strong>大量利用で単価が下がる:</strong> S3やデータ転送は利用量が増えるほど単価低下</li>
+            </ul>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>コスト削減手段</th>
+                    <th>説明</th>
+                    <th>AI/MLでの活用</th>
+                </tr>
+                <tr>
+                    <td><strong>リザーブドインスタンス (RI)</strong></td>
+                    <td>1年または3年の利用を約束してオンデマンドより最大72%割引</td>
+                    <td>常時稼働のSageMakerエンドポイント用GPU EC2</td>
+                </tr>
+                <tr>
+                    <td><strong>Savings Plans</strong></td>
+                    <td>コンピュート使用量を金額でコミット。柔軟性が高い（EC2/Lambda/Fargate対応）</td>
+                    <td>ML推論ワークロードの固定費削減</td>
+                </tr>
+                <tr>
+                    <td><strong>スポットインスタンス</strong></td>
+                    <td>余剰容量を最大90%割引で利用。中断の可能性あり</td>
+                    <td>SageMakerのトレーニングジョブ（チェックポイント保存で中断対応）</td>
+                </tr>
+                <tr>
+                    <td><strong>オンデマンド</strong></td>
+                    <td>予約なし、いつでも利用開始・停止可能。最も高い単価</td>
+                    <td>開発・テスト環境、不定期なバッチ推論</td>
+                </tr>
+            </table>
+
+            <div class="aws-highlight">
+                <h4>ML学習コスト管理のベストプラクティス</h4>
+                <ul>
+                    <li><strong>AWS Cost Explorer:</strong> サービス別・日別のコストを可視化。SageMakerの訓練コストをモニタリング</li>
+                    <li><strong>AWS Budgets:</strong> 月間予算アラートを設定。SageMaker費用が閾値を超えたら通知</li>
+                    <li><strong>AWS Trusted Advisor:</strong> コスト最適化の推奨事項を自動提案（未使用リソースの検出など）</li>
+                    <li><strong>スポットインスタンス活用:</strong> ML訓練ジョブはスポット中断に対応しやすいため、積極的に活用</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ======================== SECTION 3 ======================== -->
+        <div class="section" id="section3">
+            <h2>1-3 対象サービス</h2>
+
+            <h3 id="s3-1">AI / 機械学習サービス</h3>
+
+            <div class="service-grid">
+                <div class="service-card">
+                    <h4>Amazon SageMaker</h4>
+                    <p>MLの開発・訓練・デプロイを支援するフルマネージドMLプラットフォーム。</p>
+                    <ul>
+                        <li><strong>Studio:</strong> ML開発統合IDE</li>
+                        <li><strong>Training:</strong> 分散訓練ジョブ管理</li>
+                        <li><strong>Endpoints:</strong> リアルタイム推論</li>
+                        <li><strong>Pipelines:</strong> MLワークフロー自動化</li>
+                        <li><strong>Feature Store:</strong> 特徴量管理・共有</li>
+                        <li><strong>Model Monitor:</strong> データドリフト検知</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Bedrock</h4>
+                    <p>複数の基盤モデル（FM）をAPIで利用できるサーバーレスの生成AIサービス。</p>
+                    <ul>
+                        <li>Claude (Anthropic), Titan (Amazon)</li>
+                        <li>Llama (Meta), Mistral AI等</li>
+                        <li><strong>Knowledge Bases:</strong> RAGの構築</li>
+                        <li><strong>Agents:</strong> 自律的なAIエージェント</li>
+                        <li><strong>Guardrails:</strong> 安全フィルタリング</li>
+                        <li>Fine-tuning (微調整) 対応</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Rekognition</h4>
+                    <p>画像・動画に対するビジョンAIサービス。モデル訓練不要。</p>
+                    <ul>
+                        <li>顔認識・顔比較・顔検索</li>
+                        <li>物体・シーン検出</li>
+                        <li>テキスト検出 (OCR)</li>
+                        <li>不適切コンテンツ検出</li>
+                        <li>個人用保護具 (PPE) 検出</li>
+                        <li>Custom Labels (カスタムモデル)</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Comprehend</h4>
+                    <p>NLPサービス。テキストから洞察を抽出。</p>
+                    <ul>
+                        <li>感情分析（ポジティブ/ネガティブ等）</li>
+                        <li>エンティティ認識（人名・組織・場所等）</li>
+                        <li>言語検出（100以上の言語）</li>
+                        <li>キーフレーズ抽出</li>
+                        <li>PII（個人識別情報）検出・匿名化</li>
+                        <li>Custom Classifier/Entity Recognizer</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Translate</h4>
+                    <p>ニューラル機械翻訳サービス。75以上の言語ペアに対応。</p>
+                    <ul>
+                        <li>リアルタイム翻訳 / バッチ翻訳</li>
+                        <li>カスタム用語集 (Custom Terminology)</li>
+                        <li>アクティブカスタマイズ機能</li>
+                        <li>多言語アプリの構築</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Polly</h4>
+                    <p>テキストを自然な音声に変換するTTS (Text-to-Speech) サービス。</p>
+                    <ul>
+                        <li>60以上の音声・40以上の言語</li>
+                        <li>Standard / Neural / Long-Form</li>
+                        <li>SSML (音声合成マークアップ) 対応</li>
+                        <li>読み上げアプリ・ナレーション生成</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Lex</h4>
+                    <p>会話AIチャットボット構築サービス（AlexaのNLU技術と同じ）。</p>
+                    <ul>
+                        <li>インテント・スロット・フルフィルメント</li>
+                        <li>音声/テキスト入力両対応</li>
+                        <li>Lambda連携でバックエンド処理</li>
+                        <li>コンタクトセンターへの組み込み</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Transcribe</h4>
+                    <p>音声をテキストに変換するSTT (Speech-to-Text) サービス。</p>
+                    <ul>
+                        <li>リアルタイム/バッチ文字起こし</li>
+                        <li>話者識別 (Speaker Diarization)</li>
+                        <li>カスタム語彙・カスタムモデル</li>
+                        <li>医療向け (Transcribe Medical)</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Forecast</h4>
+                    <p>時系列データの需要予測サービス。ML知識不要でモデルを自動選択。</p>
+                    <ul>
+                        <li>DeepAR+, NPTS, CNN-QR等</li>
+                        <li>在庫管理・需要予測・エネルギー需要</li>
+                        <li>関連時系列データの活用</li>
+                        <li>自動モデル選択 (AutoPredictor)</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Personalize</h4>
+                    <p>リアルタイムパーソナライズドレコメンデーションエンジン。</p>
+                    <ul>
+                        <li>ECサイトの商品推薦</li>
+                        <li>コンテンツ（映像・記事）推薦</li>
+                        <li>ユーザー行動データを自動学習</li>
+                        <li>コールドスタート対応</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Textract</h4>
+                    <p>ドキュメントからテキスト・構造・フォームデータを抽出するサービス（OCR+構造認識）。</p>
+                    <ul>
+                        <li>PDFスキャン・画像対応</li>
+                        <li>フォームのキー・バリュー抽出</li>
+                        <li>テーブル構造の抽出</li>
+                        <li>Queries機能（特定情報をQAで抽出）</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Kendra</h4>
+                    <p>機械学習を活用したインテリジェント企業内検索サービス。</p>
+                    <ul>
+                        <li>自然言語クエリで直接回答を返す</li>
+                        <li>S3・SharePoint・Confluence等に接続</li>
+                        <li>セキュリティフィルタリング対応</li>
+                        <li>RAGの検索バックエンドとして利用</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon Q</h4>
+                    <p>生成AIを活用したビジネス・開発向けアシスタントサービス。</p>
+                    <ul>
+                        <li><strong>Q Business:</strong> 社内データへの質問応答</li>
+                        <li><strong>Q Developer:</strong> コード補完・レビュー・変換</li>
+                        <li>AWS ConsoleでのQ活用</li>
+                        <li>責任あるAI機能内蔵</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="key-point">
+                <strong>試験頻出:</strong> 各AIサービスの主なユースケースを区別できるようにしましょう。特に以下の違いは頻出です。<br>
+                <strong>Comprehend（テキスト分析）vs Textract（ドキュメントからのデータ抽出）</strong><br>
+                <strong>Lex（チャットボット構築）vs Transcribe（音声→テキスト変換）</strong><br>
+                <strong>Kendra（インテリジェント検索）vs Bedrock Knowledge Bases（RAG）</strong>
+            </div>
+
+            <h3 id="s3-2">分析サービス</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>サービス</th>
+                    <th>説明</th>
+                    <th>ML/AIでの用途</th>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Athena</strong></td>
+                    <td>S3に保存されたデータへのサーバーレスSQLクエリ。インフラ管理不要。課金はスキャンデータ量</td>
+                    <td>S3上の訓練データセットへのアドホック分析、特徴量のEDA</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Glue</strong></td>
+                    <td>サーバーレスETL（抽出・変換・ロード）。データカタログ機能でメタデータ一元管理</td>
+                    <td>訓練データの前処理・クレンジング・特徴量エンジニアリングの自動化</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon EMR</strong></td>
+                    <td>マネージドHadoop/Spark環境。ペタバイト規模の分散処理</td>
+                    <td>大規模な特徴量生成、SparkMLを用いた分散機械学習</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Kinesis Data Streams</strong></td>
+                    <td>リアルタイムストリーミングデータの収集・処理。シャード単位でスケール</td>
+                    <td>リアルタイム不正検知、ストリーミング推論パイプライン</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Kinesis Firehose</strong></td>
+                    <td>ストリームデータをS3/Redshift/OpenSearch等に自動ロード</td>
+                    <td>センサーデータ・ログデータをS3に自動収集して訓練データ化</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon QuickSight</strong></td>
+                    <td>クラウドBIサービス。ML InsightsによるAI分析機能を内蔵</td>
+                    <td>異常検知、予測機能、自然言語でのデータ質問 (Q&amp;A)</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Lake Formation</strong></td>
+                    <td>S3ベースのデータレイク構築・管理・セキュリティ</td>
+                    <td>ML訓練データの集中管理、きめ細かいアクセス制御</td>
+                </tr>
+            </table>
+
+            <h3 id="s3-3">ストレージサービス</h3>
+
+            <div class="concept-box">
+                <h4>Amazon S3: MLデータの中央リポジトリ</h4>
+                <p>Amazon S3 (Simple Storage Service) はAWS機械学習ワークフローの<strong>中心的なストレージ</strong>です。SageMakerの訓練データ・モデルアーティファクトの保存先として必ずと言っていいほど登場します。</p>
+                <ul>
+                    <li><strong>耐久性:</strong> 99.999999999%（11ナイン）の設計耐久性</li>
+                    <li><strong>ストレージクラス:</strong> Standard / Intelligent-Tiering / Glacier（コストに応じて選択）</li>
+                    <li><strong>バージョニング:</strong> オブジェクトの変更履歴を保持（訓練データのバージョン管理）</li>
+                    <li><strong>ライフサイクルポリシー:</strong> 古いデータを自動でGlacierに移行してコスト削減</li>
+                    <li><strong>イベント通知:</strong> 新データ到着時にLambdaを起動して自動訓練パイプライン構築</li>
+                    <li><strong>暗号化:</strong> SSE-S3 / SSE-KMS / SSE-C でデータを暗号化保護</li>
+                </ul>
+            </div>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>ストレージ種別</th>
+                    <th>サービス</th>
+                    <th>特徴</th>
+                    <th>ML用途</th>
+                </tr>
+                <tr>
+                    <td>オブジェクト</td>
+                    <td>Amazon S3</td>
+                    <td>無制限容量・高耐久性・HTTPSアクセス</td>
+                    <td>訓練データ、モデルファイル、推論結果の保存</td>
+                </tr>
+                <tr>
+                    <td>ファイル</td>
+                    <td>Amazon EFS</td>
+                    <td>マネージドNFS。複数インスタンスから同時マウント</td>
+                    <td>SageMakerの共有コード・データセットのNFS共有</td>
+                </tr>
+                <tr>
+                    <td>ブロック</td>
+                    <td>Amazon EBS</td>
+                    <td>EC2インスタンスに1対1でアタッチ。高IOPs</td>
+                    <td>MLフレームワークのインストール先、ローカルデータ前処理</td>
+                </tr>
+            </table>
+
+            <h3 id="s3-4">データベースサービス</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>サービス</th>
+                    <th>種類</th>
+                    <th>特徴</th>
+                    <th>ML関連ユースケース</th>
+                </tr>
+                <tr>
+                    <td><strong>Amazon RDS</strong></td>
+                    <td>マネージドRDB</td>
+                    <td>MySQL, PostgreSQL, MariaDB, Oracle, SQL Server対応</td>
+                    <td>アノテーションデータ管理、MLメタデータ保存</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Aurora</strong></td>
+                    <td>マネージドRDB</td>
+                    <td>MySQL/PostgreSQL互換、標準DBの3〜5倍高速、自動スケール</td>
+                    <td>特徴量ストアのバックエンド、高速なフィーチャー検索</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon DynamoDB</strong></td>
+                    <td>NoSQL Key-Value</td>
+                    <td>サーバーレス・個位ミリ秒レイテンシ・自動スケール</td>
+                    <td>リアルタイム推薦結果キャッシュ、ユーザーセッション管理</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Redshift</strong></td>
+                    <td>データウェアハウス</td>
+                    <td>ペタバイト規模の分析クエリ、カラム型ストレージ</td>
+                    <td>Redshift ML（SQL文でSageMakerモデルを呼び出し）</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon OpenSearch Service</strong></td>
+                    <td>検索・分析</td>
+                    <td>全文検索・ベクトル検索（k-NN）対応</td>
+                    <td>Bedrock Knowledge BasesのベクトルDB、セマンティック検索</td>
+                </tr>
+            </table>
+
+            <div class="key-point">
+                <strong>ベクトルデータベース:</strong> 生成AIのRAG（検索拡張生成）では、テキストをベクトル埋め込みに変換して類似検索を行う「ベクトルデータベース」が必要です。AWSでは <strong>Amazon OpenSearch Service</strong>（k-NNインデックス）や <strong>Aurora PostgreSQL</strong>（pgvector拡張）がベクトルDBとして使用できます。
+            </div>
+
+            <h3 id="s3-5">コンピューティングサービス</h3>
+
+            <h4>Amazon EC2: MLに最適化されたインスタンスタイプ</h4>
+            <table class="comparison-table">
+                <tr>
+                    <th>インスタンスファミリー</th>
+                    <th>特徴</th>
+                    <th>用途</th>
+                </tr>
+                <tr>
+                    <td><strong>P4d / P4de</strong></td>
+                    <td>NVIDIA A100 GPU × 8。最高峰のML訓練性能</td>
+                    <td>大規模深層学習モデルの訓練</td>
+                </tr>
+                <tr>
+                    <td><strong>P3 / P3dn</strong></td>
+                    <td>NVIDIA V100 GPU × 1〜8</td>
+                    <td>DNN訓練、コンピュータビジョン</td>
+                </tr>
+                <tr>
+                    <td><strong>G5 / G4dn</strong></td>
+                    <td>NVIDIA A10G / T4 GPU。コスト効率が良い</td>
+                    <td>モデル推論、グラフィックスワークロード</td>
+                </tr>
+                <tr>
+                    <td><strong>Inf2 (Inferentia)</strong></td>
+                    <td>AWS独自のInferentia2チップ。推論に特化</td>
+                    <td>大規模LLMの低レイテンシ・低コスト推論</td>
+                </tr>
+                <tr>
+                    <td><strong>Trn1 (Trainium)</strong></td>
+                    <td>AWS独自のTrainiumチップ。訓練に特化</td>
+                    <td>LLM・大規模モデルのコスト効率の良い訓練</td>
+                </tr>
+            </table>
+
+            <div class="service-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                <div class="service-card">
+                    <h4>AWS Lambda</h4>
+                    <ul>
+                        <li>サーバーレス関数実行</li>
+                        <li>最大15分実行</li>
+                        <li>SageMakerエンドポイント呼び出し</li>
+                        <li>前処理スクリプトの実行</li>
+                        <li>S3イベントトリガーで自動パイプライン</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>Amazon ECS / EKS</h4>
+                    <ul>
+                        <li>コンテナオーケストレーション</li>
+                        <li>ECS: AWS独自、EKS: Kubernetes</li>
+                        <li>MLモデルのDockerコンテナデプロイ</li>
+                        <li>水平スケーリング対応</li>
+                        <li>Fargateでサーバーレスコンテナ実行</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h4>AWS Fargate</h4>
+                    <ul>
+                        <li>サーバーレスコンテナ実行</li>
+                        <li>EC2インスタンス管理不要</li>
+                        <li>ECS・EKS両方と統合</li>
+                        <li>軽量な推論コンテナの実行</li>
+                        <li>使用したvCPU・メモリ分だけ課金</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="s3-6">セキュリティ・ネットワーキングサービス</h3>
+
+            <h4>セキュリティ・アイデンティティ・コンプライアンス</h4>
+            <table class="comparison-table">
+                <tr>
+                    <th>サービス</th>
+                    <th>説明</th>
+                    <th>AI/MLでの用途</th>
+                </tr>
+                <tr>
+                    <td><strong>AWS IAM</strong></td>
+                    <td>ユーザー・ロール・ポリシーによるアクセス管理</td>
+                    <td>SageMakerやBedrockへのアクセス制御、最小権限付与</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon Macie</strong></td>
+                    <td>S3内の機密データ（PII等）を機械学習で自動検出・分類</td>
+                    <td>訓練データセット中の個人情報漏洩リスクの自動検出</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS KMS</strong></td>
+                    <td>暗号化キーの作成・管理・ローテーション</td>
+                    <td>S3の訓練データ・SageMakerモデルの暗号化</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS CloudTrail</strong></td>
+                    <td>AWSアカウントのすべてのAPIアクティビティをS3に記録</td>
+                    <td>Bedrock/SageMakerへのアクセス履歴の監査・コンプライアンス対応</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Config</strong></td>
+                    <td>リソース設定の変更履歴記録・コンプライアンス評価</td>
+                    <td>SageMakerの設定変更を追跡、セキュリティ基準への準拠確認</td>
+                </tr>
+            </table>
+
+            <h4>ネットワークとコンテンツ配信</h4>
+            <table class="comparison-table">
+                <tr>
+                    <th>サービス</th>
+                    <th>説明</th>
+                    <th>AI/MLでの用途</th>
+                </tr>
+                <tr>
+                    <td><strong>Amazon VPC</strong></td>
+                    <td>AWSクラウド内の論理的に分離された仮想ネットワーク</td>
+                    <td>SageMakerのネットワーク隔離（VPCモード）で訓練データを外部から保護</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon CloudFront</strong></td>
+                    <td>グローバルCDN。200以上のエッジロケーションでコンテンツ配信</td>
+                    <td>AI推論APIのグローバル低レイテンシ配信、モデルのエッジデプロイ</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS PrivateLink</strong></td>
+                    <td>VPCからAWSサービスへプライベートネットワーク経由でアクセス</td>
+                    <td>インターネットを経由せずSageMakerやBedrockへ安全にアクセス</td>
+                </tr>
+            </table>
+
+            <h3 id="s3-7">マネジメントとガバナンス</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>サービス</th>
+                    <th>説明</th>
+                    <th>ML/AIでの活用</th>
+                </tr>
+                <tr>
+                    <td><strong>Amazon CloudWatch</strong></td>
+                    <td>メトリクス・ログ・アラームの統合監視サービス。カスタムメトリクスの記録も可能</td>
+                    <td>SageMakerエンドポイントのレイテンシ・エラー率監視、Model Monitorの結果可視化</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS CloudFormation</strong></td>
+                    <td>テンプレートによるInfrastructure as Code (IaC)。スタックでリソースをまとめて管理</td>
+                    <td>SageMaker環境（ノートブック・エンドポイント・S3バケット等）の再現可能なデプロイ</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Config</strong></td>
+                    <td>AWSリソースの設定変更を継続記録。ルールでコンプライアンス自動評価</td>
+                    <td>SageMakerの設定変更追跡・変更が承認されたものかチェック</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Systems Manager</strong></td>
+                    <td>EC2インスタンスの一括パッチ適用・設定管理・パラメータストア</td>
+                    <td>ML訓練に使用するEC2インスタンスのOS管理、APIキーのセキュアな保管</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Cost Explorer</strong></td>
+                    <td>コストと使用量の詳細分析。フィルタリング・グルーピング機能</td>
+                    <td>SageMaker・Bedrock・Rekognitionなどのコスト内訳の把握と最適化</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Budgets</strong></td>
+                    <td>コスト・使用量・RI/Savings Plans使用率の予算アラート設定</td>
+                    <td>ML実験コストが月間予算を超えた際の自動通知・アクション</td>
+                </tr>
+                <tr>
+                    <td><strong>AWS Trusted Advisor</strong></td>
+                    <td>コスト・パフォーマンス・セキュリティ・耐障害性・サービス制限のベストプラクティスチェック</td>
+                    <td>未使用のSageMakerエンドポイントの検出・削除推奨によるコスト削減</td>
+                </tr>
+            </table>
+
+            <div class="aws-highlight">
+                <h4>SageMaker Model Monitor（モデルモニタリング）</h4>
+                <p>本番環境にデプロイしたMLモデルは、時間の経過とともに予測精度が低下することがあります（<strong>データドリフト・コンセプトドリフト</strong>）。SageMaker Model Monitorは CloudWatch と連携して、入力データの統計的分布の変化を自動検知し、モデルの再訓練が必要なタイミングをアラートします。</p>
+            </div>
+        </div>
+
+        <!-- ======================== PRACTICE QUESTIONS ======================== -->
+        <div class="exam-section" id="practice">
+            <h2>練習問題（全5問）</h2>
+            <p style="color:#3949ab;margin-bottom:22px;font-size:0.97em;">各問題の正解と解説を確認して、理解を深めましょう。</p>
+
+            <!-- Q1 -->
+            <div class="question-block">
+                <div class="question-text">
+                    <span class="question-num">1</span>
+                    <span>AWS認定AIプラクティショナー (AIF-C01) 試験に関する説明として、正しいものはどれですか？</span>
+                </div>
+                <ul class="options">
+                    <li>この試験はプロフェッショナルレベルに分類され、AWS実務経験5年以上が推奨される。</li>
+                    <li class="correct">この試験はファンデーショナルレベルに分類され、合格スコアは1000点満点中720点である。</li>
+                    <li>この試験の試験時間は90分で、問題数は50問である。</li>
+                    <li>この試験では、深層学習モデルの実装コードを記述する問題が出題される。</li>
+                </ul>
+                <div class="answer-explain">
+                    <strong>正解: B</strong><br>
+                    AIF-C01はファンデーショナルレベルに分類され、試験時間は130分・65問（採点対象50問）・合格スコア720点（1000点満点）です。コードの記述は求められず、AIサービスの概念・ユースケース・倫理的考慮事項の理解が中心です。
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-block">
+                <div class="question-text">
+                    <span class="question-num">2</span>
+                    <span>ある企業が、顧客からの問い合わせメールを自動で「感情分析」し、ポジティブ・ネガティブ・ニュートラルに分類するシステムを構築したいと考えています。ML知識がない担当者でも最小限の実装工数で実現できるAWSサービスとして最も適切なものはどれですか？</span>
+                </div>
+                <ul class="options">
+                    <li>Amazon SageMaker でカスタム分類モデルを訓練する。</li>
+                    <li>Amazon Rekognition を使用してテキストを分析する。</li>
+                    <li class="correct">Amazon Comprehend を使用して感情分析APIを呼び出す。</li>
+                    <li>Amazon Textract でメールのテキストを構造化データとして抽出する。</li>
+                </ul>
+                <div class="answer-explain">
+                    <strong>正解: C</strong><br>
+                    Amazon Comprehend はNLPのマネージドサービスで、感情分析（ポジティブ/ネガティブ/ニュートラル/混在）をAPIの呼び出しだけで実現できます。ML知識やモデル訓練は不要です。Rekognition は画像・動画向け、Textract はドキュメントからのデータ抽出、SageMaker はカスタムMLモデル開発に用います。
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-block">
+                <div class="question-text">
+                    <span class="question-num">3</span>
+                    <span>AWS責任共有モデルに関する説明として、正しいものはどれですか？<strong>2つ選択してください。</strong></span>
+                </div>
+                <ul class="options">
+                    <li class="correct">AWSは物理データセンターのセキュリティとハードウェアの保護に責任を持つ。</li>
+                    <li>Amazon SageMaker を使用する場合、訓練データのアクセス制御はAWSが自動的に行う。</li>
+                    <li class="correct">ユーザーは、IAMポリシーの設定やS3バケット内データの暗号化に責任を持つ。</li>
+                    <li>マネージドサービスを使用すると、すべてのセキュリティ責任がAWSに移転する。</li>
+                    <li>ユーザーはAWSのハイパーバイザーのセキュリティパッチ適用を担当する。</li>
+                </ul>
+                <div class="answer-explain">
+                    <strong>正解: A・C</strong><br>
+                    責任共有モデルでは、AWSが「クラウドのセキュリティ」（物理インフラ、ハイパーバイザー等）を担当し、ユーザーが「クラウド内のセキュリティ」（IAM設定、データ暗号化、OSパッチ等）を担当します。SageMakerを使っても、訓練データへのIAMアクセス制御はユーザーの責任です。ハイパーバイザーのパッチ適用はAWSの責任です。
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-block">
+                <div class="question-text">
+                    <span class="question-num">4</span>
+                    <span>AIF-C01試験のドメイン構成について、配点が最も高いドメインはどれですか？</span>
+                </div>
+                <ul class="options">
+                    <li>ドメイン1: AIと機械学習の基礎（20%）</li>
+                    <li>ドメイン2: 生成AIの基礎（24%）</li>
+                    <li class="correct">ドメイン3: 基盤モデルの応用（28%）</li>
+                    <li>ドメイン4: 責任あるAI（14%）</li>
+                </ul>
+                <div class="answer-explain">
+                    <strong>正解: C</strong><br>
+                    ドメイン3「基盤モデルの応用」が28%と最も高い配点を持ちます。Amazon Bedrockを使ったRAG（検索拡張生成）の構築、エージェント、プロンプトエンジニアリング、微調整（Fine-tuning）などが中心トピックです。ドメイン2（24%）と合わせると生成AI関連で52%を占めるため、これらが試験の最重要テーマです。
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-block">
+                <div class="question-text">
+                    <span class="question-num">5</span>
+                    <span>ある企業のデータサイエンティストが、Amazon SageMakerを使用して機械学習モデルを訓練しています。訓練ジョブがAmazon S3に保存された訓練データを読み込めるようにするための、最もセキュリティのベストプラクティスに沿った方法はどれですか？</span>
+                </div>
+                <ul class="options">
+                    <li>S3バケットをパブリックアクセスに設定して、SageMakerが直接アクセスできるようにする。</li>
+                    <li>アクセスキーとシークレットキーをSageMakerの環境変数に直接埋め込む。</li>
+                    <li class="correct">必要最小限のS3アクセス権限を持つIAMロールを作成し、SageMakerトレーニングジョブにそのロールを割り当てる。</li>
+                    <li>ルートアカウントの認証情報をSageMakerノートブックに設定する。</li>
+                </ul>
+                <div class="answer-explain">
+                    <strong>正解: C</strong><br>
+                    <strong>最小権限の原則</strong>に従い、S3への読み取りアクセスのみを許可するIAMロールを作成し、SageMakerトレーニングジョブにアタッチするのが正しいアプローチです。S3のパブリック公開・アクセスキーの直接埋め込み・ルートアカウント使用はいずれも重大なセキュリティリスクです。AWSではアクセスキーよりIAMロールを使用することを強く推奨しています。
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <p><strong>本章のまとめと次章への準備:</strong> 第1章では試験の全体像、AWSの基礎概念（責任共有モデル・IAM・グローバルインフラ）、そしてAI/MLで使用する主要サービスを学習しました。第2章ではドメイン1「AIと機械学習の基礎」として、教師あり学習・教師なし学習・強化学習の違い、主要なMLアルゴリズム、評価指標（Accuracy / Precision / Recall / F1 / AUC-ROC）について詳しく学習します。</p>
+            </div>
+        </div>
+
+    </div><!-- /.content -->
+
+    <footer>
+        <div class="footer-chapter">第1章完 | AWS AIF-C01 試験対策テキスト</div>
+        <p>第1章: AWS認定AIプラクティショナー試験 &mdash; 試験概要・推奨知識・対象サービス</p>
+        <p style="margin-top:10px;opacity:0.7;font-size:0.88em;">ドメイン構成: D1(20%) / D2(24%) / D3(28%) / D4(14%) / D5(14%) &nbsp;|&nbsp; 65問 &nbsp;|&nbsp; 130分 &nbsp;|&nbsp; 合格スコア 720点</p>
+    </footer>
+
+</div><!-- /.container -->
+</body>
+</html>
