@@ -461,85 +461,50 @@
   .service-card ul { margin-left: 16px; font-size: 0.88rem; }
   .service-card li { margin-bottom: 4px; color: #444; }
 
-  /* ===== PRACTICE QUESTIONS ===== */
-  .practice-section {
-    background: linear-gradient(135deg, #f3e5f5 0%, #ede7f6 100%);
-    border-radius: 12px;
-    padding: 32px;
-    margin-top: 40px;
-  }
-  .practice-section h2 {
-    color: #4a148c;
-    font-size: 1.4rem;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: none;
-    padding: 0;
-  }
-  .question-block {
-    background: white;
+  /* ===== QUIZ SECTION ===== */
+  .quiz-section {
+    background: #f3e5f5;
+    border: 2px solid #7b1fa2;
+    padding: 28px 30px;
+    margin: 35px 0;
     border-radius: 10px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 2px 10px rgba(106,27,154,0.09);
-    border-top: 4px solid #8e24aa;
   }
-  .question-num {
-    background: linear-gradient(135deg, #6a1b9a, #ab47bc);
-    color: white;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-right: 10px;
-    flex-shrink: 0;
-  }
-  .question-text {
-    font-weight: 600;
-    color: #2d2d2d;
-    font-size: 0.97rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 0;
-  }
-  .options {
-    margin: 14px 0 14px 46px;
-    list-style: none;
-  }
-  .options li {
-    padding: 8px 14px;
-    margin-bottom: 6px;
-    border-radius: 6px;
-    background: #f9f4fc;
-    border: 1px solid #e1bee7;
-    font-size: 0.91rem;
-    cursor: default;
-  }
-  .options li.correct {
-    background: #e8f5e9;
-    border-color: #43a047;
-    font-weight: 600;
-    color: #1b5e20;
-  }
-  .options li.correct::before { content: '✓ '; color: #2e7d32; }
-  .answer-block {
-    background: linear-gradient(135deg, #ede7f6, #f3e5f5);
-    border-left: 4px solid #7b1fa2;
-    border-radius: 0 8px 8px 0;
-    padding: 16px 20px;
-    margin-top: 14px;
-    font-size: 0.9rem;
-  }
-  .answer-block .answer-label {
-    font-weight: 700;
+  .quiz-section > h2 {
     color: #6a1b9a;
-    margin-bottom: 8px;
+    font-size: 1.6em;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #9c27b0;
   }
+  .quiz-item { margin-bottom: 32px; }
+  .quiz-item h3 {
+    color: #6a1b9a;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+    background: none;
+    border-left: none;
+    padding-left: 0;
+  }
+  .quiz-options {
+    list-style: upper-alpha;
+    margin-left: 24px;
+    margin-bottom: 14px;
+  }
+  .quiz-options li { margin-bottom: 6px; font-size: 0.97em; }
+  .quiz-answer-block {
+    background: white;
+    border: 1px solid #ce93d8;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-top: 10px;
+  }
+  .quiz-answer-block .answer-label {
+    font-weight: bold;
+    color: #7b1fa2;
+    font-size: 1.02em;
+    margin-bottom: 6px;
+  }
+  .quiz-answer-block p { margin-bottom: 6px; font-size: 0.97em; }
 
   /* ===== DIVIDER ===== */
   .divider {
@@ -1488,157 +1453,111 @@
 <!-- ============================
      PRACTICE QUESTIONS
      ============================ -->
-<div class="practice-section" id="practice">
-  <h2>練習問題（第3章）</h2>
+<div class="quiz-section" id="practice">
+  <h2>練習問題　（全6問）</h2>
 
   <!-- Q1 -->
-  <div class="question-block">
-    <div class="question-text">
-      <span class="question-num">1</span>
-      <span>生成AIが「ハルシネーション」を起こすとはどのような状態を指しますか？また、その最も効果的な対策として正しいものを選んでください。</span>
-    </div>
-    <ul class="options">
-      <li>A. モデルが回答を生成するのに時間がかかりすぎる状態。対策はGPUのスペックアップ。</li>
-      <li class="correct">B. モデルが事実と異なる情報を高い自信を持って生成する状態。対策としてRAGによる外部知識の参照が有効。</li>
-      <li>C. モデルが入力プロンプトを理解できず空の回答を返す状態。対策はプロンプトの短縮。</li>
-      <li>D. モデルが有害なコンテンツを生成する状態。対策はモデルの再訓練のみ。</li>
-    </ul>
-    <div class="answer-block">
-      <div class="answer-label">正解：B ／ 解説</div>
-      <p>ハルシネーションは生成AIの最も重要な制限事項の一つで、<strong>モデルが事実と異なる情報（存在しない人物・論文・日付など）を自信を持って出力する現象</strong>です。これはモデルが「次に来る確率が高いトークン」を予測する仕組みに由来します。</p>
-      <p>最も効果的な対策は<strong>RAG（Retrieval-Augmented Generation）</strong>で、回答生成前に外部の信頼できるデータソースから関連情報を検索し、その情報を根拠として回答させることでハルシネーションを抑制します。AWSではBedrockKnowledgeBasesがRAGのマネージド実装を提供します。Bedrock Guardrailsのグラウンディングチェックも補助的に有効です。</p>
+  <div class="quiz-item">
+    <h3>問題 1</h3>
+    <p>生成AIが「ハルシネーション」を起こすとはどのような状態を指しますか？また、その最も効果的な対策として正しいものを選んでください。</p>
+    <ol class="quiz-options">
+      <li>モデルが回答を生成するのに時間がかかりすぎる状態。対策はGPUのスペックアップ。</li>
+      <li>モデルが事実と異なる情報を高い自信を持って生成する状態。対策としてRAGによる外部知識の参照が有効。</li>
+      <li>モデルが入力プロンプトを理解できず空の回答を返す状態。対策はプロンプトの短縮。</li>
+      <li>モデルが有害なコンテンツを生成する状態。対策はモデルの再訓練のみ。</li>
+    </ol>
+    <div class="quiz-answer-block">
+      <div class="answer-label">正解：B</div>
+      <p>ハルシネーションは生成AIの最も重要な制限事項の一つで、<strong>モデルが事実と異なる情報（存在しない人物・論文・日付など）を自信を持って出力する現象</strong>です。最も効果的な対策は<strong>RAG（Retrieval-Augmented Generation）</strong>で、外部の信頼できるデータソースから関連情報を検索し根拠として回答させることでハルシネーションを抑制します。AWSでは Bedrock Knowledge Bases がRAGのマネージド実装を提供します。</p>
     </div>
   </div>
 
   <!-- Q2 -->
-  <div class="question-block">
-    <div class="question-text">
-      <span class="question-num">2</span>
-      <span>ある企業が社内のPDF文書（数千件）を対象に、従業員がチャットで質問できるシステムを構築したいと考えています。最も適切なAWSアーキテクチャはどれですか？</span>
-    </div>
-    <ul class="options">
-      <li>A. Amazon Translateで全文書を英語に翻訳してからAmazon Comprehendで検索する。</li>
-      <li>B. Amazon EC2にLLMをセルフホストし、全文書をコンテキストウィンドウに詰め込む。</li>
-      <li class="correct">C. Amazon S3に文書を保存し、Amazon Bedrock Knowledge Basesでインデックス化。Bedrock のFMと組み合わせたRAGアーキテクチャで回答生成する。</li>
-      <li>D. Amazon Kendra単体で構築し、LLMを使用しないキーワード検索システムにする。</li>
-    </ul>
-    <div class="answer-block">
-      <div class="answer-label">正解：C ／ 解説</div>
-      <p>社内文書へのチャット型QAシステムは<strong>RAGアーキテクチャ</strong>が最適解です。</p>
-      <ul>
-        <li><strong>S3</strong>：PDF文書の保存場所</li>
-        <li><strong>Bedrock Knowledge Bases</strong>：文書を自動チャンキング→埋め込みベクターに変換→ベクターDBへのインデックス化までをマネージドで実施</li>
-        <li><strong>Bedrock FM（Claude等）</strong>：ユーザーの質問に関連するチャンクを取得し、根拠に基づいた回答を生成</li>
-      </ul>
-      <p>選択肢Bのコンテキストウィンドウへの詰め込みは数千件の文書には現実的でなく、コスト・レイテンシの問題があります。選択肢Dの場合、LLMなしでは自然な日本語での回答生成ができません。</p>
+  <div class="quiz-item">
+    <h3>問題 2</h3>
+    <p>ある企業が社内のPDF文書（数千件）を対象に、従業員がチャットで質問できるシステムを構築したいと考えています。最も適切なAWSアーキテクチャはどれですか？</p>
+    <ol class="quiz-options">
+      <li>Amazon Translateで全文書を英語に翻訳してからAmazon Comprehendで検索する。</li>
+      <li>Amazon EC2にLLMをセルフホストし、全文書をコンテキストウィンドウに詰め込む。</li>
+      <li>Amazon S3に文書を保存し、Amazon Bedrock Knowledge Basesでインデックス化。Bedrock のFMと組み合わせたRAGアーキテクチャで回答生成する。</li>
+      <li>Amazon Kendra単体で構築し、LLMを使用しないキーワード検索システムにする。</li>
+    </ol>
+    <div class="quiz-answer-block">
+      <div class="answer-label">正解：C</div>
+      <p>社内文書へのチャット型QAシステムは<strong>RAGアーキテクチャ</strong>が最適解です。S3でPDF保存、Bedrock Knowledge BasesでRAGインデックス化、Bedrock FMで根拠に基づいた回答生成を行います。</p>
+      <p><strong>B（誤）：</strong> コンテキストウィンドウへの全文書詰め込みは数千件には非現実的でコスト・レイテンシの問題があります。</p>
+      <p><strong>D（誤）：</strong> LLMなしでは自然な日本語での回答生成ができません。</p>
     </div>
   </div>
 
   <!-- Q3 -->
-  <div class="question-block">
-    <div class="question-text">
-      <span class="question-num">3</span>
-      <span>LLMの「コンテキストウィンドウ」に関する説明として正しいものはどれですか？</span>
-    </div>
-    <ul class="options">
-      <li>A. モデルが画面に表示できるウィンドウの最大サイズを指す。</li>
-      <li>B. モデルの学習に使用したデータセットの総サイズを指す。</li>
-      <li class="correct">C. モデルが一度のリクエストで処理できる最大トークン数を指し、これを超えると処理できない。</li>
-      <li>D. モデルが同時に処理できる並列リクエスト数の上限を指す。</li>
-    </ul>
-    <div class="answer-block">
-      <div class="answer-label">正解：C ／ 解説</div>
-      <p><strong>コンテキストウィンドウ</strong>は、LLMが1回のリクエスト（入力＋出力）で扱えるトークンの最大数です。例えば、Claude 3 Sonnet は最大200,000トークン（約150,000英単語相当）のコンテキストウィンドウを持ちます。</p>
-      <p>長い文書全体をコンテキストに収められない場合の対策：</p>
-      <ul>
-        <li><strong>チャンキング</strong>：文書を小さなチャンクに分割して処理</li>
-        <li><strong>RAG</strong>：必要な部分のみを検索・抽出してコンテキストに含める</li>
-        <li><strong>階層的要約</strong>：大きな文書を段階的に要約して縮小</li>
-      </ul>
-      <p>また、コンテキストウィンドウに含まれるトークン数がコスト（課金）に直結するため、不要な情報をコンテキストに含めないプロンプト設計がコスト最適化にも重要です。</p>
+  <div class="quiz-item">
+    <h3>問題 3</h3>
+    <p>LLMの「コンテキストウィンドウ」に関する説明として正しいものはどれですか？</p>
+    <ol class="quiz-options">
+      <li>モデルが画面に表示できるウィンドウの最大サイズを指す。</li>
+      <li>モデルの学習に使用したデータセットの総サイズを指す。</li>
+      <li>モデルが一度のリクエストで処理できる最大トークン数を指し、これを超えると処理できない。</li>
+      <li>モデルが同時に処理できる並列リクエスト数の上限を指す。</li>
+    </ol>
+    <div class="quiz-answer-block">
+      <div class="answer-label">正解：C</div>
+      <p><strong>コンテキストウィンドウ</strong>は、LLMが1回のリクエスト（入力＋出力）で扱えるトークンの最大数です。これを超えた場合の対策としてチャンキング・RAG・階層的要約が有効です。また、コンテキストウィンドウのトークン数がコストに直結するため、プロンプト設計でのコスト最適化も重要です。</p>
     </div>
   </div>
 
   <!-- Q4 -->
-  <div class="question-block">
-    <div class="question-text">
-      <span class="question-num">4</span>
-      <span>Bedrockの「プロビジョンドスループット」と「オンデマンド」の主な違いとして正しいものはどれですか？</span>
-    </div>
-    <ul class="options">
-      <li>A. プロビジョンドスループットはFinetuning済みモデルにしか使用できない。オンデマンドはBase Modelのみ。</li>
-      <li class="correct">B. プロビジョンドスループットは一定のスループットを事前予約するため安定したパフォーマンスとコスト削減が実現でき、オンデマンドは従量課金で使用量が予測しにくい場合に適している。</li>
-      <li>C. プロビジョンドスループットはAmazon以外のモデルには使用できない。</li>
-      <li>D. オンデマンドはGuardrailsを設定できないが、プロビジョンドスループットは設定できる。</li>
-    </ul>
-    <div class="answer-block">
-      <div class="answer-label">正解：B ／ 解説</div>
-      <p>Bedrockの2つの課金モデルの違い：</p>
-      <table class="comparison-table" style="margin-top:10px; font-size:0.85rem;">
-        <thead>
-          <tr><th>観点</th><th>オンデマンド</th><th>プロビジョンドスループット</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>課金</td><td>使用量（トークン数）に応じた従量課金</td><td>予約したモデルユニット×時間で課金</td></tr>
-          <tr><td>コスト</td><td>小規模・不定期利用に最適</td><td>大規模・定常利用で最大50%安くなる</td></tr>
-          <tr><td>スループット</td><td>需要に応じて変動する可能性</td><td>予約した分が保証されて安定</td></tr>
-          <tr><td>用途</td><td>PoC、開発、不定期処理</td><td>本番サービス、大規模定常処理</td></tr>
-        </tbody>
-      </table>
-      <p>Fine-tuningしたカスタムモデルを本番利用する場合、<strong>プロビジョンドスループットが必須</strong>となる点も重要です。</p>
+  <div class="quiz-item">
+    <h3>問題 4</h3>
+    <p>Bedrockの「プロビジョンドスループット」と「オンデマンド」の主な違いとして正しいものはどれですか？</p>
+    <ol class="quiz-options">
+      <li>プロビジョンドスループットはFinetuning済みモデルにしか使用できない。オンデマンドはBase Modelのみ。</li>
+      <li>プロビジョンドスループットは一定のスループットを事前予約するため安定したパフォーマンスとコスト削減が実現でき、オンデマンドは従量課金で使用量が予測しにくい場合に適している。</li>
+      <li>プロビジョンドスループットはAmazon以外のモデルには使用できない。</li>
+      <li>オンデマンドはGuardrailsを設定できないが、プロビジョンドスループットは設定できる。</li>
+    </ol>
+    <div class="quiz-answer-block">
+      <div class="answer-label">正解：B</div>
+      <p>オンデマンドは使用量に応じた従量課金でPoC・開発・不定期処理に最適。プロビジョンドスループットは予約したモデルユニット×時間で課金し、大規模・定常処理で最大50%安くなり、スループットも保証されます。Fine-tuningしたカスタムモデルを本番利用する場合は<strong>プロビジョンドスループットが必須</strong>です。</p>
     </div>
   </div>
 
   <!-- Q5 -->
-  <div class="question-block">
-    <div class="question-text">
-      <span class="question-num">5</span>
-      <span>生成AIモデルのアーキテクチャに関して、「拡散モデル（Diffusion Models）」の説明として最も正しいものはどれですか？</span>
-    </div>
-    <ul class="options">
-      <li>A. 生成器と識別器が競い合うことでリアルなデータを生成するアーキテクチャ。</li>
-      <li>B. データを潜在空間に圧縮・再構成し、潜在空間のサンプリングで新データを生成するアーキテクチャ。</li>
-      <li C. 自己注意機構によって文脈全体を並列処理し、次のトークンを予測するアーキテクチャ。</li>
-      <li class="correct">D. データに徐々にノイズを加える「順拡散」プロセスと、そのノイズを段階的に除去する「逆拡散」プロセスを学習することで高品質な画像を生成するアーキテクチャ。</li>
-    </ul>
-    <div class="answer-block">
-      <div class="answer-label">正解：D ／ 解説</div>
-      <p>各選択肢は主要なアーキテクチャの説明です：</p>
-      <ul>
-        <li>A → <strong>GAN（敵対的生成ネットワーク）</strong>：生成器がリアルなデータを生成し、識別器が本物か偽物かを判定する対戦学習</li>
-        <li>B → <strong>VAE（変分オートエンコーダー）</strong>：潜在空間での確率的な生成</li>
-        <li>C → <strong>Transformer（LLM）</strong>：自己注意機構による次トークン予測</li>
-        <li>D → <strong>拡散モデル（Diffusion Models）</strong>：Stable Diffusion、DALL-E 3、Amazon Titan Image Generatorが代表例。現在の高品質画像生成の主流技術</li>
-      </ul>
-      <p>拡散モデルがGANより高品質で安定した画像生成を実現できる理由は、GANの訓練不安定性（mode collapse）を解消し、より多様で高品質なサンプルを生成できる点にあります。</p>
+  <div class="quiz-item">
+    <h3>問題 5</h3>
+    <p>生成AIモデルのアーキテクチャに関して、「拡散モデル（Diffusion Models）」の説明として最も正しいものはどれですか？</p>
+    <ol class="quiz-options">
+      <li>生成器と識別器が競い合うことでリアルなデータを生成するアーキテクチャ。</li>
+      <li>データを潜在空間に圧縮・再構成し、潜在空間のサンプリングで新データを生成するアーキテクチャ。</li>
+      <li>自己注意機構によって文脈全体を並列処理し、次のトークンを予測するアーキテクチャ。</li>
+      <li>データに徐々にノイズを加える「順拡散」プロセスと、そのノイズを段階的に除去する「逆拡散」プロセスを学習することで高品質な画像を生成するアーキテクチャ。</li>
+    </ol>
+    <div class="quiz-answer-block">
+      <div class="answer-label">正解：D</div>
+      <p><strong>A（誤）：</strong> GAN（敵対的生成ネットワーク）の説明。<strong>B（誤）：</strong> VAE（変分オートエンコーダー）の説明。<strong>C（誤）：</strong> Transformer（LLM）の説明。</p>
+      <p><strong>D（正）：</strong> 拡散モデルはStable Diffusion・DALL-E 3・Amazon Titan Image Generatorの基盤技術。GANの訓練不安定性（mode collapse）を解消し、より多様で高品質なサンプルを生成できます。</p>
     </div>
   </div>
 
   <!-- Q6 -->
-  <div class="question-block">
-    <div class="question-text">
-      <span class="question-num">6</span>
-      <span>あるEコマース企業が生成AIを活用して以下を実現したいと考えています。①開発者のコーディング支援（コード補完・レビュー）、②顧客向けチャットボット（商品QA）、③大量商品の説明文生成（バッチ処理）。最もコスト効率の良いAWSサービスの組み合わせはどれですか？</span>
-    </div>
-    <ul class="options">
-      <li>A. ① SageMaker JumpStart、② Amazon Kendra単体、③ Amazon Translate</li>
-      <li>B. ① Amazon CodeGuru、② Amazon Lex、③ Amazon Comprehend</li>
-      <li class="correct">C. ① Amazon Q Developer、② Bedrock Knowledge Bases + Claude（Haiku）+ Guardrails、③ Bedrock Batch Inference（Claude Haiku）</li>
-      <li>D. ① Bedrock Claude Opus、② Bedrock Claude Opus、③ Bedrock Claude Opus（オンデマンド）</li>
-    </ul>
-    <div class="answer-block">
-      <div class="answer-label">正解：C ／ 解説</div>
-      <p>各ユースケースに対する最適なAWSサービスの選択理由：</p>
-      <ul>
-        <li><strong>① Amazon Q Developer</strong>：旧CodeWhispererで、IDE統合によるコード補完・生成・セキュリティスキャンに特化したサービス。コーディング支援の最適解。</li>
-        <li><strong>② Bedrock Knowledge Bases + Claude Haiku + Guardrails</strong>：商品QAにはRAGが必要（Knowledge Bases）。チャットボットはリアルタイム応答が必要なのでコスト低・低レイテンシのHaikuが最適。Guardrailsで不適切な回答を防止。</li>
-        <li><strong>③ Bedrock Batch Inference（Haiku）</strong>：バッチ処理はオンデマンドより50%安価。大量の商品説明文生成にはバッチAPIが最もコスト効率が良い。シンプルな定型文生成タスクなのでHaikuで十分。</li>
-      </ul>
-      <p>選択肢Dのように全てをClaude Opusのオンデマンドで処理すると、コストが最も高くなります。<strong>タスクの複雑さとリアルタイム要件に応じてモデルと処理方式を使い分けること</strong>がコスト最適化の鍵です。</p>
+  <div class="quiz-item">
+    <h3>問題 6</h3>
+    <p>あるEコマース企業が生成AIを活用して以下を実現したいと考えています。①開発者のコーディング支援（コード補完・レビュー）、②顧客向けチャットボット（商品QA）、③大量商品の説明文生成（バッチ処理）。最もコスト効率の良いAWSサービスの組み合わせはどれですか？</p>
+    <ol class="quiz-options">
+      <li>① SageMaker JumpStart、② Amazon Kendra単体、③ Amazon Translate</li>
+      <li>① Amazon CodeGuru、② Amazon Lex、③ Amazon Comprehend</li>
+      <li>① Amazon Q Developer、② Bedrock Knowledge Bases + Claude（Haiku）+ Guardrails、③ Bedrock Batch Inference（Claude Haiku）</li>
+      <li>① Bedrock Claude Opus、② Bedrock Claude Opus、③ Bedrock Claude Opus（オンデマンド）</li>
+    </ol>
+    <div class="quiz-answer-block">
+      <div class="answer-label">正解：C</div>
+      <p><strong>① Amazon Q Developer</strong>：IDE統合によるコード補完・生成・セキュリティスキャンに特化したサービス。</p>
+      <p><strong>② Bedrock Knowledge Bases + Claude Haiku + Guardrails</strong>：商品QAにはRAGが必要。リアルタイム応答にはコスト低・低レイテンシのHaikuが最適。</p>
+      <p><strong>③ Bedrock Batch Inference（Haiku）</strong>：バッチ処理はオンデマンドより50%安価。シンプルな定型文生成はHaikuで十分。</p>
+      <p><strong>D（誤）：</strong> 全てをClaude Opusのオンデマンドで処理するとコストが最高になります。</p>
     </div>
   </div>
 
-</div>
 </div>
 
 <!-- ===== FOOTER ===== -->

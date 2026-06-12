@@ -347,55 +347,48 @@
 
         /* Practice questions */
         .quiz-section {
-            margin-top: 20px;
+            background: #f1f8e9;
+            border: 2px solid #2e7d32;
+            padding: 28px 30px;
+            margin: 35px 0;
+            border-radius: 10px;
         }
-        .quiz-item {
-            background: #f5fffe;
-            border: 2px solid #b2dfdb;
-            border-radius: 8px;
-            padding: 22px 26px;
-            margin-bottom: 28px;
+        .quiz-section > h2 {
+            color: #1b5e20;
+            font-size: 1.6em;
+            margin-bottom: 24px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #43a047;
         }
-        .quiz-item .q-num {
-            display: inline-block;
-            background: #00897b;
-            color: white;
-            font-weight: 700;
-            padding: 3px 12px;
-            border-radius: 14px;
-            font-size: 0.9em;
-            margin-bottom: 10px;
+        .quiz-item { margin-bottom: 32px; }
+        .quiz-item h3 {
+            color: #1b5e20;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            background: none;
+            border-left: none;
+            padding-left: 0;
         }
-        .quiz-item .question {
-            font-weight: 600;
-            color: #00695c;
-            margin-bottom: 14px;
-            font-size: 1.02em;
-        }
-        .quiz-item .choices {
+        .quiz-options {
             list-style: upper-alpha;
-            margin-left: 22px;
-            margin-bottom: 16px;
+            margin-left: 24px;
+            margin-bottom: 14px;
         }
-        .quiz-item .choices li {
+        .quiz-options li { margin-bottom: 6px; font-size: 0.97em; }
+        .quiz-answer-block {
+            background: white;
+            border: 1px solid #a5d6a7;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-top: 10px;
+        }
+        .quiz-answer-block .answer-label {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 1.02em;
             margin-bottom: 6px;
         }
-        .quiz-item .answer-block {
-            background: #e0f2f1;
-            border-left: 4px solid #00897b;
-            padding: 14px 18px;
-            border-radius: 0 6px 6px 0;
-            margin-top: 12px;
-        }
-        .quiz-item .answer-block .correct {
-            font-weight: 700;
-            color: #00695c;
-            margin-bottom: 8px;
-        }
-        .quiz-item .answer-block .explanation {
-            color: #333;
-            font-size: 0.97em;
-        }
+        .quiz-answer-block p { margin-bottom: 6px; font-size: 0.97em; }
 
         footer {
             background: #004d40;
@@ -1510,144 +1503,119 @@
             <h2>練習問題</h2>
             <p>以下の問題を解いて、第2章の理解を確認してください。</p>
 
-            <div class="quiz-section">
+            <div class="quiz-section" id="practice">
+                <h2>練習問題　（全6問）</h2>
 
                 <!-- Q1 -->
                 <div class="quiz-item">
-                    <div class="q-num">問題 1</div>
-                    <div class="question">
-                        顧客の購買履歴データを使って顧客をグループに分類し、それぞれのグループに最適なマーケティングメッセージを送りたい。購買履歴データにはラベル（グループ情報）がない。このユースケースに最も適した機械学習の手法はどれか？
-                    </div>
-                    <ol class="choices">
+                    <h3>問題 1</h3>
+                    <p>顧客の購買履歴データを使って顧客をグループに分類し、それぞれのグループに最適なマーケティングメッセージを送りたい。購買履歴データにはラベル（グループ情報）がない。このユースケースに最も適した機械学習の手法はどれか？</p>
+                    <ol class="quiz-options">
                         <li>教師あり学習（Supervised Learning）</li>
                         <li>教師なし学習（Unsupervised Learning）</li>
                         <li>強化学習（Reinforcement Learning）</li>
                         <li>自己教師あり学習（Self-Supervised Learning）</li>
                     </ol>
-                    <div class="answer-block">
-                        <div class="correct">正解: B. 教師なし学習（Unsupervised Learning）</div>
-                        <div class="explanation">
-                            ラベル（グループ情報）なしのデータから類似した顧客をグループに分ける作業はクラスタリングです。クラスタリングは教師なし学習の代表的なタスクです。AWSでは SageMaker の組み込みアルゴリズム「K-Means」が使用できます。また、Amazon Personalize を活用することでパーソナライズされた推薦システムも構築できます。
-                            <br>• A は不正解: 教師あり学習にはラベルデータが必要。
-                            <br>• C は不正解: 強化学習はエージェントが環境と相互作用し報酬を最大化するため、用途が異なる。
-                            <br>• D は不正解: 自己教師あり学習はデータ自身からラベルを生成する手法で、主にLLMの事前学習に使われる。
-                        </div>
+                    <div class="quiz-answer-block">
+                        <div class="answer-label">正解：B</div>
+                        <p>ラベル（グループ情報）なしのデータから類似した顧客をグループに分ける作業はクラスタリングです。クラスタリングは教師なし学習の代表的なタスクです。AWSでは SageMaker の組み込みアルゴリズム「K-Means」が使用できます。</p>
+                        <p><strong>A（誤）：</strong> 教師あり学習にはラベルデータが必要。</p>
+                        <p><strong>C（誤）：</strong> 強化学習はエージェントが環境と相互作用し報酬を最大化するため、用途が異なる。</p>
+                        <p><strong>D（誤）：</strong> 自己教師あり学習はデータ自身からラベルを生成する手法で、主にLLMの事前学習に使われる。</p>
                     </div>
                 </div>
 
                 <!-- Q2 -->
                 <div class="quiz-item">
-                    <div class="q-num">問題 2</div>
-                    <div class="question">
-                        病院が癌検診のAIモデルを評価しています。「癌を見逃す」リスクを最小限にしたい場合、最も重視すべき評価指標はどれか？
-                    </div>
-                    <ol class="choices">
+                    <h3>問題 2</h3>
+                    <p>病院が癌検診のAIモデルを評価しています。「癌を見逃す」リスクを最小限にしたい場合、最も重視すべき評価指標はどれか？</p>
+                    <ol class="quiz-options">
                         <li>正解率（Accuracy）</li>
                         <li>適合率（Precision）</li>
                         <li>再現率（Recall）</li>
                         <li>AUC-ROC</li>
                     </ol>
-                    <div class="answer-block">
-                        <div class="correct">正解: C. 再現率（Recall）</div>
-                        <div class="explanation">
-                            「癌を見逃す」とは偽陰性（False Negative）が発生することを指します。再現率（Recall）は「実際に癌である患者のうち、AIが正しく癌と検出できた割合」= TP / (TP + FN) です。再現率を最大化することで偽陰性を最小化できます。
-                            <br>• A は不正解: 正解率は不均衡データ（癌は稀）では指標として不適切。全員を陰性と予測するだけで高い正解率が出てしまう。
-                            <br>• B は不正解: 適合率は「陽性と予測したもののうち実際に陽性の割合」。偽陽性を減らしたい場面（スパムフィルター等）で重視。
-                            <br>• D は不正解: AUC-ROC は閾値非依存の総合的指標だが、「見逃しを最小化」という特定の優先事項を直接制御するのは再現率。
-                        </div>
+                    <div class="quiz-answer-block">
+                        <div class="answer-label">正解：C</div>
+                        <p>「癌を見逃す」とは偽陰性（False Negative）が発生することを指します。再現率（Recall）= TP / (TP + FN) を最大化することで偽陰性を最小化できます。</p>
+                        <p><strong>A（誤）：</strong> 正解率は不均衡データでは指標として不適切。</p>
+                        <p><strong>B（誤）：</strong> 適合率は偽陽性を減らしたい場面で重視。</p>
+                        <p><strong>D（誤）：</strong> AUC-ROC は総合的指標だが、見逃し最小化を直接制御するのは再現率。</p>
                     </div>
                 </div>
 
                 <!-- Q3 -->
                 <div class="quiz-item">
-                    <div class="q-num">問題 3</div>
-                    <div class="question">
-                        あるMLモデルが訓練データでは99%の精度を達成しているが、テストデータでは65%の精度しか出ない。この状態を最も適切に表しているのはどれか？また、この問題への対策として適切なものを一つ選べ。
-                    </div>
-                    <ol class="choices">
+                    <h3>問題 3</h3>
+                    <p>あるMLモデルが訓練データでは99%の精度を達成しているが、テストデータでは65%の精度しか出ない。この状態を最も適切に表しているのはどれか？また、この問題への対策として適切なものを一つ選べ。</p>
+                    <ol class="quiz-options">
                         <li>未学習（Underfitting）— 対策: より複雑なモデルへの変更</li>
                         <li>過学習（Overfitting）— 対策: L1/L2正則化の適用</li>
                         <li>未学習（Underfitting）— 対策: 学習率の増加</li>
                         <li>過学習（Overfitting）— 対策: より多くのエポックで学習する</li>
                     </ol>
-                    <div class="answer-block">
-                        <div class="correct">正解: B. 過学習（Overfitting）— 対策: L1/L2正則化の適用</div>
-                        <div class="explanation">
-                            訓練データで極めて高い精度（99%）を示す一方、テストデータでは大幅に低い精度（65%）となっているのは「過学習（Overfitting）」の典型的な症状です。モデルが訓練データのノイズやパターンを過度に記憶してしまい、新しいデータへの汎化性能が失われています。
-                            <br>正則化（L1: Lasso / L2: Ridge）は、モデルの係数に制約を加えることで過度な複雑さを抑制し、過学習を防ぐ有効な手法です。
-                            <br>• D は不正解: さらに学習を続けると過学習がより深刻になる。
-                            <br>• A/C は不正解: 未学習は訓練データでもテストデータでも精度が低い状態。
-                        </div>
+                    <div class="quiz-answer-block">
+                        <div class="answer-label">正解：B</div>
+                        <p>訓練データで高い精度（99%）を示す一方、テストデータでは大幅に低い（65%）のは「過学習（Overfitting）」の典型的な症状です。正則化（L1/L2）でモデルの複雑さを抑制することで過学習を防げます。</p>
+                        <p><strong>D（誤）：</strong> さらに学習を続けると過学習がより深刻になる。</p>
+                        <p><strong>A・C（誤）：</strong> 未学習は訓練データでもテストデータでも精度が低い状態。</p>
                     </div>
                 </div>
 
                 <!-- Q4 -->
                 <div class="quiz-item">
-                    <div class="q-num">問題 4</div>
-                    <div class="question">
-                        EC サイトで商品ごとの日次売上を翌30日分予測するシステムを構築したい。SageMaker の組み込みアルゴリズムとして最も適切なものはどれか？
-                    </div>
-                    <ol class="choices">
+                    <h3>問題 4</h3>
+                    <p>EC サイトで商品ごとの日次売上を翌30日分予測するシステムを構築したい。SageMaker の組み込みアルゴリズムとして最も適切なものはどれか？</p>
+                    <ol class="quiz-options">
                         <li>XGBoost</li>
                         <li>K-Means</li>
                         <li>DeepAR</li>
                         <li>BlazingText</li>
                     </ol>
-                    <div class="answer-block">
-                        <div class="correct">正解: C. DeepAR</div>
-                        <div class="explanation">
-                            DeepAR は SageMaker の組み込み時系列予測アルゴリズムです。深層学習（RNN）ベースで、複数の関連時系列（例: 数千商品の売上）を同時に学習し、将来の値と予測区間を出力できます。
-                            <br>• A は不正解: XGBoost は構造化データの分類・回帰に強いが、時系列の順序関係を直接モデル化しない。
-                            <br>• B は不正解: K-Means はクラスタリング（教師なし学習）で、時系列予測には使用しない。
-                            <br>• D は不正解: BlazingText はテキスト分類（Word2Vec）に特化したアルゴリズム。
-                            <br>なお、マネージドサービスとしては Amazon Forecast も同様のユースケースをカバーします。
-                        </div>
+                    <div class="quiz-answer-block">
+                        <div class="answer-label">正解：C</div>
+                        <p>DeepAR は SageMaker の組み込み時系列予測アルゴリズムです。深層学習（RNN）ベースで、複数の関連時系列を同時に学習し、将来の値と予測区間を出力できます。なお、Amazon Forecast も同様のユースケースをカバーします。</p>
+                        <p><strong>A（誤）：</strong> XGBoost は構造化データの分類・回帰向けで時系列の順序関係をモデル化しない。</p>
+                        <p><strong>B（誤）：</strong> K-Means はクラスタリング（教師なし学習）で時系列予測には使用しない。</p>
+                        <p><strong>D（誤）：</strong> BlazingText はテキスト分類（Word2Vec）に特化したアルゴリズム。</p>
                     </div>
                 </div>
 
                 <!-- Q5 -->
                 <div class="quiz-item">
-                    <div class="q-num">問題 5</div>
-                    <div class="question">
-                        機械翻訳モデルを評価するために最もよく使われる自動評価指標はどれか？
-                    </div>
-                    <ol class="choices">
+                    <h3>問題 5</h3>
+                    <p>機械翻訳モデルを評価するために最もよく使われる自動評価指標はどれか？</p>
+                    <ol class="quiz-options">
                         <li>ROUGE</li>
                         <li>BLEU</li>
                         <li>F1スコア</li>
                         <li>Perplexity（困惑度）</li>
                     </ol>
-                    <div class="answer-block">
-                        <div class="correct">正解: B. BLEU</div>
-                        <div class="explanation">
-                            BLEU（Bilingual Evaluation Understudy）は、機械翻訳の出力文と参照翻訳（正解文）の間の n-gram の一致率を計算する指標です。機械翻訳品質の標準的な自動評価指標として広く使われています。
-                            <br>• A は不正解: ROUGE（Recall-Oriented Understudy for Gisting Evaluation）はテキスト要約の評価に使われる。
-                            <br>• C は不正解: F1スコアは分類タスクの評価指標。
-                            <br>• D は不正解: Perplexity は言語モデル自体の不確かさを評価する指標で、翻訳品質の評価には使わない。
-                        </div>
+                    <div class="quiz-answer-block">
+                        <div class="answer-label">正解：B</div>
+                        <p>BLEU（Bilingual Evaluation Understudy）は、機械翻訳の出力文と参照翻訳の間の n-gram 一致率を計算する標準的な自動評価指標です。</p>
+                        <p><strong>A（誤）：</strong> ROUGE はテキスト要約の評価に使われる。</p>
+                        <p><strong>C（誤）：</strong> F1スコアは分類タスクの評価指標。</p>
+                        <p><strong>D（誤）：</strong> Perplexity は言語モデル自体の不確かさを評価する指標。</p>
                     </div>
                 </div>
 
                 <!-- Q6 -->
                 <div class="quiz-item">
-                    <div class="q-num">問題 6</div>
-                    <div class="question">
-                        ML チームが本番環境にデプロイしたモデルを監視しています。最近、入力データの統計的分布が学習時のデータから大きくずれてきていることを検知しました。この現象の名称と、それを自動的に監視するために使用すべき AWS サービスの正しい組み合わせはどれか？
-                    </div>
-                    <ol class="choices">
+                    <h3>問題 6</h3>
+                    <p>ML チームが本番環境にデプロイしたモデルを監視しています。最近、入力データの統計的分布が学習時のデータから大きくずれてきていることを検知しました。この現象の名称と、それを自動的に監視するために使用すべき AWS サービスの正しい組み合わせはどれか？</p>
+                    <ol class="quiz-options">
                         <li>モデルドリフト — SageMaker Experiments</li>
                         <li>データドリフト — SageMaker Model Monitor</li>
                         <li>過学習 — SageMaker Automatic Model Tuning</li>
                         <li>コンセプトドリフト — SageMaker Data Wrangler</li>
                     </ol>
-                    <div class="answer-block">
-                        <div class="correct">正解: B. データドリフト — SageMaker Model Monitor</div>
-                        <div class="explanation">
-                            入力データの統計的分布が学習時から変化する現象は「データドリフト（Data Drift）」または「共変量シフト（Covariate Shift）」と呼ばれます。これを自動的に監視するAWSサービスが <strong>Amazon SageMaker Model Monitor</strong> です。SageMaker Model Monitor は、本番エンドポイントへの入力データと学習時のベースラインを継続的に比較し、統計的な乖離を検出してアラートを送信します。
-                            <br>• A は不正解: SageMaker Experiments は実験管理・追跡ツール。
-                            <br>• C は不正解: 過学習は本番後の問題ではなく学習時の問題。SageMaker AMT はハイパーパラメータ最適化。
-                            <br>• D は不正解: コンセプトドリフトは入力特徴量と目的変数の関係が変化することで意味は近いが、選択肢として Data Wrangler はデータ前処理ツールであり監視機能はない。
-                        </div>
+                    <div class="quiz-answer-block">
+                        <div class="answer-label">正解：B</div>
+                        <p>入力データの統計的分布が学習時から変化する現象は「データドリフト（Data Drift）」と呼ばれます。<strong>Amazon SageMaker Model Monitor</strong> が本番エンドポイントへの入力データとベースラインを継続的に比較し、統計的な乖離を検出してアラートを送信します。</p>
+                        <p><strong>A（誤）：</strong> SageMaker Experiments は実験管理・追跡ツール。</p>
+                        <p><strong>C（誤）：</strong> SageMaker AMT はハイパーパラメータ最適化ツール。</p>
+                        <p><strong>D（誤）：</strong> Data Wrangler はデータ前処理ツールで監視機能はない。</p>
                     </div>
                 </div>
 

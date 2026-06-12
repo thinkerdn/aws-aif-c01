@@ -408,87 +408,49 @@
         }
 
         /* Practice questions */
-        .exam-section {
-            background: #e8eaf6;
-            border-radius: 8px;
-            padding: 28px 28px;
-            margin: 30px 0;
-        }
-        .exam-section h2 {
-            color: #283593;
-            font-size: 1.5em;
-            border-bottom: 2px solid #3949ab;
-            padding-bottom: 10px;
-            margin-bottom: 22px;
-        }
-        .question-block {
-            background: white;
-            border: 1px solid #c5cae9;
-            border-radius: 8px;
-            padding: 22px 22px 18px;
-            margin-bottom: 22px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-        }
-        .question-num {
-            display: inline-block;
-            background: #1565c0;
-            color: white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-            font-weight: 700;
-            font-size: 0.95em;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
-        .question-text {
-            font-weight: 600;
-            color: #1a237e;
-            margin-bottom: 14px;
-            font-size: 1.02em;
-            display: flex;
-            align-items: flex-start;
-            gap: 4px;
-        }
-        .options {
-            list-style: none;
-            margin: 0 0 14px 0;
-            padding: 0;
-        }
-        .options li {
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            border-radius: 5px;
-            background: #f5f7fa;
-            border: 1px solid #e0e0e0;
-            cursor: default;
-            font-size: 0.97em;
-        }
-        .options li.correct {
-            background: #e8f5e9;
-            border-color: #43a047;
-            font-weight: 600;
-            color: #1b5e20;
-        }
-        .options li.correct::before {
-            content: "✓ ";
-            color: #43a047;
-            font-weight: 700;
-        }
-        .answer-explain {
+        .quiz-section {
             background: #e3f2fd;
-            border-left: 4px solid #1976d2;
-            padding: 12px 16px;
-            border-radius: 0 5px 5px 0;
-            margin-top: 10px;
-            font-size: 0.95em;
+            border: 2px solid #1565c0;
+            padding: 28px 30px;
+            margin: 35px 0;
+            border-radius: 10px;
+        }
+        .quiz-section > h2 {
             color: #0d47a1;
+            font-size: 1.6em;
+            margin-bottom: 24px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1976d2;
         }
-        .answer-explain strong {
+        .quiz-item { margin-bottom: 32px; }
+        .quiz-item h3 {
+            color: #0d47a1;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            background: none;
+            border-left: none;
+            padding-left: 0;
+        }
+        .quiz-options {
+            list-style: upper-alpha;
+            margin-left: 24px;
+            margin-bottom: 14px;
+        }
+        .quiz-options li { margin-bottom: 6px; font-size: 0.97em; }
+        .quiz-answer-block {
+            background: white;
+            border: 1px solid #90caf9;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-top: 10px;
+        }
+        .quiz-answer-block .answer-label {
+            font-weight: bold;
             color: #1565c0;
+            font-size: 1.02em;
+            margin-bottom: 6px;
         }
+        .quiz-answer-block p { margin-bottom: 6px; font-size: 0.97em; }
 
         /* Two-col layout */
         .two-col {
@@ -1712,98 +1674,90 @@
         </div>
 
         <!-- ======================== PRACTICE QUESTIONS ======================== -->
-        <div class="exam-section" id="practice">
-            <h2>練習問題（全5問）</h2>
-            <p style="color:#3949ab;margin-bottom:22px;font-size:0.97em;">各問題の正解と解説を確認して、理解を深めましょう。</p>
+        <div class="quiz-section" id="practice">
+            <h2>練習問題　（全5問）</h2>
 
             <!-- Q1 -->
-            <div class="question-block">
-                <div class="question-text">
-                    <span class="question-num">1</span>
-                    <span>AWS認定AIプラクティショナー (AIF-C01) 試験に関する説明として、正しいものはどれですか？</span>
-                </div>
-                <ul class="options">
+            <div class="quiz-item">
+                <h3>問題 1</h3>
+                <p>AWS認定AIプラクティショナー (AIF-C01) 試験に関する説明として、正しいものはどれですか？</p>
+                <ol class="quiz-options">
                     <li>この試験はプロフェッショナルレベルに分類され、AWS実務経験5年以上が推奨される。</li>
-                    <li class="correct">この試験はファンデーショナルレベルに分類され、合格スコアは1000点満点中720点である。</li>
+                    <li>この試験はファンデーショナルレベルに分類され、合格スコアは1000点満点中720点である。</li>
                     <li>この試験の試験時間は90分で、問題数は50問である。</li>
                     <li>この試験では、深層学習モデルの実装コードを記述する問題が出題される。</li>
-                </ul>
-                <div class="answer-explain">
-                    <strong>正解: B</strong><br>
-                    AIF-C01はファンデーショナルレベルに分類され、試験時間は130分・65問（採点対象50問）・合格スコア720点（1000点満点）です。コードの記述は求められず、AIサービスの概念・ユースケース・倫理的考慮事項の理解が中心です。
+                </ol>
+                <div class="quiz-answer-block">
+                    <div class="answer-label">正解：B</div>
+                    <p>AIF-C01はファンデーショナルレベルに分類され、試験時間は130分・65問（採点対象50問）・合格スコア720点（1000点満点）です。コードの記述は求められず、AIサービスの概念・ユースケース・倫理的考慮事項の理解が中心です。</p>
                 </div>
             </div>
 
             <!-- Q2 -->
-            <div class="question-block">
-                <div class="question-text">
-                    <span class="question-num">2</span>
-                    <span>ある企業が、顧客からの問い合わせメールを自動で「感情分析」し、ポジティブ・ネガティブ・ニュートラルに分類するシステムを構築したいと考えています。ML知識がない担当者でも最小限の実装工数で実現できるAWSサービスとして最も適切なものはどれですか？</span>
-                </div>
-                <ul class="options">
+            <div class="quiz-item">
+                <h3>問題 2</h3>
+                <p>ある企業が、顧客からの問い合わせメールを自動で「感情分析」し、ポジティブ・ネガティブ・ニュートラルに分類するシステムを構築したいと考えています。ML知識がない担当者でも最小限の実装工数で実現できるAWSサービスとして最も適切なものはどれですか？</p>
+                <ol class="quiz-options">
                     <li>Amazon SageMaker でカスタム分類モデルを訓練する。</li>
                     <li>Amazon Rekognition を使用してテキストを分析する。</li>
-                    <li class="correct">Amazon Comprehend を使用して感情分析APIを呼び出す。</li>
+                    <li>Amazon Comprehend を使用して感情分析APIを呼び出す。</li>
                     <li>Amazon Textract でメールのテキストを構造化データとして抽出する。</li>
-                </ul>
-                <div class="answer-explain">
-                    <strong>正解: C</strong><br>
-                    Amazon Comprehend はNLPのマネージドサービスで、感情分析（ポジティブ/ネガティブ/ニュートラル/混在）をAPIの呼び出しだけで実現できます。ML知識やモデル訓練は不要です。Rekognition は画像・動画向け、Textract はドキュメントからのデータ抽出、SageMaker はカスタムMLモデル開発に用います。
+                </ol>
+                <div class="quiz-answer-block">
+                    <div class="answer-label">正解：C</div>
+                    <p>Amazon Comprehend はNLPのマネージドサービスで、感情分析（ポジティブ/ネガティブ/ニュートラル/混在）をAPIの呼び出しだけで実現できます。ML知識やモデル訓練は不要です。Rekognition は画像・動画向け、Textract はドキュメントからのデータ抽出、SageMaker はカスタムMLモデル開発に用います。</p>
                 </div>
             </div>
 
             <!-- Q3 -->
-            <div class="question-block">
-                <div class="question-text">
-                    <span class="question-num">3</span>
-                    <span>AWS責任共有モデルに関する説明として、正しいものはどれですか？<strong>2つ選択してください。</strong></span>
-                </div>
-                <ul class="options">
-                    <li class="correct">AWSは物理データセンターのセキュリティとハードウェアの保護に責任を持つ。</li>
+            <div class="quiz-item">
+                <h3>問題 3</h3>
+                <p>AWS責任共有モデルに関する説明として、正しいものはどれですか？<strong>2つ選択してください。</strong></p>
+                <ol class="quiz-options">
+                    <li>AWSは物理データセンターのセキュリティとハードウェアの保護に責任を持つ。</li>
                     <li>Amazon SageMaker を使用する場合、訓練データのアクセス制御はAWSが自動的に行う。</li>
-                    <li class="correct">ユーザーは、IAMポリシーの設定やS3バケット内データの暗号化に責任を持つ。</li>
+                    <li>ユーザーは、IAMポリシーの設定やS3バケット内データの暗号化に責任を持つ。</li>
                     <li>マネージドサービスを使用すると、すべてのセキュリティ責任がAWSに移転する。</li>
                     <li>ユーザーはAWSのハイパーバイザーのセキュリティパッチ適用を担当する。</li>
-                </ul>
-                <div class="answer-explain">
-                    <strong>正解: A・C</strong><br>
-                    責任共有モデルでは、AWSが「クラウドのセキュリティ」（物理インフラ、ハイパーバイザー等）を担当し、ユーザーが「クラウド内のセキュリティ」（IAM設定、データ暗号化、OSパッチ等）を担当します。SageMakerを使っても、訓練データへのIAMアクセス制御はユーザーの責任です。ハイパーバイザーのパッチ適用はAWSの責任です。
+                </ol>
+                <div class="quiz-answer-block">
+                    <div class="answer-label">正解：A、C</div>
+                    <p>責任共有モデルでは、AWSが「クラウドのセキュリティ」（物理インフラ、ハイパーバイザー等）を担当し、ユーザーが「クラウド内のセキュリティ」（IAM設定、データ暗号化、OSパッチ等）を担当します。</p>
+                    <p><strong>A（正）：</strong> AWSは物理データセンターのセキュリティとハードウェアの保護に責任を持ちます。</p>
+                    <p><strong>C（正）：</strong> SageMakerを使っても、訓練データへのIAMアクセス制御はユーザーの責任です。</p>
+                    <p><strong>E（誤）：</strong> ハイパーバイザーのパッチ適用はAWSの責任です。</p>
                 </div>
             </div>
 
             <!-- Q4 -->
-            <div class="question-block">
-                <div class="question-text">
-                    <span class="question-num">4</span>
-                    <span>AIF-C01試験のドメイン構成について、配点が最も高いドメインはどれですか？</span>
-                </div>
-                <ul class="options">
+            <div class="quiz-item">
+                <h3>問題 4</h3>
+                <p>AIF-C01試験のドメイン構成について、配点が最も高いドメインはどれですか？</p>
+                <ol class="quiz-options">
                     <li>ドメイン1: AIと機械学習の基礎（20%）</li>
                     <li>ドメイン2: 生成AIの基礎（24%）</li>
-                    <li class="correct">ドメイン3: 基盤モデルの応用（28%）</li>
+                    <li>ドメイン3: 基盤モデルの応用（28%）</li>
                     <li>ドメイン4: 責任あるAI（14%）</li>
-                </ul>
-                <div class="answer-explain">
-                    <strong>正解: C</strong><br>
-                    ドメイン3「基盤モデルの応用」が28%と最も高い配点を持ちます。Amazon Bedrockを使ったRAG（検索拡張生成）の構築、エージェント、プロンプトエンジニアリング、微調整（Fine-tuning）などが中心トピックです。ドメイン2（24%）と合わせると生成AI関連で52%を占めるため、これらが試験の最重要テーマです。
+                </ol>
+                <div class="quiz-answer-block">
+                    <div class="answer-label">正解：C</div>
+                    <p>ドメイン3「基盤モデルの応用」が28%と最も高い配点を持ちます。Amazon Bedrockを使ったRAG（検索拡張生成）の構築、エージェント、プロンプトエンジニアリング、微調整（Fine-tuning）などが中心トピックです。ドメイン2（24%）と合わせると生成AI関連で52%を占めるため、これらが試験の最重要テーマです。</p>
                 </div>
             </div>
 
             <!-- Q5 -->
-            <div class="question-block">
-                <div class="question-text">
-                    <span class="question-num">5</span>
-                    <span>ある企業のデータサイエンティストが、Amazon SageMakerを使用して機械学習モデルを訓練しています。訓練ジョブがAmazon S3に保存された訓練データを読み込めるようにするための、最もセキュリティのベストプラクティスに沿った方法はどれですか？</span>
-                </div>
-                <ul class="options">
+            <div class="quiz-item">
+                <h3>問題 5</h3>
+                <p>ある企業のデータサイエンティストが、Amazon SageMakerを使用して機械学習モデルを訓練しています。訓練ジョブがAmazon S3に保存された訓練データを読み込めるようにするための、最もセキュリティのベストプラクティスに沿った方法はどれですか？</p>
+                <ol class="quiz-options">
                     <li>S3バケットをパブリックアクセスに設定して、SageMakerが直接アクセスできるようにする。</li>
                     <li>アクセスキーとシークレットキーをSageMakerの環境変数に直接埋め込む。</li>
-                    <li class="correct">必要最小限のS3アクセス権限を持つIAMロールを作成し、SageMakerトレーニングジョブにそのロールを割り当てる。</li>
+                    <li>必要最小限のS3アクセス権限を持つIAMロールを作成し、SageMakerトレーニングジョブにそのロールを割り当てる。</li>
                     <li>ルートアカウントの認証情報をSageMakerノートブックに設定する。</li>
-                </ul>
-                <div class="answer-explain">
-                    <strong>正解: C</strong><br>
-                    <strong>最小権限の原則</strong>に従い、S3への読み取りアクセスのみを許可するIAMロールを作成し、SageMakerトレーニングジョブにアタッチするのが正しいアプローチです。S3のパブリック公開・アクセスキーの直接埋め込み・ルートアカウント使用はいずれも重大なセキュリティリスクです。AWSではアクセスキーよりIAMロールを使用することを強く推奨しています。
+                </ol>
+                <div class="quiz-answer-block">
+                    <div class="answer-label">正解：C</div>
+                    <p><strong>最小権限の原則</strong>に従い、S3への読み取りアクセスのみを許可するIAMロールを作成し、SageMakerトレーニングジョブにアタッチするのが正しいアプローチです。S3のパブリック公開・アクセスキーの直接埋め込み・ルートアカウント使用はいずれも重大なセキュリティリスクです。AWSではアクセスキーよりIAMロールを使用することを強く推奨しています。</p>
                 </div>
             </div>
 

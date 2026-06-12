@@ -355,81 +355,48 @@
 
         /* Quiz section */
         .quiz-section {
-            background: #fff5f5;
-            border-top: 4px solid #b71c1c;
-            padding: 40px;
-            margin-top: 20px;
+            background: #ffebee;
+            border: 2px solid #c62828;
+            padding: 28px 30px;
+            margin: 35px 0;
+            border-radius: 10px;
         }
-        .quiz-section h2 {
+        .quiz-section > h2 {
             color: #b71c1c;
-            font-size: 1.8em;
-            margin-bottom: 30px;
-            text-align: center;
+            font-size: 1.6em;
+            margin-bottom: 24px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e53935;
         }
-        .quiz-item {
-            background: white;
-            border: 1px solid #ef9a9a;
-            border-radius: 8px;
-            padding: 22px;
-            margin-bottom: 28px;
-            box-shadow: 0 1px 4px rgba(183,28,28,0.08);
-        }
-        .quiz-q {
-            font-weight: 700;
+        .quiz-item { margin-bottom: 32px; }
+        .quiz-item h3 {
             color: #b71c1c;
-            margin-bottom: 14px;
-            font-size: 0.97em;
-        }
-        .quiz-q .q-num {
-            background: #b71c1c;
-            color: white;
-            border-radius: 50%;
-            width: 26px;
-            height: 26px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85em;
-            margin-right: 8px;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            background: none;
+            border-left: none;
+            padding-left: 0;
         }
         .quiz-options {
-            list-style: none;
-            margin: 0 0 16px 0;
+            list-style: upper-alpha;
+            margin-left: 24px;
+            margin-bottom: 14px;
         }
-        .quiz-options li {
-            padding: 8px 14px;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            margin-bottom: 6px;
-            font-size: 0.93em;
-            cursor: default;
-        }
-        .quiz-options li::before {
-            font-weight: 700;
-            color: #666;
-            margin-right: 8px;
-        }
-        .quiz-options li:nth-child(1)::before { content: "A. "; }
-        .quiz-options li:nth-child(2)::before { content: "B. "; }
-        .quiz-options li:nth-child(3)::before { content: "C. "; }
-        .quiz-options li:nth-child(4)::before { content: "D. "; }
-        .quiz-answer {
-            background: #e8f5e9;
-            border-left: 4px solid #43a047;
-            border-radius: 0 6px 6px 0;
+        .quiz-options li { margin-bottom: 6px; font-size: 0.97em; }
+        .quiz-answer-block {
+            background: white;
+            border: 1px solid #ef9a9a;
+            border-radius: 6px;
             padding: 14px 18px;
-            font-size: 0.92em;
+            margin-top: 10px;
         }
-        .quiz-answer .ans-label {
-            font-weight: 700;
-            color: #2e7d32;
+        .quiz-answer-block .answer-label {
+            font-weight: bold;
+            color: #c62828;
+            font-size: 1.02em;
             margin-bottom: 6px;
         }
-        .quiz-options li.correct {
-            background: #e8f5e9;
-            border-color: #43a047;
-            font-weight: 600;
-        }
+        .quiz-answer-block p { margin-bottom: 6px; font-size: 0.97em; }
 
         /* Footer */
         footer {
@@ -1240,146 +1207,120 @@ SSE-C          : クライアントがキーを提供、AWSはキーを保持し
 </div><!-- /content -->
 
 <!-- ==================== QUIZ SECTION ==================== -->
-<div class="quiz-section" id="quiz">
-    <h2>練習問題</h2>
-    <p style="text-align:center; margin-bottom: 30px; color: #666;">各設問を読み、最適な選択肢を選んでから解答を確認してください。</p>
+<div class="quiz-section" id="practice">
+    <h2>練習問題　（全6問）</h2>
 
     <!-- Q1 -->
     <div class="quiz-item">
-        <div class="quiz-q">
-            <span class="q-num">1</span>
-            ある医療系スタートアップが Amazon SageMaker を使って患者の画像診断 AI を開発しています。訓練データセットには HIPAA が定める PHI が含まれる可能性があります。訓練データが保存されている S3 バケットを自動的にスキャンして PHI を検出し、コンプライアンスレポートを生成するには、どのサービスが最も適切ですか？
-        </div>
-        <ul class="quiz-options">
+        <h3>問題 1</h3>
+        <p>ある医療系スタートアップが Amazon SageMaker を使って患者の画像診断 AI を開発しています。訓練データセットには HIPAA が定める PHI が含まれる可能性があります。訓練データが保存されている S3 バケットを自動的にスキャンして PHI を検出し、コンプライアンスレポートを生成するには、どのサービスが最も適切ですか？</p>
+        <ol class="quiz-options">
             <li>AWS Config の s3-bucket-server-side-encryption-enabled ルール</li>
-            <li class="correct">Amazon Macie</li>
+            <li>Amazon Macie</li>
             <li>Amazon Inspector</li>
             <li>AWS Security Hub</li>
-        </ul>
-        <div class="quiz-answer">
-            <div class="ans-label">正解: B — Amazon Macie</div>
-            <p><strong>Amazon Macie</strong> は機械学習を使って S3 バケット内の機密データ (PHI を含む PII) を自動検出・分類し、コンプライアンスレポートを生成するサービスです。</p>
-            <ul>
-                <li>A (AWS Config): S3 バケットの設定コンプライアンス (暗号化有無等) を評価しますが、データの内容は検査しません。</li>
-                <li>C (Amazon Inspector): EC2・Lambda・ECR コンテナの CVE 脆弱性をスキャンするサービスで、データ内容の分析は対象外です。</li>
-                <li>D (AWS Security Hub): 各サービスのセキュリティアラートを集約するダッシュボードです。自身は PII を検出しません。</li>
-            </ul>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：B</div>
+            <p><strong>Amazon Macie</strong> は機械学習を使って S3 バケット内の機密データ（PHI を含む PII）を自動検出・分類し、コンプライアンスレポートを生成するサービスです。</p>
+            <p><strong>A（誤）：</strong> AWS Config は S3 バケットの設定コンプライアンスを評価しますが、データの内容は検査しません。</p>
+            <p><strong>C（誤）：</strong> Amazon Inspector は EC2・Lambda・ECR コンテナの CVE 脆弱性をスキャンするサービスで、データ内容の分析は対象外です。</p>
+            <p><strong>D（誤）：</strong> AWS Security Hub は各サービスのセキュリティアラートを集約するダッシュボードです。自身は PII を検出しません。</p>
         </div>
     </div>
 
     <!-- Q2 -->
     <div class="quiz-item">
-        <div class="quiz-q">
-            <span class="q-num">2</span>
-            大手金融機関が社内の生成 AI チャットボット (Amazon Bedrock ベース) を構築しています。ユーザーが意図的にシステムプロンプトを上書きして機密情報を引き出そうとする攻撃 (プロンプトインジェクション) と、応答に顧客の口座番号が含まれてしまうリスクの両方を防ぐには、どのサービスの機能が最も直接的に対応できますか？
-        </div>
-        <ul class="quiz-options">
+        <h3>問題 2</h3>
+        <p>大手金融機関が社内の生成 AI チャットボット（Amazon Bedrock ベース）を構築しています。ユーザーが意図的にシステムプロンプトを上書きして機密情報を引き出そうとする攻撃（プロンプトインジェクション）と、応答に顧客の口座番号が含まれてしまうリスクの両方を防ぐには、どのサービスの機能が最も直接的に対応できますか？</p>
+        <ol class="quiz-options">
             <li>Amazon GuardDuty for Machine Learning</li>
             <li>AWS WAF のマネージドルールグループ</li>
-            <li class="correct">Amazon Bedrock Guardrails</li>
+            <li>Amazon Bedrock Guardrails</li>
             <li>SageMaker Model Monitor のデータ品質モニタリング</li>
-        </ul>
-        <div class="quiz-answer">
-            <div class="ans-label">正解: C — Amazon Bedrock Guardrails</div>
-            <p><strong>Amazon Bedrock Guardrails</strong> はプロンプトインジェクション防御と PII フィルタリング (入出力両方向) を単一の機能として提供します。コード変更なしで全 Bedrock 対応モデルに適用できます。</p>
-            <ul>
-                <li>A (GuardDuty for ML): SageMaker の異常 API 呼び出しを検知しますが、プロンプト内容のフィルタリングは行いません。</li>
-                <li>B (AWS WAF): HTTP レイヤーの Web アプリケーションファイアウォールで、LLM プロンプトのセマンティックな評価はできません。</li>
-                <li>D (Model Monitor): 本番モデルのデータドリフト・品質を監視するサービスです。リアルタイムの入出力フィルタリングは対象外です。</li>
-            </ul>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：C</div>
+            <p><strong>Amazon Bedrock Guardrails</strong> はプロンプトインジェクション防御と PII フィルタリング（入出力両方向）を単一の機能として提供します。コード変更なしで全 Bedrock 対応モデルに適用できます。</p>
+            <p><strong>A（誤）：</strong> GuardDuty for ML は SageMaker の異常 API 呼び出しを検知しますが、プロンプト内容のフィルタリングは行いません。</p>
+            <p><strong>B（誤）：</strong> AWS WAF は HTTP レイヤーのファイアウォールで、LLM プロンプトのセマンティックな評価はできません。</p>
+            <p><strong>D（誤）：</strong> Model Monitor は本番モデルのデータドリフト・品質を監視するサービスです。リアルタイムの入出力フィルタリングは対象外です。</p>
         </div>
     </div>
 
     <!-- Q3 -->
     <div class="quiz-item">
-        <div class="quiz-q">
-            <span class="q-num">3</span>
-            EU に本社を置く EC 事業者が機械学習を使ったパーソナライズレコメンデーションエンジンを運用しています。GDPR 第 22 条への準拠のため、ユーザーが自動推薦の決定に異議を申し立てた場合に人間によるレビューを提供できる仕組みが必要です。このユースケースに最も適した AWS サービスはどれですか？
-        </div>
-        <ul class="quiz-options">
+        <h3>問題 3</h3>
+        <p>EU に本社を置く EC 事業者が機械学習を使ったパーソナライズレコメンデーションエンジンを運用しています。GDPR 第 22 条への準拠のため、ユーザーが自動推薦の決定に異議を申し立てた場合に人間によるレビューを提供できる仕組みが必要です。このユースケースに最も適した AWS サービスはどれですか？</p>
+        <ol class="quiz-options">
             <li>AWS Audit Manager の GDPR フレームワーク</li>
             <li>Amazon SageMaker Clarify のバイアスレポート</li>
-            <li class="correct">Amazon Augmented AI (A2I)</li>
+            <li>Amazon Augmented AI (A2I)</li>
             <li>AWS Config の GDPR コンフォーマンスパック</li>
-        </ul>
-        <div class="quiz-answer">
-            <div class="ans-label">正解: C — Amazon Augmented AI (A2I)</div>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：C</div>
             <p><strong>Amazon Augmented AI (A2I)</strong> は ML モデルの予測に対して人間によるレビューワークフローを組み込むサービスです。GDPR 第 22 条が要求する「自動的意思決定に対する人間による審査」の仕組みを実装するのに直接対応します。</p>
-            <ul>
-                <li>A (Audit Manager): コンプライアンスエビデンスの収集・整理に特化し、エンドユーザーへの審査フローは提供しません。</li>
-                <li>B (SageMaker Clarify): モデルの説明可能性・バイアス分析レポートを生成しますが、エンドユーザー向けの審査フローではありません。</li>
-                <li>D (AWS Config): リソース設定のコンプライアンスを評価しますが、ユーザー向けの異議申し立てフローとは無関係です。</li>
-            </ul>
+            <p><strong>A（誤）：</strong> Audit Manager はコンプライアンスエビデンスの収集・整理に特化し、エンドユーザーへの審査フローは提供しません。</p>
+            <p><strong>B（誤）：</strong> SageMaker Clarify はモデルの説明可能性・バイアス分析レポートを生成しますが、エンドユーザー向けの審査フローではありません。</p>
+            <p><strong>D（誤）：</strong> AWS Config はリソース設定のコンプライアンスを評価しますが、ユーザー向けの異議申し立てフローとは無関係です。</p>
         </div>
     </div>
 
     <!-- Q4 -->
     <div class="quiz-item">
-        <div class="quiz-q">
-            <span class="q-num">4</span>
-            セキュリティ担当者が「SageMaker トレーニングジョブ実行中に、訓練コンテナが外部インターネット上の第三者サービスに接続しようとした」というインシデントを調査しています。このような外部通信を技術的に防ぐための SageMaker の設定はどれですか？
-        </div>
-        <ul class="quiz-options">
+        <h3>問題 4</h3>
+        <p>セキュリティ担当者が「SageMaker トレーニングジョブ実行中に、訓練コンテナが外部インターネット上の第三者サービスに接続しようとした」というインシデントを調査しています。このような外部通信を技術的に防ぐための SageMaker の設定はどれですか？</p>
+        <ol class="quiz-options">
             <li>SageMaker ノートブックインスタンスのルートアクセスを無効化する</li>
             <li>KMS カスタムキーで EBS ボリュームを暗号化する</li>
             <li>CloudTrail を有効化してすべての API コールを S3 に記録する</li>
-            <li class="correct">Network Isolation (EnableNetworkIsolation: true) をトレーニングジョブに設定する</li>
-        </ul>
-        <div class="quiz-answer">
-            <div class="ans-label">正解: D — Network Isolation (EnableNetworkIsolation: true)</div>
-            <p><strong>ネットワーク隔離 (Network Isolation)</strong> を有効にすると、SageMaker トレーニングコンテナからのすべての外部ネットワーク通信が遮断されます。コンテナは S3 (指定のインプット/アウトプット) にのみアクセスでき、インターネットへの通信はブロックされます。</p>
-            <ul>
-                <li>A (ルートアクセス無効化): ノートブックインスタンス内でのルート権限の制限であり、トレーニングコンテナのネットワーク制御ではありません。</li>
-                <li>B (KMS 暗号化): データの機密性保護であり、ネットワーク通信制御ではありません。</li>
-                <li>C (CloudTrail): 事後の調査・記録には有効ですが、通信を「防ぐ」制御ではありません。</li>
-            </ul>
+            <li>Network Isolation (EnableNetworkIsolation: true) をトレーニングジョブに設定する</li>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：D</div>
+            <p><strong>ネットワーク隔離（Network Isolation）</strong>を有効にすると、SageMaker トレーニングコンテナからのすべての外部ネットワーク通信が遮断されます。コンテナは S3（指定のインプット/アウトプット）にのみアクセスでき、インターネットへの通信はブロックされます。</p>
+            <p><strong>A（誤）：</strong> ルートアクセス無効化はノートブックインスタンス内でのルート権限の制限であり、トレーニングコンテナのネットワーク制御ではありません。</p>
+            <p><strong>B（誤）：</strong> KMS 暗号化はデータの機密性保護であり、ネットワーク通信制御ではありません。</p>
+            <p><strong>C（誤）：</strong> CloudTrail は事後の調査・記録には有効ですが、通信を「防ぐ」制御ではありません。</p>
         </div>
     </div>
 
     <!-- Q5 -->
     <div class="quiz-item">
-        <div class="quiz-q">
-            <span class="q-num">5</span>
-            ある企業の CISO が SOC 2 Type II 認定に向けた外部監査に備えています。AWS インフラ層の SOC 2 レポートを取得し、AWS がセキュリティ・可用性・機密性の要件を満たしていることを監査人に証明する最も効率的な方法はどれですか？
-        </div>
-        <ul class="quiz-options">
+        <h3>問題 5</h3>
+        <p>ある企業の CISO が SOC 2 Type II 認定に向けた外部監査に備えています。AWS インフラ層の SOC 2 レポートを取得し、AWS がセキュリティ・可用性・機密性の要件を満たしていることを監査人に証明する最も効率的な方法はどれですか？</p>
+        <ol class="quiz-options">
             <li>AWS Config の Conformance Pack で SOC 2 フレームワークを展開して評価レポートを出力する</li>
-            <li class="correct">AWS Artifact にアクセスして SOC 2 レポートをダウンロードし監査人に提供する</li>
+            <li>AWS Artifact にアクセスして SOC 2 レポートをダウンロードし監査人に提供する</li>
             <li>AWS Audit Manager で SOC 2 フレームワークを選択してエビデンスを収集する</li>
             <li>Amazon Inspector の評価レポートを SOC 2 証拠として提出する</li>
-        </ul>
-        <div class="quiz-answer">
-            <div class="ans-label">正解: B — AWS Artifact</div>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：B</div>
             <p><strong>AWS Artifact</strong> は AWS 自身の第三者機関による SOC 2 レポート・ISO 認定書・PCI DSS AOC 等の公式コンプライアンスドキュメントをセルフサービスでダウンロードできるポータルです。</p>
-            <ul>
-                <li>A (AWS Config): 自社 AWS リソースの設定コンプライアンスを評価します。AWS インフラ層の SOC 2 証明書は取得できません。</li>
-                <li>C (AWS Audit Manager): 自社アカウントのリソースに対するコンプライアンスエビデンスを収集します。AWS 自身の SOC 2 レポートとは別物です。</li>
-                <li>D (Amazon Inspector): 脆弱性スキャン結果であり、SOC 2 レポートの代替にはなりません。</li>
-            </ul>
-            <p style="margin-top:8px;"><strong>補足:</strong> A と C は自社のリソース・プロセスが SOC 2 要件を満たしていることを証明するためのサービスです。B は AWS インフラ層の SOC 2 準拠を証明します。両者を組み合わせることで完全な SOC 2 対応が可能です。</p>
+            <p><strong>A（誤）：</strong> AWS Config は自社 AWS リソースの設定コンプライアンスを評価します。AWS インフラ層の SOC 2 証明書は取得できません。</p>
+            <p><strong>C（誤）：</strong> AWS Audit Manager は自社アカウントのリソースに対するコンプライアンスエビデンスを収集します。AWS 自身の SOC 2 レポートとは別物です。</p>
+            <p><strong>D（誤）：</strong> Amazon Inspector は脆弱性スキャン結果であり、SOC 2 レポートの代替にはなりません。</p>
         </div>
     </div>
 
     <!-- Q6 -->
     <div class="quiz-item">
-        <div class="quiz-q">
-            <span class="q-num">6</span>
-            データサイエンティストチームが複数の部門にまたがる分析データレイクを構築しています。マーケティング部門は顧客の購買履歴テーブルにアクセスできますが、給与列や年齢列は参照できないようにする必要があります。また、営業部門は自分の担当リージョンの行データのみ参照できる制御が必要です。このような細粒度アクセス制御を実現するために最適なサービスはどれですか？
-        </div>
-        <ul class="quiz-options">
+        <h3>問題 6</h3>
+        <p>データサイエンティストチームが複数の部門にまたがる分析データレイクを構築しています。マーケティング部門は顧客の購買履歴テーブルにアクセスできますが、給与列や年齢列は参照できないようにする必要があります。また、営業部門は自分の担当リージョンの行データのみ参照できる制御が必要です。このような細粒度アクセス制御を実現するために最適なサービスはどれですか？</p>
+        <ol class="quiz-options">
             <li>S3 バケットポリシーで各部門のプレフィックスへのアクセスを制限する</li>
             <li>IAM ポリシーで各部門のロールに対して Glue テーブルへの許可を設定する</li>
-            <li class="correct">AWS Lake Formation で列レベルセキュリティと行フィルターを設定する</li>
+            <li>AWS Lake Formation で列レベルセキュリティと行フィルターを設定する</li>
             <li>SageMaker Feature Store のオフラインストアのアクセスポリシーを利用する</li>
-        </ul>
-        <div class="quiz-answer">
-            <div class="ans-label">正解: C — AWS Lake Formation の列レベルセキュリティと行フィルター</div>
-            <p><strong>AWS Lake Formation</strong> はデータレイクに対して<strong>列レベルセキュリティ (Column-Level Security)</strong>と<strong>行レベルフィルタリング (Row Filter)</strong>を提供します。Glue Data Catalog と統合し、テーブル・列・行の組み合わせで精密なアクセス制御が可能です。</p>
-            <ul>
-                <li>A (S3 バケットポリシー): S3 オブジェクト (ファイル) レベルの制御であり、列・行レベルの制御はできません。</li>
-                <li>B (IAM ポリシー): テーブルへのアクセス許可は設定できますが、列単位・行単位のフィルタリングは IAM では実現できません。</li>
-                <li>D (SageMaker Feature Store): 特徴量管理に特化したサービスであり、汎用のデータレイクアクセス制御には適していません。</li>
-            </ul>
+        </ol>
+        <div class="quiz-answer-block">
+            <div class="answer-label">正解：C</div>
+            <p><strong>AWS Lake Formation</strong> はデータレイクに対して<strong>列レベルセキュリティ（Column-Level Security）</strong>と<strong>行レベルフィルタリング（Row Filter）</strong>を提供します。Glue Data Catalog と統合し、テーブル・列・行の組み合わせで精密なアクセス制御が可能です。</p>
+            <p><strong>A（誤）：</strong> S3 バケットポリシーは S3 オブジェクト（ファイル）レベルの制御であり、列・行レベルの制御はできません。</p>
+            <p><strong>B（誤）：</strong> IAM ポリシーはテーブルへのアクセス許可は設定できますが、列単位・行単位のフィルタリングは実現できません。</p>
+            <p><strong>D（誤）：</strong> SageMaker Feature Store は特徴量管理に特化したサービスであり、汎用のデータレイクアクセス制御には適していません。</p>
         </div>
     </div>
 
